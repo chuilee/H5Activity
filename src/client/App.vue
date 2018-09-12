@@ -19,7 +19,7 @@ export default {
       if (back.body.resCode == '0') {
         const that = this,
         weixinShare = {
-          title: '母亲节 | 我的妈呀，你听我说！',
+          title: '母亲节 | 我的妈呀，你听我说1！',
           description: '这可能是妈妈最想要的礼物',
           imgUrl: 'http://huodong.10155.com/dtu/src/images/mother_share.jpg',
         };
