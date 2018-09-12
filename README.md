@@ -1,8 +1,6 @@
 # html5
 
-> 云南全城通项目
- ## admin.html, admin 后台管理
- ## index.html, client 用户端
+> h5活动
 
 ## Build Setup
 
