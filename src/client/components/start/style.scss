@@ -1,0 +1,143 @@
+@import '../../assets/style/mixins/_mixins.scss';
+.start-section {
+  img {
+    pointer-events: none;
+  }
+  .bg {
+    width: 100%;
+  }
+  .preview-container {
+    position: absolute;
+    top: px2rem(220);
+    left: px2rem(90);
+    width: px2rem(571);
+    height: px2rem(571);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 2px dashed #de7093;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: block;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &::after {
+      content: ' ';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+  }
+  .btn-wrap{
+    position: absolute;
+    top: px2rem(810);
+    width: px2rem(640);
+    left: 50%;
+    margin-left: px2rem(-320);
+    img{
+      width: px2rem(305);
+    }
+    .uploadImg{
+      width: px2rem(305);
+      height: px2rem(95);
+      display: inline-block;
+      background-size: 100% 100%;
+    }
+  }
+  .right{
+    margin-right: px2rem(15);
+  }
+  .left{
+    margin-left: px2rem(15);
+  }
+  .img-btn{
+    position:absolute;
+    top:px2rem(940);
+    width:px2rem(630);
+    height: px2rem(95);
+    background-size: 100% 100%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.3);
+    z-index: 100;
+    .modal-con{
+      position:absolute;
+      top: px2rem(125);
+      left: px2rem(100);
+
+      &::after {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+      }
+
+      &.isrecord-modal {
+        top: 50%;
+        transform: translateY(-50%);
+
+        .btns {
+          position: absolute;
+          bottom: px2rem(20);
+          width: 100%;
+          z-index: 20;
+          button {
+            width: px2rem(260);
+            height: px2rem(100);
+            opacity: 0;
+          }
+        }
+      }
+
+      p{
+        position: absolute;
+        top: px2rem(480);
+        left: px2rem(100);
+        font-size: px2rem(90);
+        color: #fff;
+        text-shadow: 2px 2px #e14e96;
+      }
+    }
+    .img{
+      width: px2rem(550);
+
+    }
+    .modal-btn{
+      position: absolute;
+      bottom: px2rem(40);
+      button {
+        padding: 0;
+        width: px2rem(209);
+        height: px2rem(128);
+        margin-left: px2rem(26);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: 0;
+      }
+    }
+  }
+}
