@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/client/components/home/home';
 import Start from '@/client/components/start/start';
-import Poster from '@/client/components/poster/poster';
+import Question from '@/client/components/question/question';
 import Share from '@/client/components/share/share';
+import Result from '@/client/components/result/result';
 
 Vue.use(Router);
 
@@ -20,14 +21,14 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/start',
-      name: 'start',
-      component: Start,
+      path: '/result/:percent',
+      name: 'result',
+      component: Result,
     },
     {
-      path: '/poster/:pic/:id',
-      name: 'poster',
-      component: Poster,
+      path: '/question/:id',
+      name: 'question',
+      component: Question,
     },
     {
       path: '/share/:id',

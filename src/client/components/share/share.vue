@@ -24,7 +24,6 @@ import utils from '@/client/utils';
 import { Toast, Indicator } from 'mint-ui';
 import follow from '../follow/follow';
 import api from '../../api/index';
-import Statistics from '../../statistics';
 
 const bg = require('./images/share.jpg');
 const btnOne = require('./images/share-btn1.png');
@@ -50,11 +49,6 @@ export default {
     };
   },
   mounted() {
-    try {
-      Statistics.sharePage();
-    } catch (err) {
-      throw(err);
-    }
     this.$refs.share.style.height = `${document.documentElement.clientHeight}px`;
     this.initInfos();
   },
@@ -135,50 +129,6 @@ export default {
         }
       });
     },
-    // registerWx(imgUrl) {
-    //   const that = this;
-    //   const weixinShare = {
-    //     title: '母亲节 | 我的妈呀，你听我说！',
-    //     description: '这可能是妈妈最想要的礼物',
-    //     imgUrl: 'http://huodong.10155.com/dtu/src/images/mother_share.jpg',
-    //   };
-    //   wx.config(back.body.repBody, '', () => {
-
-    //     that.getWxImage(imgUrl);
-
-    //     wx.share(weixinShare.title,
-    //     weixinShare.description,
-    //     "http://huodong.10155.com/dtu/login.jsp?aid=8899&channel=wx#/",
-    //     weixinShare.imgUrl, (type) => {
-    //       if (type === "success") {
-    //         try {
-    //           Statistics.share_btn('homePageSuccess');
-    //         } catch (err) {
-    //           throw(err);
-    //         }
-    //         return;
-    //       }
-
-    //       if (type === "fail") {
-    //         try {
-    //           Statistics.share_btn('homePageFail');
-    //         } catch (err) {
-    //           throw(err);
-    //         }
-    //         return;
-    //       }
-
-    //       if (type === "cancel") {
-    //         try {
-    //           Statistics.share_btn('homePageCancel');
-    //         } catch (err) {
-    //           throw(err);
-    //         }
-    //         return;
-    //       }
-    //     });
-    //   });
-    // }
   },
 };
 </script>
