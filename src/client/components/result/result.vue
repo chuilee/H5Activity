@@ -67,6 +67,20 @@ export default {
   },
   mounted() {
     this.drawCanvas();
+
+    // 请求后台数据
+    this.$http[httpmethod](fullurl, body)
+      .then((response) => {
+        // success
+        if (fun) {
+          fun(response);
+        }
+      }, (response) => {
+        // error
+        if (funErr) {
+          funErr(response);
+        }
+      });
   },
   methods: {
     drawCanvas() {
