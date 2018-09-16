@@ -18,10 +18,11 @@
 
   .logo {
     position: absolute;
-    top: px2rem(82);
-    left: px2rem(172);
-    width: px2rem(418);
-    height: px2rem(133);
+    top: px2rem(65);
+    left: px2rem(207);
+    width: px2rem(344);
+    height: px2rem(85);
+    z-index: 10;
   }
 
   .btn {
@@ -66,7 +67,7 @@
     .option {
       display: block;
       margin: px2rem(40) auto;
-      border: 1px solid #b720ec;
+      border: 1px solid #e7af1a;
       width: px2rem(412);
       height: px2rem(60);
       border-radius: px2rem(60);
@@ -75,9 +76,11 @@
       background: transparent;
       font-size: px2rem(28);
       box-sizing: border-box;
+      transition: background .3s;
 
       &.active {
-        border: 2px solid #b720ec;
+        // border: 2px solid #e7af1a;
+        background: #e7af1a;
       }
     }
   }

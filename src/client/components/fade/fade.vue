@@ -10,13 +10,13 @@
 <script>
 import { Toast } from 'mint-ui';
 
-const bg = require('./images/bg.gif');
+const bg = require('./images/bg.jpg');
 const eye = require('./images/eye.gif');
 const start = require('./images/start.png');
 const bottom = require('./images/bottom.png');
 
 export default {
-  name: 'home',
+  name: 'fade',
   data() {
     return {
       bg,
@@ -32,7 +32,10 @@ export default {
   methods: {
     startFn() {
       this.$router.push({
-        name: 'fade',
+        name: 'question',
+        params: {
+          id: '1',
+        },
       })
     }
   }

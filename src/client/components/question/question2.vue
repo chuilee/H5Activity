@@ -1,5 +1,5 @@
 <template>
-  <div class="question-item">
+  <div class="question-item page-view">
     <img :src="index" class="index" alt="">
     <h2 class="title">你会选择什么样的发型呢?</h2>
     <div class="options">

@@ -1,5 +1,5 @@
 <template>
-  <div class="question-item">
+  <div class="question-item page-view">
     <img :src="index" class="index" alt="">
     <h2 class="title">这些事情，你敢挑战哪个?</h2>
     <div class="options">
@@ -18,7 +18,7 @@
       return {
         index,
         options: [{
-          title: 'A. 裸奔',
+          title: 'A. 在裸体沙滩晒太阳',
           value: 'a'
         },{
           title: 'B. 爱一个人一辈子',

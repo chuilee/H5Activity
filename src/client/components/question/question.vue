@@ -4,7 +4,7 @@
     <div class="question-content">
       <img :src="bg" class="bg" alt="">
       <button class="btn" @click="next()"><img :src="btn" alt=""></button>
-      <transition name="fade">
+      <transition :name="transitionName">
         <component :is="view"></component>
       </transition>
     </div>
@@ -19,7 +19,7 @@ import Question3 from './question3';
 
 const jrQrcode = require('jr-qrcode');
 const bg = require('./images/bg.jpg');
-const logo = require('./images/logo.jpg');
+const logo = require('./images/logo.png');
 const btn = require('./images/btn.png');
 
 
@@ -34,6 +34,7 @@ export default {
       question2value: '',
       question3value: '',
       view: 'question1',
+      transitionName: 'slide-left',
     };
   },
   created() {
@@ -56,17 +57,17 @@ export default {
   methods: {
     changeView(){
       switch(parseInt(this.$route.params.id, 10)) {
-      case 1:
-        this.view = 'question1';
-        break;
-      case 2:
-        this.view = 'question2';
-        break;
-      case 3:
-        this.view = 'question3';
-        break;
-      default:;
-    }
+        case 1:
+          this.view = 'question1';
+          break;
+        case 2:
+          this.view = 'question2';
+          break;
+        case 3:
+          this.view = 'question3';
+          break;
+        default:;
+      }
     },
     next() {
       let currentId = parseInt(this.$route.params.id, 10);
@@ -113,8 +114,23 @@ export default {
     question1value(v, o) {
       console.log(v)
     },
-    '$route': 'changeView',
+    '$route' (to, from) {
+      this.changeView();
+      // debugger;
+      const toDepth = parseInt(to.params.id, 10);
+      const fromDepth = parseInt(from.params.id, 10);
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+    }
   },
+  beforeRouteUpdate (to, from, next) {
+    const toDepth = parseInt(to.params.id, 10);
+    const fromDepth = parseInt(from.params.id, 10);
+    if (toDepth < fromDepth) {
+      next(false);
+    } else {
+      next();
+    }
+  }
 };
 </script>
 <style lang="scss" src='./style.scss'></style>

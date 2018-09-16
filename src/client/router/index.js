@@ -1,9 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/client/components/home/home';
-import Start from '@/client/components/start/start';
+import Fade from '@/client/components/fade/fade';
 import Question from '@/client/components/question/question';
-import Share from '@/client/components/share/share';
 import Result from '@/client/components/result/result';
 
 Vue.use(Router);
@@ -29,11 +28,13 @@ export default new Router({
       path: '/question/:id',
       name: 'question',
       component: Question,
+      // beforeEnter(to, from, next) {
+      // },
     },
     {
-      path: '/share/:id',
-      name: 'share',
-      component: Share,
+      path: '/fade',
+      name: 'fade',
+      component: Fade,
     },
   ],
 });
