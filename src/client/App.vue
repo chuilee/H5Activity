@@ -6,7 +6,7 @@
 
 <script>
 import utils from '@/client/utils';
-import api from './api';
+import wx from './utils/wx';
 
 export default {
   name: 'App',
@@ -16,6 +16,15 @@ export default {
     }
   },
   created() {
+    this.$http['get']('http://lb.yi-shang.cn/index/getShare')
+      .then((response) => {
+        let data = response.body.data
+        wx.config(data.signPackage, true, () => {
+          wx.share(data.share.title, data.share.desc, data.share.url, data.share.img);
+        })
+      }, (error) => {
+
+      })
   },
   // watch $route 决定使用哪种过渡
   watch: {

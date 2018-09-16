@@ -9,7 +9,7 @@
     <img :src="sharePoster" v-if="sharePoster" alt="" class="share"> 
     <img v-if="finished" :src="mask" class="mask" alt="">
     <button v-if="finished" class="btn1"><img :src="btn1" alt=""></button>
-    <button v-if="finished" class="btn2"><img :src="btn2" alt=""></button>
+    <button v-if="finished" class="btn2" @click="buy()"><img :src="btn2" alt=""></button>
     <p v-if="finished" class="tips">长按图片保存或截图发至朋友圈</p>
   </div>
   <canvas id="canvas" style="display: none;"></canvas>
@@ -59,6 +59,7 @@ export default {
     }
   },
   created() {
+    console.log(this.percent)
     this.random = Math.ceil((Math.random()*8));
     Indicator.open({
       text: '正在生成结果...',
@@ -66,24 +67,26 @@ export default {
     });
   },
   mounted() {
-    this.drawCanvas();
+    
 
     // 请求后台数据
-    this.$http[httpmethod](fullurl, body)
+    this.$http['get']('http://lb.yi-shang.cn/index/act')
       .then((response) => {
         // success
-        if (fun) {
-          fun(response);
-        }
+        let data = response.body.data[0];
+        this.drawCanvas(data.nickname, data.headimgurl);
       }, (response) => {
         // error
-        if (funErr) {
-          funErr(response);
-        }
+        // if (funErr) {
+        //   funErr(response);
+        // }
       });
   },
   methods: {
-    drawCanvas() {
+    buy() {
+      window.location.href = 'https://j.youzan.com/_vLV3Y';
+    },
+    drawCanvas(nickname, headimgurl) {
       const that = this;
       let canvas = document.getElementById('canvas'),
         ctx = canvas.getContext('2d'),
@@ -127,7 +130,7 @@ export default {
           ctx.fillStyle = '#fff'; //设置笔触的颜色
           ctx.font = "bold 30px '字体','字体','微软雅黑','宋体'";
           ctx.textAlign="center";
-          const txt = 'lalabobolalabobolalabobo'; // 名字
+          const txt = nickname; // 名字
           ctx.fillText(txt, w, 180*w_ratio);
 
           /* 加载并绘制线条 */
@@ -173,21 +176,47 @@ export default {
                 // };
                 // qrcode.src = this.qrcode;
               };
-              // percent.src = this.percent[this.$route.params.percent];
-              percent.src = require('./images/d.png');
+              percent.src = window.location.origin + this.percent[this.$route.params.percent];
+              // switch (this.$route.params.percent) {
+              //   case 'a':
+              //     percent.src = require('./images/a.png');
+              //     break;
+              //   case 'b':
+              //     percent.src = require('./images/b.png');
+              //     break;
+              //   case 'c':
+              //     percent.src = require('./images/c.png');
+              //     break;
+              //   case 'd':
+              //     percent.src = require('./images/d.png');
+              //     break;
+              
+              //   default:
+              //     percent.src = require('./images/a.png');
+              //     break;
+              // }
+              
             };
-            // type.src = this.types[this.random];
-            type.src = require('./images/8.png');
+            type.src = window.location.origin + this.types[this.random];
+            // switch (this.random) {
+            //   case 1:
+            //     type.src = require('./images/8.png');
+            //     break;
+            
+            //   default:
+            //     break;
+            // }
+            // type.src = require('./images/8.png');
           }
 
-          line.src = require('./images/line.png');
+          line.src = window.location.origin + require('./images/line.png');
         };
 
-        thumb.src = require('./images/thumb.jpg');
+        thumb.src = headimgurl; // 用户头像
       };
 
       const imgUrl = require('../../assets/bg.jpg'); // 背景
-      bg.src = imgUrl;
+      bg.src = window.location.origin + imgUrl;
     }
   },
 }

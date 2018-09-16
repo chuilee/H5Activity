@@ -4,10 +4,10 @@ export default {
   config(data, showmenu, fun) {
     // alert("appid"+data.appid+"----timestamp"+data.timestamp+"-----nonceStr"+data.noncestr+"----signature"+data.signature);
     wx.config({
-      debug: false,
-      appId: data.appid,
+      debug: true,
+      appId: data.appId,
       timestamp: data.timestamp,
-      nonceStr: data.noncestr,
+      nonceStr: data.nonceStr,
       signature: data.signature,
       jsApiList: [
         'checkJsApi',
