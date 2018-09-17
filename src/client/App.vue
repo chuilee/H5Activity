@@ -19,7 +19,7 @@ export default {
     this.$http['get']('http://lb.yi-shang.cn/index/getShare')
       .then((response) => {
         let data = response.body.data
-        wx.config(data.signPackage, true, () => {
+        wx.config(data.signPackage, false, () => {
           wx.share(data.share.title, data.share.desc, data.share.url, data.share.img);
         })
       }, (error) => {

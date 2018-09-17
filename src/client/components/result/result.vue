@@ -6,7 +6,7 @@
     <img v-if="!sharePoster" :src="line" class="line" alt="">
     <img v-if="!sharePoster" :src="percent[$route.params.percent]" class="percent" alt="">
     <img v-if="!sharePoster" :src="types[random]" alt="" class="bg"> -->
-    <img :src="sharePoster" v-if="sharePoster" alt="" class="share"> 
+    <img :src="sharePoster" v-if="sharePoster" alt="" class="share">
     <img v-if="finished" :src="mask" class="mask" alt="">
     <button v-if="finished" class="btn1"><img :src="btn1" alt=""></button>
     <button v-if="finished" class="btn2" @click="buy()"><img :src="btn2" alt=""></button>
@@ -67,7 +67,11 @@ export default {
     });
   },
   mounted() {
-    
+    // let data = {
+    //   nickname: 'CHUILEE',
+    //   headimgurl: window.location.origin + this.types[2]
+    // }
+    // this.drawCanvas(data.nickname, data.headimgurl);
 
     // 请求后台数据
     this.$http['get']('http://lb.yi-shang.cn/index/act')
@@ -93,7 +97,7 @@ export default {
         w = window.innerWidth,
         h = window.innerHeight;
 
-        if (h * 2 < 1100) {
+        if (h * 2 < 1100 || h * 2 > 1400) {
           h = w / 750 * 1100;
         }
 
@@ -121,17 +125,22 @@ export default {
           ctx.clip(); //裁剪上面的圆形
           ctx.drawImage(
             thumb,
-            332*w_ratio,
-            43*w_ratio,
-            thumb.width * w_ratio,
-            thumb.height * w_ratio);
+            0,
+            0,
+            thumb.width,
+            thumb.height,
+            332*w_ratio - 10,
+            43*w_ratio - 10,
+            120,
+            120);
           ctx.restore();
 
           ctx.fillStyle = '#fff'; //设置笔触的颜色
           ctx.font = "bold 30px '字体','字体','微软雅黑','宋体'";
-          ctx.textAlign="center";
+          ctx.textAlign="left";
           const txt = nickname; // 名字
-          ctx.fillText(txt, w, 180*w_ratio);
+          const txt_w = ctx.measureText(txt).width;
+          ctx.fillText(txt, w - txt_w/2, 180*w_ratio);
 
           /* 加载并绘制线条 */
           const line = new Image();
@@ -150,6 +159,7 @@ export default {
                 type,
                 88*w_ratio,
                 h*2 - 109 - type.height*w_ratio,
+                // 220 * w_ratio,
                 type.width * w_ratio,
                 type.height * w_ratio)
 
@@ -160,6 +170,7 @@ export default {
                   percent,
                   w*2 - percent.width*w_ratio,
                   h*2 - 788*w_ratio - percent.height*w_ratio,
+                  // 180 * w_ratio,
                   percent.width * w_ratio,
                   percent.height * w_ratio);
                 this.sharePoster = canvas.toDataURL('image/jpeg');
@@ -190,19 +201,19 @@ export default {
               //   case 'd':
               //     percent.src = require('./images/d.png');
               //     break;
-              
+
               //   default:
               //     percent.src = require('./images/a.png');
               //     break;
               // }
-              
+
             };
             type.src = window.location.origin + this.types[this.random];
             // switch (this.random) {
             //   case 1:
             //     type.src = require('./images/8.png');
             //     break;
-            
+
             //   default:
             //     break;
             // }
