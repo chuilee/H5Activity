@@ -99,6 +99,7 @@ export default {
               name: 'result',
               params: {
                 percent: this.question1value,
+                type: Math.ceil(Math.random() * 8),
               },
             })
           } else {

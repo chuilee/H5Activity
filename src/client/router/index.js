@@ -20,7 +20,7 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/result/:percent',
+      path: '/result/:percent/:type',
       name: 'result',
       component: Result,
     },

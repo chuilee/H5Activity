@@ -16,54 +16,54 @@
 </div>
 </template>
 <script>
-import { Indicator } from 'mint-ui';
+import { Indicator } from "mint-ui";
 
-const logo = require('./images/logo.png');
-const line = require('./images/line.png');
-const btn1 = require('./images/btn1.png');
-const btn2 = require('./images/btn2.png');
-const qrcode = require('./images/qrcode.jpg');
-const mask = require('./images/mask.jpg');
-const thumb = require('./images/thumb.jpg');
+const logo = require("./images/logo.png");
+const bottom = require("./images/bottom.png");
+const btn1 = require("./images/btn1.png");
+const btn2 = require("./images/btn2.png");
+const qrcode = require("./images/qrcode.jpg");
+const mask = require("./images/mask.jpg");
+const thumb = require("./images/thumb.jpg");
 
 export default {
-  name: 'result',
+  name: "result",
   data() {
     return {
       logo,
       mask,
       qrcode,
-      line,
+      bottom,
       btn1,
       btn2,
       thumb,
-      sharePoster: '',
+      sharePoster: "",
       percent: {
-        a: require('./images/a.png'),
-        b: require('./images/b.png'),
-        c: require('./images/c.png'),
-        d: require('./images/d.png'),
+        a: require("./images/a.png"),
+        b: require("./images/b.png"),
+        c: require("./images/c.png"),
+        d: require("./images/d.png")
       },
       types: {
-        1: require('./images/1.png'),
-        2: require('./images/2.png'),
-        3: require('./images/3.png'),
-        4: require('./images/4.png'),
-        5: require('./images/5.png'),
-        6: require('./images/6.png'),
-        7: require('./images/7.png'),
-        8: require('./images/8.png'),
+        1: require("./images/1.jpg"),
+        2: require("./images/2.jpg"),
+        3: require("./images/3.jpg"),
+        4: require("./images/4.jpg"),
+        5: require("./images/5.jpg"),
+        6: require("./images/6.jpg"),
+        7: require("./images/7.jpg"),
+        8: require("./images/8.jpg")
       },
       random: 1,
-      finished: false,
-    }
+      finished: false
+    };
   },
   created() {
-    console.log(this.percent)
-    this.random = Math.ceil((Math.random()*8));
+    console.log(this.percent);
+    this.random = Math.ceil(Math.random() * 8);
     Indicator.open({
-      text: '正在生成结果...',
-      spinnerType: 'fading-circle'
+      text: "正在生成结果...",
+      spinnerType: "fading-circle"
     });
   },
   mounted() {
@@ -74,169 +74,147 @@ export default {
     // this.drawCanvas(data.nickname, data.headimgurl);
 
     // 请求后台数据
-    this.$http['get']('http://lb.yi-shang.cn/index/act')
-      .then((response) => {
+    this.$http["get"]("http://lb.yi-shang.cn/index/act").then(
+      response => {
         // success
         let data = response.body.data[0];
         this.drawCanvas(data.nickname, data.headimgurl);
-      }, (response) => {
+      },
+      response => {
         // error
         // if (funErr) {
         //   funErr(response);
         // }
-      });
+      }
+    );
   },
   methods: {
     buy() {
-      window.location.href = 'https://j.youzan.com/_vLV3Y';
+      window.location.href = "https://j.youzan.com/_vLV3Y";
     },
     drawCanvas(nickname, headimgurl) {
       const that = this;
-      let canvas = document.getElementById('canvas'),
-        ctx = canvas.getContext('2d'),
+      let canvas = document.getElementById("canvas"),
+        ctx = canvas.getContext("2d"),
         w = window.innerWidth,
         h = window.innerHeight;
 
-        if (h * 2 < 1100 || h * 2 > 1400) {
-          h = w / 750 * 1100;
-        }
+      if (h * 2 < 1100 || h * 2 > 1400) {
+        h = w / 750 * 1100;
+      }
 
-        canvas.width = w * 2;
-        canvas.height = h * 2;
-        canvas.style.width = w + 'px';
-        canvas.style.height = h + 'px';
+      canvas.width = w * 2;
+      canvas.height = h * 2;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
 
       const w_ratio = w / 375;
 
       /** 加载并绘制背景图 */
       const bg = new Image();
       bg.onload = () => {
+        ctx.drawImage(
+          bg,
+          0,
+          0,
+          bg.width,
+          bg.height,
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
 
-        ctx.drawImage(bg, 0, 0, bg.width, bg.height, 0, 0, canvas.width, canvas.height);
-        /** 加载并绘制头像 */
-        const thumb = new Image();
-        // thumb.setAttribute('crossOrigin', 'anonymous');
-        thumb.onload = () => {
-          ctx.save(); // 保存当前ctx的状态
-          ctx.arc(382, 93, 50, 0, 2*Math.PI); //画出圆
-          ctx.strokeStyle="#e7af1a";
-          ctx.lineWidth='10';
-          ctx.stroke();
-          ctx.clip(); //裁剪上面的圆形
+        /* 加载并绘制人像 */
+        const type = new Image();
+        type.onload = () => {
           ctx.drawImage(
-            thumb,
+            type,
             0,
-            0,
-            thumb.width,
-            thumb.height,
-            332*w_ratio - 10,
-            43*w_ratio - 10,
-            120,
-            120);
-          ctx.restore();
+            h * 2 - type.height * w_ratio,
+            // 220 * w_ratio,
+            type.width * w_ratio,
+            type.height * w_ratio
+          );
 
-          ctx.fillStyle = '#fff'; //设置笔触的颜色
-          ctx.font = "bold 30px '字体','字体','微软雅黑','宋体'";
-          ctx.textAlign="left";
-          const txt = nickname; // 名字
-          const txt_w = ctx.measureText(txt).width;
-          ctx.fillText(txt, w - txt_w/2, 180*w_ratio);
-
-          /* 加载并绘制线条 */
-          const line = new Image();
-          line.onload = () => {
+          /** 加载并绘制头像 */
+          const thumb = new Image();
+          // thumb.setAttribute('crossOrigin', 'anonymous');
+          thumb.onload = () => {
+            ctx.save(); // 保存当前ctx的状态
+            ctx.arc(382, 93, 50, 0, 2 * Math.PI); //画出圆
+            ctx.strokeStyle = "#e7af1a";
+            ctx.lineWidth = "10";
+            ctx.stroke();
+            ctx.clip(); //裁剪上面的圆形
             ctx.drawImage(
-              line,
+              thumb,
               0,
-              h * 2 - line.height*w_ratio,
-              line.width * w_ratio,
-              line.height * w_ratio);
+              0,
+              thumb.width,
+              thumb.height,
+              332 * w_ratio - 10,
+              43 * w_ratio - 10,
+              120,
+              120
+            );
+            ctx.restore();
 
-            /* 加载并绘制人像 */
-            const type = new Image();
-            type.onload = () => {
+            ctx.fillStyle = "#fff"; //设置笔触的颜色
+            ctx.font = "bold 30px '字体','字体','微软雅黑','宋体'";
+            ctx.textAlign = "left";
+            const txt = nickname; // 名字
+            const txt_w = ctx.measureText(txt).width;
+            ctx.fillText(txt, w - txt_w / 2, 180 * w_ratio);
+
+            /* 加载并百分比 */
+            const percent = new Image();
+            percent.onload = () => {
               ctx.drawImage(
-                type,
-                88*w_ratio,
-                h*2 - 109 - type.height*w_ratio,
-                // 220 * w_ratio,
-                type.width * w_ratio,
-                type.height * w_ratio)
+                percent,
+                w * 2 - percent.width * w_ratio,
+                h * 2 - 788 * w_ratio - percent.height * w_ratio,
+                // 180 * w_ratio,
+                percent.width * w_ratio,
+                percent.height * w_ratio
+              );
 
-              /* 加载并百分比 */
-              const percent = new Image();
-              percent.onload = () => {
+
+              /* 加载并绘制二维码 */
+              const bottom = new Image();
+              bottom.onload = () => {
                 ctx.drawImage(
-                  percent,
-                  w*2 - percent.width*w_ratio,
-                  h*2 - 788*w_ratio - percent.height*w_ratio,
-                  // 180 * w_ratio,
-                  percent.width * w_ratio,
-                  percent.height * w_ratio);
-                this.sharePoster = canvas.toDataURL('image/jpeg');
+                  bottom,
+                  0,
+                  h * 2 - bottom.height * w_ratio,
+                  bottom.width * w_ratio,
+                  bottom.height * w_ratio);
+                this.sharePoster = canvas.toDataURL("image/jpeg");
                 this.finished = true;
                 Indicator.close();
-                /* 加载并绘制二维码 */
-                // const qrcode = new Image();
-                // qrcode.onload = () => {
-                //   ctx.drawImage(
-                //     qrcode,
-                //     (w*2 - 10 - qrcode.width)*w_ratio,
-                //     (h*2 - 10 - qrcode.height)*w_ratio);
-                //   this.sharePoster = canvas.toDataURL('image/jpeg');
-                // };
-                // qrcode.src = this.qrcode;
               };
-              percent.src = window.location.origin + this.percent[this.$route.params.percent];
-              // switch (this.$route.params.percent) {
-              //   case 'a':
-              //     percent.src = require('./images/a.png');
-              //     break;
-              //   case 'b':
-              //     percent.src = require('./images/b.png');
-              //     break;
-              //   case 'c':
-              //     percent.src = require('./images/c.png');
-              //     break;
-              //   case 'd':
-              //     percent.src = require('./images/d.png');
-              //     break;
-
-              //   default:
-              //     percent.src = require('./images/a.png');
-              //     break;
-              // }
-
+              bottom.src = this.bottom;
             };
-            type.src = window.location.origin + this.types[this.random];
-            // switch (this.random) {
-            //   case 1:
-            //     type.src = require('./images/8.png');
-            //     break;
+            percent.src =
+              window.location.origin + this.percent[this.$route.params.percent];
+          };
 
-            //   default:
-            //     break;
-            // }
-            // type.src = require('./images/8.png');
-          }
-
-          line.src = window.location.origin + require('./images/line.png');
+          thumb.src = headimgurl; // 用户头像
         };
-
-        thumb.src = headimgurl; // 用户头像
+        type.src = window.location.origin + this.types[this.$route.params.type];
       };
 
-      const imgUrl = require('../../assets/bg.jpg'); // 背景
+      const imgUrl = require("../../assets/bg.jpg"); // 背景
       bg.src = window.location.origin + imgUrl;
     }
-  },
-}
+  }
+};
 </script>
 <style lang="scss" src="./style.scss"></style>
 <style lang="scss" scoped>
-  .page-view {
-    width: 100%;
-    height: 100%;
-  }
+.page-view {
+  width: 100%;
+  height: 100%;
+}
 </style>
 
