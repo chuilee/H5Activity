@@ -6,17 +6,22 @@
     <img v-if="!sharePoster" :src="line" class="line" alt="">
     <img v-if="!sharePoster" :src="percent[$route.params.percent]" class="percent" alt="">
     <img v-if="!sharePoster" :src="types[random]" alt="" class="bg"> -->
+    <img v-if="!finished" class="loading-img" :src="loading" alt="">
+    <p v-if="!finished" class="loading-text">LOADING</p>
     <img :src="sharePoster" v-if="sharePoster" alt="" class="share">
     <img v-if="finished" :src="mask" class="mask" alt="">
-    <button v-if="finished" class="btn1"><img :src="btn1" alt=""></button>
+    <button v-if="finished" class="btn1" @click="showMask = true"><img :src="btn1" alt=""></button>
     <button v-if="finished" class="btn2" @click="buy()"><img :src="btn2" alt=""></button>
     <p v-if="finished" class="tips">长按图片保存或截图发至朋友圈</p>
+    <div v-show="showMask" class="share-mask" @click="showMask = false">
+      <img :src="shareMask" alt="">
+    </div>
   </div>
   <canvas id="canvas" style="display: none;"></canvas>
 </div>
 </template>
 <script>
-import { Indicator } from "mint-ui";
+// import { Indicator } from "mint-ui";
 
 const logo = require("./images/logo.png");
 const bottom = require("./images/bottom.png");
@@ -25,11 +30,14 @@ const btn2 = require("./images/btn2.png");
 const qrcode = require("./images/qrcode.jpg");
 const mask = require("./images/mask.jpg");
 const thumb = require("./images/thumb.jpg");
+const loading = require("../loading/LOADING.gif");
+const shareMask = require("./images/shareMask.png");
 
 export default {
   name: "result",
   data() {
     return {
+      loading,
       logo,
       mask,
       qrcode,
@@ -37,6 +45,8 @@ export default {
       btn1,
       btn2,
       thumb,
+      shareMask,
+      showMask: false,
       sharePoster: "",
       percent: {
         a: require("./images/a.png"),
@@ -61,32 +71,32 @@ export default {
   created() {
     console.log(this.percent);
     this.random = Math.ceil(Math.random() * 8);
-    Indicator.open({
-      text: "正在生成结果...",
-      spinnerType: "fading-circle"
-    });
+    // Indicator.open({
+    //   text: "正在生成结果...",
+    //   spinnerType: "fading-circle"
+    // });
   },
   mounted() {
-    // let data = {
-    //   nickname: 'CHUILEE',
-    //   headimgurl: window.location.origin + this.types[2]
-    // }
-    // this.drawCanvas(data.nickname, data.headimgurl);
+    let data = {
+      nickname: 'CHUILEE',
+      headimgurl: window.location.origin + this.types[2]
+    }
+    this.drawCanvas(data.nickname, data.headimgurl);
 
     // 请求后台数据
-    this.$http["get"]("http://lb.yi-shang.cn/index/act").then(
-      response => {
-        // success
-        let data = response.body.data[0];
-        this.drawCanvas(data.nickname, data.headimgurl);
-      },
-      response => {
-        // error
-        // if (funErr) {
-        //   funErr(response);
-        // }
-      }
-    );
+    // this.$http["get"]("http://lb.yi-shang.cn/index/act").then(
+    //   response => {
+    //     // success
+    //     let data = response.body.data[0];
+    //     this.drawCanvas(data.nickname, data.headimgurl);
+    //   },
+    //   response => {
+    //     // error
+    //     // if (funErr) {
+    //     //   funErr(response);
+    //     // }
+    //   }
+    // );
   },
   methods: {
     buy() {
@@ -191,7 +201,7 @@ export default {
                   bottom.height * w_ratio);
                 this.sharePoster = canvas.toDataURL("image/jpeg");
                 this.finished = true;
-                Indicator.close();
+                // Indicator.close();
               };
               bottom.src = this.bottom;
             };
