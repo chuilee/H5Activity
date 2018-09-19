@@ -92,3 +92,22 @@ img {
     transform: scale(.88, .88);
   }
 }
+
+.loading-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: px2rem(750);
+  height: px2rem(138);
+}
+
+.loading-text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: px2rem(750);
+  margin-top: px2rem(90);
+  text-align: center;
+  color: #e7af1a;
+}
