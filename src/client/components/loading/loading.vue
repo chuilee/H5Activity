@@ -22,17 +22,14 @@ export default {
         const loadImgs = new resLoader({
             resourceType : 'image', //资源类型，默认为图片
             baseUrl : window.location.origin, //基准url
-            resources : [require('../home/images/bg.gif'), 
-                require('../home/images/arrow.png'),
+            resources : [require('../home/images/bg.gif'),
                 require('../home/images/start.png'),
-                require('../result/images/1.png'),
-                require('../result/images/2.png'),
-                require('../result/images/3.png'),
-                require('../result/images/4.png'),
-                require('../result/images/5.png'),
-                require('../result/images/6.png'),
-                require('../result/images/7.png'),
-                require('../result/images/8.png'),
+                require('../fade/images/bg.gif'),
+                require('../question/images/bg.jpg'),
+                require('../question/images/q1.png'),
+                require('../question/images/q2.png'),
+                require('../question/images/q3.png'),
+                require('../question/images/btn.png'),
                 require('../home/images/start.png'),
                 require('../home/images/bg.jpg')], //资源路径数组
             onStart : (total) => {

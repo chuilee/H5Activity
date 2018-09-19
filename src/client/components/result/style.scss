@@ -119,4 +119,12 @@
       width: 100%;
     }
   }
+
+  .qrcode {
+    position: absolute;
+    bottom: px2rem(9);
+    right: px2rem(11);
+    width: px2rem(94);
+    height: px2rem(94);
+  }
 }
