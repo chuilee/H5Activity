@@ -1,13 +1,13 @@
 <template>
 <div>
+  <img v-if="!finished" class="loading-img" :src="loading" alt="">
+  <p v-if="!finished" class="loading-text">LOADING</p>
   <div class="result-page">
     <!-- <img v-if="!sharePoster" :src="thumb" class="thumb" alt="">
     <p v-if="!sharePoster" class="name">babalolo</p>
     <img v-if="!sharePoster" :src="line" class="line" alt="">
     <img v-if="!sharePoster" :src="percent[$route.params.percent]" class="percent" alt="">
     <img v-if="!sharePoster" :src="types[random]" alt="" class="bg"> -->
-    <img v-if="!finished" class="loading-img" :src="loading" alt="">
-    <p v-if="!finished" class="loading-text">LOADING</p>
     <img :src="sharePoster" v-if="sharePoster" alt="" class="share">
     <img v-if="finished" :src="mask" class="mask" alt="">
     <img v-if="finished" :src="qrcode" class="qrcode" alt="">
@@ -110,7 +110,7 @@ export default {
         w = window.innerWidth,
         h = window.innerHeight;
 
-      if (h * 2 < 1100 || h * 2 > 1400) {
+      if (h * 2 < 1100 || h * 2 > 1280) {
         h = w / 750 * 1100;
       }
 
