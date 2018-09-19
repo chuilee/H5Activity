@@ -110,9 +110,9 @@ export default {
         w = window.innerWidth,
         h = window.innerHeight;
 
-      if (h * 2 < 1100 || h * 2 > 1280) {
-        h = w / 750 * 1100;
-      }
+      // if (h * 2 < 1280) {
+      //   h = w / 750 * 1100;
+      // }
 
       canvas.width = w * 2;
       canvas.height = h * 2;
@@ -142,7 +142,7 @@ export default {
           ctx.drawImage(
             type,
             0,
-            h * 2 - type.height * w_ratio,
+            30 * w_ratio,
             // 220 * w_ratio,
             type.width * w_ratio,
             type.height * w_ratio
@@ -184,7 +184,7 @@ export default {
               ctx.drawImage(
                 percent,
                 w * 2 - percent.width * w_ratio,
-                h * 2 - 788 * w_ratio - percent.height * w_ratio,
+                168 * w_ratio,
                 // 180 * w_ratio,
                 percent.width * w_ratio,
                 percent.height * w_ratio
@@ -197,7 +197,7 @@ export default {
                 ctx.drawImage(
                   bottom,
                   0,
-                  h * 2 - bottom.height * w_ratio,
+                  978 * w_ratio,
                   bottom.width * w_ratio,
                   bottom.height * w_ratio);
                 this.sharePoster = canvas.toDataURL("image/jpeg");
