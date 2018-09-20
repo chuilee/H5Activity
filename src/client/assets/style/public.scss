@@ -111,3 +111,23 @@ img {
   text-align: center;
   color: #e7af1a;
 }
+
+.music-warp{
+  position: absolute;
+  right: px2rem(40);
+  top: px2rem(40);
+  font-size: 0;
+  z-index: 9;
+  img{
+    width: px2rem(80);
+    pointer-events: auto;
+  }
+}
+.isturn{
+  animation: roll 5s linear infinite;
+}
+
+@keyframes roll{
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}

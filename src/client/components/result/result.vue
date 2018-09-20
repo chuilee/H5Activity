@@ -9,8 +9,8 @@
     <img v-if="!sharePoster" :src="percent[$route.params.percent]" class="percent" alt="">
     <img v-if="!sharePoster" :src="types[random]" alt="" class="bg"> -->
     <img :src="sharePoster" v-if="sharePoster" alt="" class="share">
-    <img v-if="finished" :src="mask" class="mask" alt="">
-    <img v-if="finished" :src="qrcode" class="qrcode" alt="">
+    <img :src="mask" class="mask" alt="">
+    <!-- <img v-if="finished" :src="qrcode" class="qrcode" alt=""> -->
     <button v-if="finished" class="btn1" @click="showMask = true"><img :src="btn1" alt=""></button>
     <button v-if="finished" class="btn2" @click="buy()"><img :src="btn2" alt=""></button>
     <p v-if="finished" class="tips">长按图片保存或截图发至朋友圈</p>
@@ -29,7 +29,7 @@ const bottom = require("./images/bottom.png");
 const btn1 = require("./images/btn1.png");
 const btn2 = require("./images/btn2.png");
 const qrcode = require("./images/lalabobo_qrcode.jpg");
-const mask = require("./images/mask.jpg");
+const mask = require("./images/mask.png");
 const thumb = require("./images/thumb.jpg");
 const loading = require("../loading/LOADING.gif");
 const shareMask = require("./images/shareMask.png");
@@ -78,30 +78,30 @@ export default {
     // });
   },
   mounted() {
-    let data = {
-      nickname: 'CHUILEE',
-      headimgurl: window.location.origin + this.thumb
-    }
-    this.drawCanvas(data.nickname, data.headimgurl);
+    // let data = {
+    //   nickname: 'CHUILEE',
+    //   headimgurl: window.location.origin + this.thumb
+    // }
+    // this.drawCanvas(data.nickname, data.headimgurl);
 
     // 请求后台数据
-    // this.$http["get"]("/index/act").then(
-    //   response => {
-    //     // success
-    //     let data = response.body.data[0];
-    //     this.drawCanvas(data.nickname, data.headimgurl);
-    //   },
-    //   response => {
-    //     // error
-    //     // if (funErr) {
-    //     //   funErr(response);
-    //     // }
-    //   }
-    // );
+    this.$http["get"]("/index/act").then(
+      response => {
+        // success
+        let data = response.body.data[0];
+        this.drawCanvas(data.nickname, data.headimgurl);
+      },
+      response => {
+        // error
+        // if (funErr) {
+        //   funErr(response);
+        // }
+      }
+    );
   },
   methods: {
     buy() {
-      window.location.href = "https://j.youzan.com/_vLV3Y";
+      window.location.href = "https://h5.youzan.com/v2/feature/VzKBwD6w81";
     },
     drawCanvas(nickname, headimgurl) {
       const that = this;
@@ -110,9 +110,9 @@ export default {
         w = window.innerWidth,
         h = window.innerHeight;
 
-      // if (h * 2 < 1280) {
-      //   h = w / 750 * 1100;
-      // }
+      if (h * 2 < 1140) {
+        h = w / 750 * 1140;
+      }
 
       canvas.width = w * 2;
       canvas.height = h * 2;
@@ -190,6 +190,12 @@ export default {
                 percent.height * w_ratio
               );
 
+              ctx.fillStyle = "#888"; //设置笔触的颜色
+              ctx.font = "20px '字体','字体','微软雅黑','宋体'";
+              ctx.textAlign = "left";
+              const txt = '关注公众号，邀请你来测'; // 名字
+              const txt_w = ctx.measureText(txt).width;
+              ctx.fillText(txt, w - txt_w / 2, 1100 * w_ratio);
 
               /* 加载并绘制二维码 */
               const bottom = new Image();
@@ -197,9 +203,10 @@ export default {
                 ctx.drawImage(
                   bottom,
                   0,
-                  978 * w_ratio,
+                  993 * w_ratio,
                   bottom.width * w_ratio,
                   bottom.height * w_ratio);
+
                 this.sharePoster = canvas.toDataURL("image/jpeg");
                 this.finished = true;
                 // Indicator.close();
@@ -217,6 +224,14 @@ export default {
 
       const imgUrl = require("../../assets/bg.jpg"); // 背景
       bg.src = window.location.origin + imgUrl;
+    }
+  },
+  beforeRouteLeave (to, from, next) {
+    const toDepth = parseInt(to.params.id, 10);
+    if (toDepth) {
+      next(false);
+    } else {
+      next();
     }
   }
 };

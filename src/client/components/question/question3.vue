@@ -1,7 +1,7 @@
 <template>
   <div class="question-item page-view">
     <img :src="index" class="index" alt="">
-    <h2 class="title">这些事情，你敢挑战哪个?</h2>
+    <h2 class="title">派对马上开始，你会pick哪款造型，闪亮登场？</h2>
     <div class="options">
       <button
         v-for="(option, index) in options"
