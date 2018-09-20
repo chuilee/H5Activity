@@ -95,11 +95,42 @@ export default {
           })
         } else {
           if (this.question2value && this.question1value && this.question3value) {
+            let arr = [];
+            switch(this.question2value) {
+              case 'a':
+                arr[0] = 4;
+                break;
+              case 'b':
+                arr[0] = 7;
+                break;
+              case 'c':
+                arr[0] = 3;
+                break;
+              case 'd':
+                arr[0] = 5;
+                break;
+              default:;
+            }
+            switch(this.question3value) {
+              case 'a':
+                arr[1] = 1;
+                break;
+              case 'b':
+                arr[1] = 6;
+                break;
+              case 'c':
+                arr[1] = 8;
+                break;
+              case 'd':
+                arr[1] = 2;
+                break;
+              default:;
+            }
             this.$router.push({
               name: 'result',
               params: {
                 percent: this.question1value,
-                type: Math.ceil(Math.random() * 8),
+                type: arr[Math.ceil(Math.random() * 2)-1],
               },
             })
           } else {

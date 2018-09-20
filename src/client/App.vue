@@ -16,7 +16,7 @@ export default {
     }
   },
   created() {
-    this.$http['get']('http://lb.yi-shang.cn/index/getShare')
+    this.$http['get']('/index/getShare')
       .then((response) => {
         let data = response.body.data
         wx.config(data.signPackage, false, () => {

@@ -78,26 +78,26 @@ export default {
     // });
   },
   mounted() {
-    // let data = {
-    //   nickname: 'CHUILEE',
-    //   headimgurl: window.location.origin + this.types[2]
-    // }
-    // this.drawCanvas(data.nickname, data.headimgurl);
+    let data = {
+      nickname: 'CHUILEE',
+      headimgurl: window.location.origin + this.thumb
+    }
+    this.drawCanvas(data.nickname, data.headimgurl);
 
     // 请求后台数据
-    this.$http["get"]("http://lb.yi-shang.cn/index/act").then(
-      response => {
-        // success
-        let data = response.body.data[0];
-        this.drawCanvas(data.nickname, data.headimgurl);
-      },
-      response => {
-        // error
-        // if (funErr) {
-        //   funErr(response);
-        // }
-      }
-    );
+    // this.$http["get"]("/index/act").then(
+    //   response => {
+    //     // success
+    //     let data = response.body.data[0];
+    //     this.drawCanvas(data.nickname, data.headimgurl);
+    //   },
+    //   response => {
+    //     // error
+    //     // if (funErr) {
+    //     //   funErr(response);
+    //     // }
+    //   }
+    // );
   },
   methods: {
     buy() {
@@ -153,7 +153,7 @@ export default {
           // thumb.setAttribute('crossOrigin', 'anonymous');
           thumb.onload = () => {
             ctx.save(); // 保存当前ctx的状态
-            ctx.arc(382, 93, 50, 0, 2 * Math.PI); //画出圆
+            ctx.arc(w, 93, 50, 0, 2 * Math.PI); //画出圆
             ctx.strokeStyle = "#e7af1a";
             ctx.lineWidth = "10";
             ctx.stroke();
@@ -164,8 +164,8 @@ export default {
               0,
               thumb.width,
               thumb.height,
-              332 * w_ratio - 10,
-              43 * w_ratio - 10,
+              w - 60,
+              93 - 60,
               120,
               120
             );
