@@ -128,4 +128,12 @@
     height: px2rem(94);
     pointer-events: initial;
   }
+  .qrcode_mask {
+    position: absolute;
+    top: px2rem(986);
+    right: px2rem(0);
+    width: px2rem(148);
+    height: px2rem(151);
+    pointer-events: initial;
+  }
 }

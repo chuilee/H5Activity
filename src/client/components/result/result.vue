@@ -10,7 +10,7 @@
     <img v-if="!sharePoster" :src="types[random]" alt="" class="bg"> -->
     <img :src="sharePoster" v-if="sharePoster" alt="" class="share">
     <img :src="mask" class="mask" alt="">
-    <!-- <img v-if="finished" :src="qrcode" class="qrcode" alt=""> -->
+    <img v-if="finished" :src="qrcode" class="qrcode_mask" alt="">
     <button v-if="finished" class="btn1" @click="showMask = true"><img :src="btn1" alt=""></button>
     <button v-if="finished" class="btn2" @click="buy()"><img :src="btn2" alt=""></button>
     <p v-if="finished" class="tips">长按图片保存我的达人卡</p>
@@ -28,7 +28,7 @@ const logo = require("./images/logo.png");
 const bottom = require("./images/bottom.png");
 const btn1 = require("./images/btn1.png");
 const btn2 = require("./images/btn2.png");
-const qrcode = require("./images/lalabobo_qrcode.jpg");
+const qrcode = require("./images/qrcode_mask.jpg");
 const mask = require("./images/mask.png");
 const thumb = require("./images/thumb.jpg");
 const loading = require("../loading/LOADING.gif");
@@ -78,26 +78,26 @@ export default {
     // });
   },
   mounted() {
-    // let data = {
-    //   nickname: 'CHUILEE',
-    //   headimgurl: window.location.origin + this.thumb
-    // }
-    // this.drawCanvas(data.nickname, data.headimgurl);
+    let data = {
+      nickname: 'CHUILEE',
+      headimgurl: window.location.origin + this.thumb
+    }
+    this.drawCanvas(data.nickname, data.headimgurl);
 
     // 请求后台数据
-    this.$http["get"]("/index/act").then(
-      response => {
-        // success
-        let data = response.body.data[0];
-        this.drawCanvas(data.nickname, data.headimgurl);
-      },
-      response => {
-        // error
-        // if (funErr) {
-        //   funErr(response);
-        // }
-      }
-    );
+    // this.$http["get"]("/index/act").then(
+    //   response => {
+    //     // success
+    //     let data = response.body.data[0];
+    //     this.drawCanvas(data.nickname, data.headimgurl);
+    //   },
+    //   response => {
+    //     // error
+    //     // if (funErr) {
+    //     //   funErr(response);
+    //     // }
+    //   }
+    // );
   },
   methods: {
     buy() {
