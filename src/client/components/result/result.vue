@@ -78,26 +78,26 @@ export default {
     // });
   },
   mounted() {
-    let data = {
-      nickname: 'CHUILEE',
-      headimgurl: window.location.origin + this.thumb
-    }
-    this.drawCanvas(data.nickname, data.headimgurl);
+    // let data = {
+    //   nickname: 'CHUILEE',
+    //   headimgurl: window.location.origin + this.thumb
+    // }
+    // this.drawCanvas(data.nickname, data.headimgurl);
 
     // 请求后台数据
-    // this.$http["get"]("/index/act").then(
-    //   response => {
-    //     // success
-    //     let data = response.body.data[0];
-    //     this.drawCanvas(data.nickname, data.headimgurl);
-    //   },
-    //   response => {
-    //     // error
-    //     // if (funErr) {
-    //     //   funErr(response);
-    //     // }
-    //   }
-    // );
+    this.$http["get"]("/index/act").then(
+      response => {
+        // success
+        let data = response.body.data[0];
+        this.drawCanvas(data.nickname, data.headimgurl);
+      },
+      response => {
+        // error
+        // if (funErr) {
+        //   funErr(response);
+        // }
+      }
+    );
   },
   methods: {
     buy() {
