@@ -13,7 +13,7 @@
     <!-- <img v-if="finished" :src="qrcode" class="qrcode" alt=""> -->
     <button v-if="finished" class="btn1" @click="showMask = true"><img :src="btn1" alt=""></button>
     <button v-if="finished" class="btn2" @click="buy()"><img :src="btn2" alt=""></button>
-    <p v-if="finished" class="tips">长按图片保存或截图发至朋友圈</p>
+    <p v-if="finished" class="tips">长按图片保存我的达人卡</p>
     <div v-show="showMask" class="share-mask" @click="showMask = false">
       <img :src="shareMask" alt="">
     </div>
@@ -150,7 +150,7 @@ export default {
 
           /** 加载并绘制头像 */
           const thumb = new Image();
-          // thumb.setAttribute('crossOrigin', 'anonymous');
+          thumb.setAttribute('crossOrigin', 'anonymous');
           thumb.onload = () => {
             ctx.save(); // 保存当前ctx的状态
             ctx.arc(w, 93, 50, 0, 2 * Math.PI); //画出圆
@@ -216,7 +216,7 @@ export default {
             percent.src =
               window.location.origin + this.percent[this.$route.params.percent];
           };
-
+          console.log(headimgurl)
           thumb.src = headimgurl; // 用户头像
         };
         type.src = window.location.origin + this.types[this.$route.params.type];
