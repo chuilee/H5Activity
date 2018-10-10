@@ -24,12 +24,6 @@ export default {
             baseUrl : window.location.origin, //基准url
             resources : [require('../home/images/bg.gif'),
                 require('../home/images/start.png'),
-                require('../fade/images/bg.gif'),
-                require('../question/images/bg.jpg'),
-                require('../question/images/q1.png'),
-                require('../question/images/q2.png'),
-                require('../question/images/q3.png'),
-                require('../question/images/btn.png'),
                 require('../home/images/start.png'),
                 require('../home/images/bg.jpg')], //资源路径数组
             onStart : (total) => {

@@ -2,7 +2,7 @@
   <div>
     <div v-show="musicData.showMusic" class="music-warp">
       <img class="music" :src="musicData.musicBg"  @click="toggleAudio" :class="{isturn:isPlay}">
-     <audio id="audio" :src="musicData.musicSrc" autoplay="autoplay" loop="loop">您的浏览器不支持 audio 标签.</audio>
+     <!-- <audio id="audio" :src="musicData.musicSrc" autoplay="autoplay" loop="loop">您的浏览器不支持 audio 标签.</audio> -->
     </div>
     <transition :name="transitionName">
       <router-view  class="page-view"></router-view>

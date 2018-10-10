@@ -1,43 +1,46 @@
 <template>
   <div class="page">
-    <img id="bg" :src="bg" class="bg" alt="">
-    <!-- <img :src="eye" class="eye" alt=""> -->
-    <img :src="bottom" class="bottom" alt="">
-    <button class="start" @click="startFn()"><img :src="start" alt=""></button>
+    <div id="svg-container" style="width: 200px"></div>
+    <!-- <object id="shoes-1" type="image/svg+xml" :data="shoes_1" style="display:block;width:330px;height:240px" >
+      <param name="src" :value="shoes_1">
+    </object> -->
   </div>
 </template>
 
 <script>
 import { Toast } from 'mint-ui';
 
-const bg = require('./images/bg.jpg');
-const eye = require('./images/eye.gif');
-const start = require('./images/start.png');
-const bottom = require('./images/bottom.png');
+const shoes_1 = require('./images/shoes1.svg');
 
 export default {
   name: 'fade',
   data() {
     return {
-      bg,
-      eye,
-      start,
-      bottom,
-      loaded: false
+      shoes_1
     };
   },
   mounted() {
-    
+    // var svg = document.querySelector('#shoes-1').contentDocument;
+    // console.log(svg)
+    // svg.querySelectorAll('.cls-3').forEach((item, index) => {
+    //   console.log(item)
+    //   item.style.fill='red';
+    // })
+
+    this.$http['get'](this.shoes_1)
+      .then((response) => {
+        console.log(document.querySelector('#svg-container'));
+        document.querySelector('#svg-container').innerHTML = response.body;
+        document.querySelectorAll('.part2').forEach((item, index) => {
+          console.log(item)
+          item.style.fill='red';
+        })
+      }, (error) => {
+
+      })
   },
   methods: {
-    startFn() {
-      this.$router.push({
-        name: 'question',
-        params: {
-          id: '1',
-        },
-      })
-    }
+   
   }
 };
 </script>
