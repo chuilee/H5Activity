@@ -11,12 +11,14 @@
 import { Toast } from 'mint-ui';
 
 const shoes_1 = require('./images/shoes1.svg');
+const bg = require('./images/timg.jpeg')
 
 export default {
   name: 'fade',
   data() {
     return {
-      shoes_1
+      shoes_1,
+      bg
     };
   },
   mounted() {
@@ -35,6 +37,7 @@ export default {
           console.log(item)
           item.style.fill='red';
         })
+        document.querySelector('#imgPath').setAttribute('xlink:href', this.bg);
       }, (error) => {
 
       })
