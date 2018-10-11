@@ -1,8 +1,6 @@
 <template>
   <div class="page">
-    <img id="bg" :src="bg" class="bg" alt="">
-    <!-- <img :src="eye" class="eye" alt=""> -->
-    <img :src="bottom" class="bottom" alt="">
+    <h1>首页</h1>
     <button class="start" @click="startFn()"><img :src="start" alt=""></button>
   </div>
 </template>
@@ -10,29 +8,22 @@
 <script>
 import { Toast } from 'mint-ui';
 
-const bg = require('./images/bg.gif');
-const eye = require('./images/eye.gif');
 const start = require('./images/start.png');
-const bottom = require('./images/bottom.png');
 
 export default {
   name: 'home',
   data() {
     return {
-      bg,
-      eye,
-      start,
-      bottom,
-      loaded: false
+      start
     };
   },
   mounted() {
-    
+
   },
   methods: {
     startFn() {
       this.$router.push({
-        name: 'fade',
+        name: 'diy',
       })
     }
   }

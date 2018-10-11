@@ -4,12 +4,15 @@ import Vue from 'vue';
 import VueResource from 'vue-resource';
 import VueBus from 'vue-bus';
 
+import MintUI from 'mint-ui';
+
 import App from './App';
 import router from './router';
 
 Vue.config.productionTip = false;
 Vue.use(VueResource);
 Vue.use(VueBus);
+Vue.use(MintUI);
 
 /* eslint-disable no-new */
 new Vue({

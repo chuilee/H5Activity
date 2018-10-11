@@ -22,7 +22,8 @@ export default {
         const loadImgs = new resLoader({
             resourceType : 'image', //资源类型，默认为图片
             baseUrl : window.location.origin, //基准url
-            resources : [require('../home/images/bg.gif'),
+            resources : [
+                require('../home/images/bg.gif'),
                 require('../home/images/start.png'),
                 require('../home/images/start.png'),
                 require('../home/images/bg.jpg')], //资源路径数组

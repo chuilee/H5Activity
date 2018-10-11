@@ -31,15 +31,15 @@ export default {
     }
   },
   created() {
-    this.$http['get']('/index/getShare')
-      .then((response) => {
-        let data = response.body.data
-        wx.config(data.signPackage, false, () => {
-          wx.share(data.share.title, data.share.desc, data.share.url, data.share.img);
-        })
-      }, (error) => {
+    // this.$http['get']('/index/getShare')
+    //   .then((response) => {
+    //     let data = response.body.data
+    //     wx.config(data.signPackage, false, () => {
+    //       wx.share(data.share.title, data.share.desc, data.share.url, data.share.img);
+    //     })
+    //   }, (error) => {
 
-      })
+    //   })
   },
   mounted() {
     var audio = document.querySelector("#audio");
