@@ -1,15 +1,30 @@
 <template>
   <div class="page">
-    <div id="svg-container" style="width: 100%"></div>
+    <mt-swipe :show-indicators="false" :auto="0" style="height: 245px">
+      <mt-swipe-item>
+        <div id="back-container" style="width: 100%"></div>
+      </mt-swipe-item>
+      <mt-swipe-item>
+        <div id="front-container" style="width: 100%"></div>
+      </mt-swipe-item>
+      <mt-swipe-item>
+        <div id="left-container" style="width: 100%"></div>
+      </mt-swipe-item>
+      <mt-swipe-item>
+        <div id="right-container" style="width: 100%"></div>
+      </mt-swipe-item>
+    </mt-swipe>
+    <img :src="workImg" style="width: 100%" alt="">
+    <canvas id="workCanvas"></canvas>
     <div id="container1">
       <mt-button id="selectfiles1">选择图片</mt-button>
       <mt-button id="postfiles" @click="uploadPic">开始上传</mt-button>
     </div>
-    <img :src="workImg" alt="">
-    <canvas id="workCanvas" style="display: none;"></canvas>
+    
+    
     <mt-button @click="createWork()">完成并上传</mt-button>
-    <!-- <object id="shoes-1" type="image/svg+xml" :data="shoes_1" style="display:block;width:330px;height:240px" >
-      <param name="src" :value="shoes_1">
+    <!-- <object id="shoes-1" type="image/svg+xml" :data="shoe_left" style="display:block;width:330px;height:240px" >
+      <param name="src" :value="shoe_left">
     </object> -->
   </div>
 </template>
@@ -19,17 +34,25 @@ import { Toast } from 'mint-ui';
 
 import Upload from '../../utils/Upload';
 
-const shoes_1 = require('./images/shoe2.svg');
+const shoe_left = require('./images/shoe_left.svg');
+const shoe_right = require('./images/shoe_right.svg');
+const shoe_front = require('./images/shoe_front.svg');
+const shoe_back = require('./images/shoe_back.svg');
+const qrcode = require("./images/qrcode.jpg");
 
 export default {
   name: 'diy',
   data() {
     return {
-      shoes_1,
+      shoe_left,
+      shoe_right,
+      shoe_front,
+      shoe_back,
       isUploadSuccess1: 0,
       percent1: 0,
       sendPic: '',
       workImg: '',
+      qrcode,
     };
   },
   mounted() {
@@ -45,21 +68,53 @@ export default {
       document.querySelector('#imgPath').setAttribute('xlink:href', url);
     }, 1);
 
-    this.$http['get'](this.shoes_1)
+    // 左侧面
+    this.$http['get'](this.shoe_left)
       .then((response) => {
-        console.log(document.querySelector('#svg-container'));
-        document.querySelector('#svg-container').innerHTML = response.body;
+        console.log(document.querySelector('#left-container'));
+        document.querySelector('#left-container').innerHTML = response.body;
         document.querySelectorAll('.part2').forEach((item, index) => {
           console.log(item)
           item.style.fill='red';
         })
-        // document.querySelector('#imgPath').setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
-        let svg = document.querySelector('#svg-container').innerHTML;
-        this.workImg = 'data:image/svg+xml;base64,' +  window.btoa(unescape(encodeURIComponent(svg)))
+        document.querySelector('#imgPath').setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
+        
+        this.createWork();
+        // this.workImg = 'data:image/svg+xml;base64,' +  window.btoa(unescape(encodeURIComponent(svg)))
+
+        // canvg(document.getElementById('workCanvas'), svg)
+
         // this.workImg = 'data:image/svg+xml,' + unescape(encodeURIComponent(svg));//svg内容中可以有中文字符
       }, (error) => {
 
-      })
+      });
+
+      // 右侧面
+      this.$http['get'](this.shoe_right)
+      .then((response) => {
+        console.log(document.querySelector('#right-container'));
+        document.querySelector('#right-container').innerHTML = response.body;
+      }, (error) => {
+
+      });
+
+      // 正面
+      this.$http['get'](this.shoe_front)
+      .then((response) => {
+        console.log(document.querySelector('#front-container'));
+        document.querySelector('#front-container').innerHTML = response.body;
+      }, (error) => {
+
+      });
+
+      // 后面
+      this.$http['get'](this.shoe_back)
+      .then((response) => {
+        console.log(document.querySelector('#back-container'));
+        document.querySelector('#back-container').innerHTML = response.body;
+      }, (error) => {
+
+      });
   },
   methods: {
     uploadPic() {
@@ -78,13 +133,43 @@ export default {
       canvas.style.width = 375 + "px";
       canvas.style.height = 223 + "px";
 
-
+      const w_ratio = w / 375;
+      let svg = document.querySelector('#left-container').innerHTML;
+      canvg(canvas, svg, {
+        scaleWidth: 351.6*2,
+        scaleHeight: 227.1*2,
+        useCORS: true,
+        renderCallback: function() {
+          that.drawImgs(ctx, w_ratio, () => {
+            that.workImg = canvas.toDataURL("image/png");
+          })
+        }
+      })
     },
+
+    drawImgs(ctx, w_ratio, cb) {
+       /* 加载并绘制二维码 */
+      const qrcode = new Image();
+      qrcode.onload = () => {
+        ctx.drawImage(
+          qrcode,
+          0,
+          100 * w_ratio,
+          qrcode.width * w_ratio,
+          qrcode.height * w_ratio);
+
+          cb();
+      };
+      qrcode.src = this.qrcode;
+    }
   }
 };
 </script>
 <style lang="scss" src='./style.scss'></style>
 <style lang="scss" scoped>
+  .page img {
+    pointer-events: initial;
+  }
 
 	.btn{
         color: #fff;
