@@ -9,67 +9,82 @@
         width="180">
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="姓名"
+        prop="rn"
+        label="排名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="nick_name"
+        label="昵称"
         width="180">
       </el-table-column>
       <el-table-column
         prop="address"
         label="地址">
       </el-table-column>
+      <el-table-column
+        prop="mobile"
+        label="联系电话">
+      </el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
+      :current-page="currentPage"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :total="total">
     </el-pagination>
   </div>
 </template>
 
 <script>
+import api from '../api';
+
 export default {
   name: "UserList",
   methods: {
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
+      this.pageSize = val;
+      this.getUserList(1);
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+      this.getUserList(val);
+    },
+    getUserList(pageNum) {
+      this.currentPage = pageNum;
+      api.getUserList(this, {
+        page_size: this.pageSize,
+        page_num: pageNum
+      }, (response) => {
+        console.log(response)
+        if (response.body.resCode == '0') {
+          if (response.body.repBody.length) {
+            this.tableData = response.body.repBody;
+            this.total = parseInt(response.body.repBody[0].total, 10);
+          } else {
+            this.$message('暂无相关数据！');
+          }
+        } else {
+          this.$message(response.body.resMsg);
+        }
+
+      })
     }
   },
   data() {
     return {
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ]
+      currentPage: 0,
+      total: 0,
+      pageSize: 10,
+      tableData: []
     };
+  },
+  created() {
+    this.getUserList(1);
   }
 };
 </script>

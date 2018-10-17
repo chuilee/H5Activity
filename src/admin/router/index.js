@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import UserList from '@/admin/components/UserList';
 import Material from '@/admin/components/Material';
 import ActivityList from '@/admin/components/ActivityList';
+import Login from '@/admin/components/Login';
 
 Vue.use(Router);
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/activityList',
       name: 'activityList',
       component: ActivityList,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
     },
   ],
 });

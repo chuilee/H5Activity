@@ -1,42 +1,111 @@
 @import '../../assets/style/mixins/_mixins.scss';
 
-.page {
-  .bg {
-    // position: absolute;
-    width: 100%;
-    // left: 50%;
-    // transform: translateX(-50%);
+.home-page {
+  .btn-details {
+    position: absolute;
+    top: px2rem(64);
+    right: - px2rem(4);
+    width: px2rem(178);
+    height: px2rem(65);
   }
 
-  .eye {
-    position: absolute;
-    top: px2rem(310);
-    left: px2rem(317);
-    width: px2rem(99);
-    height: px2rem(111);
-  }
+  .kids {
+    display: block;
+    margin: px2rem(157) auto;
+    width: px2rem(551);
+    height: px2rem(611);
 
-  .start {
-    position: absolute;
-    top: px2rem(746);
-    left: px2rem(232);
-    width: px2rem(282);
-    height: px2rem(282);
-    padding: 0;
-    background: transparent;
-    border: 0;
-    animation: zoom 1.5s infinite 0s;
-
-    img {
-      width: 100%;
-      height: 100%;
+    @media screen and (min-height: 600px) {
+      margin: px2rem(227) auto;
     }
   }
 
-  .bottom {
-    position: absolute;
+  .btn-start {
+    display: block;
+    margin: 0 auto px2rem(57);
+    width: px2rem(435);
+    height: px2rem(105);
+  }
+
+  .btn-rank,
+  .btn-works {
+    display: block;
+    margin: 0 auto;
+    width: px2rem(304);
+    height: px2rem(80);
+  }
+
+  .details-container {
+    position: fixed;
+    top: 0;
     bottom: 0;
+    right: 0;
     left: 0;
-    width: 100%;
+    background: rgba(0,0,0,.7);
+    z-index: 110;
+  }
+
+  .details-title {
+    display: block;
+    margin: 0 auto;
+    width: px2rem(665);
+    height: px2rem(97);
+  }
+
+  .title-rule {
+    display: block;
+    margin-left: - px2rem(20);
+    margin-top: px2rem(30);
+    margin-bottom: px2rem(30);
+    width: px2rem(211);
+    height: px2rem(52);
+  }
+
+  .rule-item {
+    min-height: px2rem(54);
+    margin-bottom: px2rem(20);
+
+    .index {
+      float: left;
+      display: block;
+      width: px2rem(54);
+      height: px2rem(54);
+      text-align: center;
+      line-height: px2rem(54);
+      background: url(../../assets/images/rule-index.jpg);
+      background-size: contain;
+    }
+
+    p {
+      padding-left: px2rem(80);
+      line-height: 1.8;
+    }
+  }
+
+  .details-content {
+    height: px2rem(790);
+    margin: - px2rem(40) auto;
+    padding: px2rem(80) 0 0;
+    width: px2rem(600);
+    background: #fff;
+    border: px2rem(4) solid #000;
+    font-size: px2rem(24);
+    color: #000;
+
+    .title {
+      font-size: px2rem(26);
+      color: #ff8b4e;
+      text-align: center;
+    }
+  }
+
+  .details {
+    margin-top: px2rem(80);
+  }
+
+  .BScroll {
+    height: px2rem(750);
+    padding: 0 px2rem(20);
+    overflow: hidden;
   }
 }

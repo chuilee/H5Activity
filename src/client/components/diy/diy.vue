@@ -1,28 +1,66 @@
 <template>
-  <div class="page">
-    <mt-swipe :show-indicators="false" :auto="0" style="height: 245px">
-      <mt-swipe-item>
-        <div id="back-container" style="width: 100%"></div>
-      </mt-swipe-item>
-      <mt-swipe-item>
-        <div id="front-container" style="width: 100%"></div>
-      </mt-swipe-item>
-      <mt-swipe-item>
+  <div class="page diy-page">
+    <swiper :options="swiperOption" ref="mySwiper">
+      <swiper-slide>
         <div id="left-container" style="width: 100%"></div>
-      </mt-swipe-item>
-      <mt-swipe-item>
+      </swiper-slide>
+      <swiper-slide>
         <div id="right-container" style="width: 100%"></div>
-      </mt-swipe-item>
-    </mt-swipe>
-    <img :src="workImg" style="width: 100%" alt="">
-    <canvas id="workCanvas"></canvas>
-    <div id="container1">
-      <mt-button id="selectfiles1">选择图片</mt-button>
-      <mt-button id="postfiles" @click="uploadPic">开始上传</mt-button>
+      </swiper-slide>
+      <swiper-slide>
+        <div id="front-container" style="width: 100%"></div>
+      </swiper-slide>
+      <swiper-slide>
+        <div id="back-container" style="width: 100%"></div>
+      </swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+    </swiper>
+    <button class="btn-finished" @click="createWork"><img :src="finished" alt=""></button>
+    <div class="side-items flex-wrp">
+      <div class="flex-item">
+        <div class="side-item" :class="side == 1 ? 'active' : null"><button @click="goSide(1)" class="side-left"><img :src="side == 1 ? text_left_active : text_left" alt=""></button></div>
+      </div>
+      <div class="flex-item">
+        <div class="side-item" :class="side == 2 ? 'active' : null"><button @click="goSide(2)" class="side-left"><img :src="side == 2 ? text_right_active : text_right" alt=""></button></div>
+      </div>
+      <div class="flex-item">
+        <div class="side-item" :class="side == 3 ? 'active' : null"><button @click="goSide(3)" class="side-left"><img :src="side == 3 ? text_front_active : text_front" alt=""></button></div>
+      </div>
+      <div class="flex-item">
+        <div class="side-item" :class="side == 4 ? 'active' : null"><button @click="goSide(4)" class="side-left"><img :src="side == 4 ? text_back_active : text_back" alt=""></button></div>
+      </div>
     </div>
-    
-    
-    <mt-button @click="createWork()">完成并上传</mt-button>
+
+    <div class="parts-container">
+      <div class="side-parts"
+        v-for="(sidePart, index) in sideParts"
+        v-bind:key="'side'+index"
+        v-show="side == index + 1">
+        <span class="part-item"
+          :class="part.code == currentPart ? 'active' : null"
+          v-for="(part, n) in sidePart"
+          v-bind:key="'part'+n"
+          @click="setCurrentPart(part.code)">{{part.name}}</span>
+      </div>
+    </div>
+    <div class="diy-picker" ref="BScroll">
+      <div class="diy-picker-scroll" :class="(side == 1 || side == 2) ? 'has-file' : null">
+        <div class="diy-file" id="container1">
+          <span>自定义图片</span>
+          <button class="add-file" id="selectfiles1"><img :src="file" alt=""></button>
+        </div>
+        <div class="colors">
+          <span>颜色(12)</span>
+          <span
+            v-for="(color, index) in colors" :style="{'background': color}"
+            v-bind:key="'color'+index"
+            @click="diyColor(color)"
+            class="color-item"></span>
+        </div>
+      </div>
+    </div>
+    <img :src="workImg" v-show="false" style="width: 100%" alt="">
+    <canvas id="workCanvas" v-show="false"></canvas>
     <!-- <object id="shoes-1" type="image/svg+xml" :data="shoe_left" style="display:block;width:330px;height:240px" >
       <param name="src" :value="shoe_left">
     </object> -->
@@ -31,6 +69,9 @@
 
 <script>
 import { Toast } from 'mint-ui';
+import 'swiper/dist/css/swiper.css';
+import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import Bscroll from 'better-scroll';
 
 import Upload from '../../utils/Upload';
 
@@ -39,21 +80,63 @@ const shoe_right = require('./images/shoe_right.svg');
 const shoe_front = require('./images/shoe_front.svg');
 const shoe_back = require('./images/shoe_back.svg');
 const qrcode = require("./images/qrcode.jpg");
+const finished = require("../../assets/images/btn-finished.png");
+const file = require("../../assets/images/btn-file.jpg");
+const text_front = require("../../assets/images/side-front.jpg");
+const text_front_active = require("../../assets/images/side-front_active.jpg");
+const text_back = require("../../assets/images/side-back.jpg");
+const text_back_active = require("../../assets/images/side-back_active.jpg");
+const text_left = require("../../assets/images/side-left.jpg");
+const text_left_active = require("../../assets/images/side-left_active.jpg");
+const text_right = require("../../assets/images/side-right.jpg");
+const text_right_active = require("../../assets/images/side-right_active.jpg");
 
 export default {
   name: 'diy',
+  components: {
+    swiper,
+    swiperSlide
+  },
   data() {
     return {
       shoe_left,
       shoe_right,
       shoe_front,
       shoe_back,
+      finished,
+      file,
+      text_front,
+      text_front_active,
+      text_back,
+      text_back_active,
+      text_right,
+      text_right_active,
+      text_left,
+      text_left_active,
       isUploadSuccess1: 0,
       percent1: 0,
       sendPic: '',
       workImg: '',
       qrcode,
+      swiperOption: {
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+      },
+      side: 1,
+      currentPart: 'left_part_1',
+      sideParts: [[{name: '左侧帮面', value: '', code: 'left_part_1'}, {name: '围条', value: '', code: 'left_part_2'}],
+      [{name: '右侧帮面', value: '', code: 'right_part_1'}, {name: '围条', value: '', code: 'right_part_2'}, {name: '鞋扣', value: '', code: 'right_part_3'}],
+      [{name: '魔术贴', value: '', code: 'front_part_1'}, {name: '鞋头', value: '', code: 'front_part_2'}, {name: '包头片', value: '', code: 'front_part_3'}, {name: '鞋舌', value: '', code: 'front_part_4'}, {name: '微笑曲线', value: '', code: 'front_part_5'}],
+      [{name: 'LOGO', value: '', code: 'back_part_1'}, {name: '后跟条', value: '', code: 'back_part_2'}]],
+      colors: ['#000000', '#cccccc', '#ff00dd', '#ff22de', '#cccccc', '#ff00dd', '#ff22de', '#cccccc', '#ff00dd', '#ff22de', '#cccccc', '#ff00dd']
     };
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper
+    }
   },
   mounted() {
     // var svg = document.querySelector('#shoes-1').contentDocument;
@@ -73,13 +156,13 @@ export default {
       .then((response) => {
         console.log(document.querySelector('#left-container'));
         document.querySelector('#left-container').innerHTML = response.body;
-        document.querySelectorAll('.part2').forEach((item, index) => {
-          console.log(item)
-          item.style.fill='red';
-        })
-        document.querySelector('#imgPath').setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
-        
-        this.createWork();
+        // document.querySelectorAll('.part2').forEach((item, index) => {
+        //   console.log(item)
+        //   item.style.fill='red';
+        // })
+        // document.querySelector('#imgPath').setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
+
+        // this.createWork();
         // this.workImg = 'data:image/svg+xml;base64,' +  window.btoa(unescape(encodeURIComponent(svg)))
 
         // canvg(document.getElementById('workCanvas'), svg)
@@ -115,6 +198,14 @@ export default {
       }, (error) => {
 
       });
+
+      this.$nextTick(() => {
+        if (!this.scroll) {
+          this.scroll = new Bscroll(this.$refs.BScroll, {scrollX: true, scrollY: false, tap: true, click: true})
+        } else {
+          this.scroll.refresh()
+        }
+      })
   },
   methods: {
     uploadPic() {
@@ -161,72 +252,37 @@ export default {
           cb();
       };
       qrcode.src = this.qrcode;
+    },
+
+    goSide(index) {
+      this.side = index;
+      this.swiper.slideTo(index-1, 1000, false);
+      this.setCurrentPart(this.sideParts[index-1][0].code);
+    },
+
+    setCurrentPart(code) {
+      this.currentPart = code;
+    },
+
+    diyColor(color) {
+      console.log(color);
+      document.querySelectorAll('.'+this.currentPart).forEach((item, index) => {
+        console.log(item)
+        item.style.fill = color;
+      })
     }
+  },
+  watch: {
+    side() {
+      // this.$nextTick(() => {
+      //   if (!this.scroll) {
+      //     this.scroll = new Bscroll(this.$refs.BScroll, {scrollX: true, scrollY: false})
+      //   } else {
+      //     this.scroll.refresh()
+      //   }
+      // })
+    },
   }
 };
 </script>
 <style lang="scss" src='./style.scss'></style>
-<style lang="scss" scoped>
-  .page img {
-    pointer-events: initial;
-  }
-
-	.btn{
-        color: #fff;
-	    background-color: #337ab7;
-	    border-color: #2e6da4;
-	    display: inline-block;
-	    padding: 6px 12px;
-	    margin-bottom: 0;
-	    font-size: 14px;
-	    font-weight: 400;
-	    line-height: 1.42857143;
-	    text-align: center;
-	    white-space: nowrap;
-	    text-decoration: none;
-	    vertical-align: middle;
-	    -ms-touch-action: manipulation;
-	    touch-action: manipulation;
-	    cursor: pointer;
-	    -webkit-user-select: none;
-	    -moz-user-select: none;
-	    -ms-user-select: none;
-	    user-select: none;
-	    background-image: none;
-	    border: 1px solid transparent;
-	    border-radius: 4px;
-	}
-	a.btn:hover{
-      background-color: #3366b7;
-	}
-	.progress{
-		margin-top:2px;
-	    width: 200px;
-	    height: 14px;
-	    margin-bottom: 10px;
-	    overflow: hidden;
-	    background-color: #f5f5f5;
-	    border-radius: 4px;
-	    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-	    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
-	}
-	.progress-bar{
-		background-color: rgb(92, 184, 92);
-		background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.14902) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.14902) 50%, rgba(255, 255, 255, 0.14902) 75%, transparent 75%, transparent);
-		background-size: 40px 40px;
-		box-shadow: rgba(0, 0, 0, 0.14902) 0px -1px 0px 0px inset;
-		box-sizing: border-box;
-		color: rgb(255, 255, 255);
-		display: block;
-		float: left;
-		font-size: 12px;
-		height: 20px;
-		line-height: 20px;
-		text-align: center;
-		transition-delay: 0s;
-		transition-duration: 0.6s;
-		transition-property: width;
-		transition-timing-function: ease;
-		width: 266.188px;
-	}
-</style>
