@@ -76,6 +76,7 @@ function upload(self, callback, id) {
 
       FilesAdded(up, files) {
         console.log(files)
+        setUploadParam(uploader, '', false);
       },
 
       BeforeUpload(up, file) {

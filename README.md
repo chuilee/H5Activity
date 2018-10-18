@@ -1,3 +1,6 @@
+# SVN
+http://svn.easier.cn/product/projects/sh_milk/sh_milk/kids
+
 # html5
 
 > h5活动

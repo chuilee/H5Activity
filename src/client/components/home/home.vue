@@ -5,7 +5,7 @@
     <button class="btn-start" @click="startFn"><img :src="start" alt=""></button>
     <div class="flex-wrp">
       <div class="flex-item">
-        <button class="btn-rank"><img :src="rank" alt=""></button>
+        <button class="btn-rank" @click="goRank"><img :src="rank" alt=""></button>
       </div>
       <div class="flex-item">
         <button class="btn-works"><img :src="works" alt=""></button>
@@ -124,6 +124,11 @@ export default {
     startFn() {
       this.$router.push({
         name: 'diy',
+      })
+    },
+    goRank() {
+      this.$router.push({
+        name: 'rank',
       })
     }
   },

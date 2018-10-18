@@ -1,0 +1,63 @@
+@import '../../assets/style/mixins/_mixins.scss';
+
+.complete-page {
+  .btn-rebuild {
+    position: absolute;
+    top: px2rem(30);
+    right: px2rem(30);
+    width: px2rem(107);
+    height: px2rem(107);
+  }
+
+  .slogan {
+    display: block;
+    margin: px2rem(70) auto;
+    width: px2rem(521);
+    height: px2rem(184);
+
+    @media screen and (min-height: 600px) {
+      margin: px2rem(70) auto;
+    }
+  }
+
+  .btn-done {
+    display: block;
+    margin: 0 auto px2rem(57);
+    width: px2rem(522);
+    height: px2rem(122);
+  }
+
+  .input {
+    position: relative;
+    margin: px2rem(40) auto px2rem(60);
+    width: px2rem(533);
+    height: px2rem(151);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    input {
+      position: absolute;
+      top: px2rem(56);
+      left: px2rem(20);
+      width: px2rem(500);
+      height: px2rem(87);
+      line-height: px2rem(87);
+      font-size: px2rem(30);
+      border: 0;
+      background: transparent;
+    }
+  }
+  .left-container {
+    padding-left: px2rem(80);
+    padding-right: px2rem(80);
+    height: px2rem(540);
+    box-sizing: border-box;
+    padding-top: px2rem(120);
+  }
+}
+
+

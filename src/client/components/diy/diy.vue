@@ -2,20 +2,20 @@
   <div class="page diy-page">
     <swiper :options="swiperOption" ref="mySwiper">
       <swiper-slide>
-        <div id="left-container" style="width: 100%"></div>
+        <div id="left-container" ref="left_side1" style="width: 100%"></div>
       </swiper-slide>
       <swiper-slide>
-        <div id="right-container" style="width: 100%"></div>
+        <div id="right-container" ref="right_side1" style="width: 100%"></div>
       </swiper-slide>
       <swiper-slide>
-        <div id="front-container" style="width: 100%"></div>
+        <div id="front-container" ref="front_side1" style="width: 100%"></div>
       </swiper-slide>
       <swiper-slide>
-        <div id="back-container" style="width: 100%"></div>
+        <div id="back-container" ref="back_side1" style="width: 100%"></div>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
-    <button class="btn-finished" @click="createWork"><img :src="finished" alt=""></button>
+    <button class="btn-finished" @click="complete"><img :src="finished" alt=""></button>
     <div class="side-items flex-wrp">
       <div class="flex-item">
         <div class="side-item" :class="side == 1 ? 'active' : null"><button @click="goSide(1)" class="side-left"><img :src="side == 1 ? text_left_active : text_left" alt=""></button></div>
@@ -48,6 +48,7 @@
         <div class="diy-file" id="container1">
           <span>自定义图片</span>
           <button class="add-file" id="selectfiles1"><img :src="file" alt=""></button>
+          <a id="postfiles1" href="javascript:void(0);"></a>
         </div>
         <div class="colors">
           <span>颜色(12)</span>
@@ -72,6 +73,7 @@ import { Toast } from 'mint-ui';
 import 'swiper/dist/css/swiper.css';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import Bscroll from 'better-scroll';
+import Utils from '@/client/utils';
 
 import Upload from '../../utils/Upload';
 
@@ -148,14 +150,17 @@ export default {
     console.log(Upload.upload)
     this.sendPic = Upload.upload(this, (url) => {
       console.log(url)
-      document.querySelector('#imgPath').setAttribute('xlink:href', url);
+      Utils.addcookie('image_url', url);
+      document.querySelectorAll('.' + this.currentPart).forEach((part,index) => {
+        part.setAttribute('xlink:href', url);
+      })
     }, 1);
 
     // 左侧面
     this.$http['get'](this.shoe_left)
       .then((response) => {
         console.log(document.querySelector('#left-container'));
-        document.querySelector('#left-container').innerHTML = response.body;
+        this.$refs.left_side1.innerHTML = response.body;
         // document.querySelectorAll('.part2').forEach((item, index) => {
         //   console.log(item)
         //   item.style.fill='red';
@@ -176,7 +181,7 @@ export default {
       this.$http['get'](this.shoe_right)
       .then((response) => {
         console.log(document.querySelector('#right-container'));
-        document.querySelector('#right-container').innerHTML = response.body;
+        this.$refs.right_side1.innerHTML = response.body;
       }, (error) => {
 
       });
@@ -185,7 +190,7 @@ export default {
       this.$http['get'](this.shoe_front)
       .then((response) => {
         console.log(document.querySelector('#front-container'));
-        document.querySelector('#front-container').innerHTML = response.body;
+        this.$refs.front_side1.innerHTML = response.body;
       }, (error) => {
 
       });
@@ -194,7 +199,7 @@ export default {
       this.$http['get'](this.shoe_back)
       .then((response) => {
         console.log(document.querySelector('#back-container'));
-        document.querySelector('#back-container').innerHTML = response.body;
+        this.$refs.back_side1.innerHTML = response.body;
       }, (error) => {
 
       });
@@ -268,7 +273,19 @@ export default {
       console.log(color);
       document.querySelectorAll('.'+this.currentPart).forEach((item, index) => {
         console.log(item)
-        item.style.fill = color;
+        Utils.addcookie(this.currentPart, color);
+        if (this.currentPart == 'front_part_5') {
+          item.style.stroke = color;
+          document.querySelector('.left_side.'+this.currentPart).style.fill = color;
+        } else {
+          item.style.fill = color;
+        }
+      })
+    },
+
+    complete() {
+      this.$router.push({
+        name: 'complete'
       })
     }
   },
