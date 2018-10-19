@@ -41,5 +41,52 @@ function putApi(name, url, code, method) {
  */
 putApi('getIndex', 'get_index', '1000', '');
 
+/**
+ * 我的作品
+ * @param {String} page_num
+ * @param {String} page_size
+ * ...
+ *
+ */
+putApi('getMyWork', 'get_my_work', '1000', '');
+
+/**
+ * 保存图片
+ * @param {String} page_num
+ * @param {String} page_size
+ * ...
+ * img_url type=material
+ * front back left right type=works
+ */
+putApi('addImg', 'add_img', '1000', '');
+
+/**
+ * 根据id获取作品
+ * @param {String} page_num
+ * @param {String} page_size
+ * ...
+ *
+ */
+putApi('getWorkId', 'get_work_by_id', '1000', '');
+
+/**
+ * 根据id获取作品
+ * @param {String} page_num
+ * @param {String} page_size
+ * real_name  收货人
+address   收货地址
+mobile    电话
+ *
+ */
+putApi('updateUserInfo', 'update_user_info', '1000', '');
+
+/**
+ * 上传base64格式图片
+ * @param {String} page_num
+ * @param {String} page_size
+ *
+ */
+putApi('uploadToOss', 'uploadToOss', '1000', '');
+
 
 export default api;

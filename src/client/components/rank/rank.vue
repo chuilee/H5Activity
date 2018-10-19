@@ -3,61 +3,36 @@
     <img class="rank-title" :src="title" alt="">
     <div class="search">
       <img :src="search" alt="">
-      <input type="text" placeholder="搜索作品编号">
+      <input type="number" v-model="workid" @input="debounceInput" placeholder="搜索作品编号">
     </div>
     <div class="rank-container">
       <div class="flex-wrp btns">
         <div class="flex-item">
-          <button class="btn-rank" @click="searchWorks('like', 'all')" :class="currentRank == 'like' ? 'active' : null"><img :src="rankAll" alt=""></button>
+          <button class="btn-rank" @click="searchWorks('like')" :class="currentRank == 'like' ? 'active' : null"><img :src="rankAll" alt=""></button>
         </div>
         <div class="flex-item">
-          <button class="btn-rank" @click="searchWorks('time', 'new')" :class="currentRank == 'time' ? 'active' : null"><img :src="rankNew" alt=""></button>
+          <button class="btn-rank" @click="searchWorks('time')" :class="currentRank == 'time' ? 'active' : null"><img :src="rankNew" alt=""></button>
         </div>
       </div>
       <div class="rank-list clearfix">
-        <div class="work-container">
-          <div class="work-item">
-            <div class="img"></div>
-            <p class="no">NO.1234</p>
-            <div class="clearfix">
-              <div class="like">9999</div>
-              <div class="index">排名 10</div>
+        <div class="bscroll-wrapper" ref="rankBScroll">
+          <div class="bscroll-container clearfix">
+            <div class="work-container"
+              v-for="(work, index) in works"
+              v-bind:key="'work'+index">
+              <div class="work-item">
+                <div class="img">
+                  <img :src="work.img_url" alt="">
+                </div>
+                <p class="no">NO.{{work.work_id}}</p>
+                <div class="clearfix">
+                  <div class="like">{{work.like}}</div>
+                  <div class="index">排名 {{work.rn}}</div>
+                </div>
+              </div>
+              <button class="btn-work"><img :src="likeHim" alt=""></button>
             </div>
           </div>
-          <button class="btn-work"><img :src="likeHim" alt=""></button>
-        </div>
-        <div class="work-container">
-          <div class="work-item">
-            <div class="img"></div>
-            <p class="no">NO.1234</p>
-            <div class="clearfix">
-              <div class="like">9999</div>
-              <div class="index">排名 10</div>
-            </div>
-          </div>
-          <button class="btn-work"><img :src="likeHim" alt=""></button>
-        </div>
-        <div class="work-container">
-          <div class="work-item">
-            <div class="img"></div>
-            <p class="no">NO.1234</p>
-            <div class="clearfix">
-              <div class="like">9999</div>
-              <div class="index">排名 10</div>
-            </div>
-          </div>
-          <button class="btn-work"><img :src="likeHim" alt=""></button>
-        </div>
-        <div class="work-container">
-          <div class="work-item">
-            <div class="img"></div>
-            <p class="no">NO.1234</p>
-            <div class="clearfix">
-              <div class="like">9999</div>
-              <div class="index">排名 10</div>
-            </div>
-          </div>
-          <button class="btn-work"><img :src="likeHim" alt=""></button>
         </div>
       </div>
     </div>
@@ -67,6 +42,7 @@
 <script>
 import Bscroll from 'better-scroll';
 import { Toast } from 'mint-ui';
+import Debounce from 'debounce';
 
 import api from '@/client/api';
 
@@ -85,17 +61,19 @@ export default {
       rankAll,
       rankNew,
       likeHim,
+      works: [],
+      workid: '',
       currentRank: 'like' // type=like就是点赞榜单,type=time就是新榜
     };
   },
   created() {
-    this.searchWorks('like')
+    this.searchWorks(this.currentRank)
   },
   mounted() {
     // this.searchWorks('like')
   },
   methods: {
-    searchWorks(type, keyworks) {
+    searchWorks(type) {
       this.currentRank = type;
 
       api.getIndex(this, {
@@ -103,11 +81,33 @@ export default {
         page_num: 1,
         page_size: 9999,
       }, (response) => {
-        console.log(response.body.reqBody)
+        console.log(response.body.repBody)
+        this.works = response.body.repBody.works;
+        this.$nextTick(() => {
+          if (!this.scroll) {
+            this.scroll = new Bscroll(this.$refs.rankBScroll, {})
+          } else {
+            this.scroll.refresh()
+          }
+        })
       }, (err) => {
 
       })
-    }
+    },
+
+    debounceInput: Debounce(function (e) {
+      if (this.workid == '') {
+        this.searchWorks(this.currentRank);
+      } else {
+        api.getWorkId(this, {
+          work_id: this.workid
+        }, (response) => {
+          console.log(response.body.repBody.works)
+          this.works = response.body.repBody.works
+        })
+      }
+
+    }, 500)
   },
   watch: {
 

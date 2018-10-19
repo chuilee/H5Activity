@@ -60,8 +60,7 @@
         </div>
       </div>
     </div>
-    <img :src="workImg" v-show="false" style="width: 100%" alt="">
-    <canvas id="workCanvas" v-show="false"></canvas>
+
     <!-- <object id="shoes-1" type="image/svg+xml" :data="shoe_left" style="display:block;width:330px;height:240px" >
       <param name="src" :value="shoe_left">
     </object> -->
@@ -74,14 +73,13 @@ import 'swiper/dist/css/swiper.css';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import Bscroll from 'better-scroll';
 import Utils from '@/client/utils';
-
+import api from '@/client/api';
 import Upload from '../../utils/Upload';
 
 const shoe_left = require('./images/shoe_left.svg');
 const shoe_right = require('./images/shoe_right.svg');
 const shoe_front = require('./images/shoe_front.svg');
 const shoe_back = require('./images/shoe_back.svg');
-const qrcode = require("./images/qrcode.jpg");
 const finished = require("../../assets/images/btn-finished.png");
 const file = require("../../assets/images/btn-file.jpg");
 const text_front = require("../../assets/images/side-front.jpg");
@@ -118,8 +116,6 @@ export default {
       isUploadSuccess1: 0,
       percent1: 0,
       sendPic: '',
-      workImg: '',
-      qrcode,
       swiperOption: {
         pagination: {
           el: '.swiper-pagination',
@@ -217,47 +213,7 @@ export default {
       // console.log(this.sendPic)
       Upload.setUploadParam(this.sendPic, '')
     },
-    createWork() {
-      const that = this;
-      let canvas = document.getElementById("workCanvas"),
-        ctx = canvas.getContext("2d"),
-        w = window.innerWidth,
-        h = window.innerHeight;
 
-      canvas.width = 375 * 2;
-      canvas.height = 223 * 2;
-      canvas.style.width = 375 + "px";
-      canvas.style.height = 223 + "px";
-
-      const w_ratio = w / 375;
-      let svg = document.querySelector('#left-container').innerHTML;
-      canvg(canvas, svg, {
-        scaleWidth: 351.6*2,
-        scaleHeight: 227.1*2,
-        useCORS: true,
-        renderCallback: function() {
-          that.drawImgs(ctx, w_ratio, () => {
-            that.workImg = canvas.toDataURL("image/png");
-          })
-        }
-      })
-    },
-
-    drawImgs(ctx, w_ratio, cb) {
-       /* 加载并绘制二维码 */
-      const qrcode = new Image();
-      qrcode.onload = () => {
-        ctx.drawImage(
-          qrcode,
-          0,
-          100 * w_ratio,
-          qrcode.width * w_ratio,
-          qrcode.height * w_ratio);
-
-          cb();
-      };
-      qrcode.src = this.qrcode;
-    },
 
     goSide(index) {
       this.side = index;
@@ -284,6 +240,11 @@ export default {
     },
 
     complete() {
+      window.left_side = this.$refs.left_side1.innerHTML;
+      window.right_side = this.$refs.right_side1.innerHTML;
+      window.front_side = this.$refs.front_side1.innerHTML;
+      window.back_side = this.$refs.back_side1.innerHTML;
+
       this.$router.push({
         name: 'complete'
       })

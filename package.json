@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "better-scroll": "^1.13.2",
+    "debounce": "^1.2.0",
     "element-ui": "^2.4.8",
     "jr-qrcode": "^1.1.1",
     "mint-ui": "^2.2.13",

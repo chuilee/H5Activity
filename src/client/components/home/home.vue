@@ -8,7 +8,7 @@
         <button class="btn-rank" @click="goRank"><img :src="rank" alt=""></button>
       </div>
       <div class="flex-item">
-        <button class="btn-works"><img :src="works" alt=""></button>
+        <button class="btn-works" @click="goMyWork"><img :src="works" alt=""></button>
       </div>
     </div>
     <div class="details-container" v-show="activityDetails"  @click="activityDetails = false">
@@ -129,6 +129,11 @@ export default {
     goRank() {
       this.$router.push({
         name: 'rank',
+      })
+    },
+    goMyWork() {
+      this.$router.push({
+        name: 'my-work',
       })
     }
   },

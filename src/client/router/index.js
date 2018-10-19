@@ -6,6 +6,7 @@ import Diy from '@/client/components/diy/diy';
 import Complete from '@/client/components/complete/complete';
 import Result from '@/client/components/result/result';
 import Rank from '@/client/components/rank/rank';
+import MyWork from '@/client/components/myWork/my-work';
 
 Vue.use(Router);
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/rank',
       name: 'rank',
       component: Rank,
+    },
+    {
+      path: '/my-work',
+      name: 'my-work',
+      component: MyWork,
     },
     {
       path: '/result/:percent/:type',

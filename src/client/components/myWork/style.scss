@@ -1,14 +1,15 @@
 @import '../../assets/style/mixins/_mixins.scss';
 
-.rank-page {
+.my-work-page {
   .btns {
     margin: 0 auto;
     width: px2rem(644);
     height: px2rem(129);
   }
-  .btn-rank {
-    width: px2rem(322);
-    height: px2rem(129);
+  .btn-mywork {
+    margin-top: px2rem(30);
+    width: px2rem(642);
+    height: px2rem(110);
     background: url(../../assets/images/btn-rankbg.png);
     background-repeat: no-repeat;
     background-size: contain;
@@ -75,6 +76,14 @@
     z-index: 2;
     box-sizing: border-box;
 
+    .bscroll-wrapper {
+      padding-bottom: px2rem(80);
+      width: px2rem(712);
+      height: px2rem(1060);
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
     .work-container {
       float: left;
       width: 50%;
@@ -91,14 +100,6 @@
     height: px2rem(72);
   }
 
-  .bscroll-wrapper {
-    padding-bottom: px2rem(80);
-    width: px2rem(712);
-    height: px2rem(1060);
-    overflow: hidden;
-    box-sizing: border-box;
-  }
-
   .work-item {
     margin: 0 auto;
     padding: px2rem(18) px2rem(28) px2rem(18) px2rem(18);
@@ -109,6 +110,10 @@
     background-size: contain;
     background-position: left bottom;
     box-sizing: border-box;
+
+    &.create {
+      padding: 0;
+    }
 
     .img {
       width: px2rem(258);
@@ -139,6 +144,30 @@
       float: left;
       font-size: px2rem(36);
       line-height: 1;
+    }
+  }
+
+  .go-create {
+    display: block;
+    width: px2rem(304);
+    height: px2rem(370);
+  }
+
+  .work-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .35);
+
+    .work {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
     }
   }
 }

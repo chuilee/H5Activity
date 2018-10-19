@@ -52,6 +52,15 @@ img {
   pointer-events: none;
 }
 
+.clearfix {
+  &::after,
+  &::before {
+    content: ' ';
+    display: block;
+    clear: both;
+  }
+}
+
 .footer-btn {
   padding: px2rem(25);
 }
