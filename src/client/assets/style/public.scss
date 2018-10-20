@@ -12,8 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $color-default;
-  background: url(../images/bg.jpg);
-  background-size: cover;
+  background: url(../images/bg1.jpg) repeat 0 0;
   text-rendering: optimizeLegibility;
 
   img {
@@ -77,11 +76,14 @@ img {
 .flex-item {
   flex: 1;
 }
-
-.mint-toast {
-  background: rgba(#e7af1a, .95);
+.btn-back {
+  position: absolute;
+  top: px2rem(20);
+  left: px2rem(20);
+  width: px2rem(60);
+  height: px2rem(60);
+  z-index: 99;
 }
-
 .page {
   position: relative;
   min-height: 100%;
@@ -144,8 +146,8 @@ img {
 
 .music-warp{
   position: absolute;
-  right: px2rem(40);
-  top: px2rem(40);
+  right: px2rem(30);
+  top: px2rem(10);
   font-size: 0;
   z-index: 9;
   img{

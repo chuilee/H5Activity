@@ -17,7 +17,7 @@ function putApi(name, url, code, method) {
     httpmethod = 'post';
   }
   api[name] = (context, body, fun, funErr) => {
-    const fullurl = `/kids/${url}`;
+    const fullurl = `http://localhost/kids/${url}`;
     context.$http[httpmethod](fullurl, getCreds(code, body))
       .then((response) => {
         // success
@@ -87,6 +87,22 @@ putApi('updateUserInfo', 'update_user_info', '1000', '');
  *
  */
 putApi('uploadToOss', 'uploadToOss', '1000', '');
+
+/**
+ * 点赞作品
+ * @param {String} page_num
+ * @param {String} page_size
+ *
+ */
+putApi('addLike', 'add_like', '1000', '');
+
+/**
+ * 获取js签名
+ * @param {String} page_num
+ * @param {String} page_size
+ *
+ */
+putApi('getJsConfig', 'getJsConfig', '1000', '');
 
 
 export default api;

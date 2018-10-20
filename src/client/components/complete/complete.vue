@@ -23,7 +23,7 @@ const slogan = require('../../assets/images/finish-slogan.png');
 const input = require('../../assets/images/input-bg.png');
 const btnDone = require('../../assets/images/btn-done.png');
 const shoe_left = require('../diy/images/shoe_left.svg');
-const qrcode = require("../diy/images/qrcode.jpg");
+const workbg = require("../../assets/images/work-bg.jpg");
 
 export default {
   name: 'complete',
@@ -34,8 +34,8 @@ export default {
       input,
       btnDone,
       shoe_left,
-      qrcode,
-      phone: '',
+      workbg,
+      phone: '13112312312',
       workImg: '',
       uploaded: false,
       activityDetails: false,
@@ -72,50 +72,68 @@ export default {
   },
   methods: {
     createWork() {
+      Indicator.open('作品提交中...');
       const that = this;
       let canvas = document.getElementById("workCanvas"),
         ctx = canvas.getContext("2d"),
         w = window.innerWidth,
         h = window.innerHeight;
 
-      canvas.width = 375 * 2;
-      canvas.height = 223 * 2;
-      canvas.style.width = 375 + "px";
-      canvas.style.height = 223 + "px";
-
       const w_ratio = w / 375;
+
+      canvas.width = 500 * w_ratio;
+      canvas.height = 460 * w_ratio;
+      canvas.style.width = canvas.width / 2 + "px";
+      canvas.style.height = canvas.height / 2 + "px";
+ 
+      
       let svg = this.$refs.left_side.innerHTML;
-      canvg(canvas, svg, {
-        scaleWidth: 351.6*w_ratio,
-        scaleHeight: 227.1*w_ratio,
-        useCORS: true,
-        renderCallback: () => {
-          that.drawImgs(ctx, w_ratio, () => {
-            that.uploaded = true;
-            that.workImg = canvas.toDataURL("image/png");
-            that.upload(); // 上传服务器
-          })
-        }
+
+      that.drawImgs(ctx, w_ratio, () => {
+        ctx.drawSvg(svg, 50*w_ratio, 110*w_ratio, 295*w_ratio, 190*w_ratio);
+        setTimeout(() => {
+          // that.uploaded = true;
+          that.workImg = canvas.toDataURL("image/jpg");
+          that.upload(); // 上传服务器
+        }, 1000);
+        // canvg(canvas, svg, {
+        //   scaleWidth: 351.6*w_ratio,
+        //   scaleHeight: 227.1*w_ratio,
+        //   useCORS: true,
+        //   renderCallback: () => {
+        //     that.uploaded = true;
+        //     that.workImg = canvas.toDataURL("image/png");
+        //     // that.upload(); // 上传服务器
+        //   }
+        // })
+
+        
       })
+
+      
     },
 
     drawImgs(ctx, w_ratio, cb) {
        /* 加载并绘制二维码 */
-      const qrcode = new Image();
-      qrcode.onload = () => {
+      const workbg = new Image();
+      workbg.onload = () => {
         ctx.drawImage(
-          qrcode,
+          workbg,
           0,
-          100 * w_ratio,
-          qrcode.width * w_ratio,
-          qrcode.height * w_ratio);
-
+          0,
+          workbg.width * w_ratio,
+          workbg.height * w_ratio);
         cb();
       };
-      qrcode.src = this.qrcode;
+      workbg.src = this.workbg;
     },
 
     goRebuild() {
+      this.parts.forEach((part, index) => {
+        // debugger
+        Utils.addcookie(part, ''); 
+        Utils.addcookie('image_url', ''); 
+      })
       this.$router.push({
         name: 'diy'
       })
@@ -129,7 +147,7 @@ export default {
 
     },
     upload() {
-      Indicator.open('作品提交中...');
+      
 
       api.updateUserInfo(this, {
         real_name: 'username',
@@ -154,6 +172,12 @@ export default {
                 work_id: response.body.repBody.work_id,
                 img_url: decodeURIComponent(Utils.getcookie('image_url'))
               }, (success1) => {
+                this.$router.push({
+                  name: 'work-details',
+                  params: {
+                    id: response.body.repBody.work_id
+                  }
+                })
                 Indicator.close();
               }, (err1) => {
                 Indicator.close();

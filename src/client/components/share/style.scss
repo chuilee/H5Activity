@@ -1,0 +1,98 @@
+@import '../../assets/style/mixins/_mixins.scss';
+
+.share-page {
+
+  .diy-slogan {
+    display: block;
+    margin: px2rem(40) auto px2rem(20);
+    width: px2rem(714);
+    height: px2rem(270);
+  }
+
+  .btn-home {
+    position: fixed;
+    right: - px2rem(4);
+    top: px2rem(344);
+    width: px2rem(117);
+    height: px2rem(65);
+  }
+
+  .work-container {
+    position: relative;
+    margin: 0 auto;
+    padding-top: px2rem(35);
+    width: px2rem(626);
+    height: px2rem(734);
+    background: url(../../assets/images/haibao-bg.png) no-repeat;
+    background-size: contain;
+    box-sizing: border-box;
+
+    img {
+      position: relative;
+      display: block;
+      margin: 0 auto;
+      width: px2rem(519);
+      height: px2rem(654);
+    }
+
+    .thumb {
+      position: absolute;
+      top: px2rem(40);
+      left: px2rem(64);
+      width: px2rem(500);
+      height: px2rem(460);
+    }
+
+    .infos {
+      position: absolute;
+      top: px2rem(520);
+      left: px2rem(64);
+    }
+
+    .rank {
+      padding-bottom: px2rem(20);
+      font-size: px2rem(32);
+      line-height: 1;
+      font-weight: bold;
+      // text-shadow: 0 0 4px 0 #000;
+      // color: #fff;
+    }
+
+    .like {
+      padding-left: px2rem(30);
+      line-height: px2rem(24);
+      font-size: px2rem(24);
+      background: url(../../assets/images/icon-pen.png) no-repeat top left;
+      background-size: contain;
+    }
+  }
+
+  .btn-like-hime {
+    display: block;
+    margin: px2rem(40) auto;
+    width: px2rem(435);
+    height: px2rem(105);
+  }
+
+  .btns {
+    padding: px2rem(40) px2rem(15);
+
+    .flex-item {
+      flex: auto;
+    }
+  }
+  .btn-goon {
+    display: block;
+    margin: 0 auto;
+    width: px2rem(270);
+    height: px2rem(105);
+  }
+  .btn-viewlist {
+    display: block;
+    margin: 0 auto;
+    width: px2rem(435);
+    height: px2rem(105);
+  }
+}
+
+

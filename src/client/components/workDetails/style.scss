@@ -1,0 +1,39 @@
+@import '../../assets/style/mixins/_mixins.scss';
+
+.work-details-page {
+
+  .work-container {
+    position: relative;
+    margin: px2rem(110) auto 0;
+    padding-top: px2rem(35);
+    width: px2rem(626);
+    height: px2rem(734);
+    background: url(../../assets/images/haibao-bg.png) no-repeat;
+    background-size: contain;
+    box-sizing: border-box;
+
+    img {
+      position: relative;
+      display: block;
+      margin: 0 auto;
+      width: px2rem(519);
+      height: px2rem(654);
+    }
+  }
+
+  .btn-done {
+    display: block;
+    margin: px2rem(40) auto;
+    width: px2rem(440);
+    height: px2rem(105);
+  }
+  .btn-goon,
+  .btn-viewlist {
+    display: block;
+    margin: 0 auto;
+    width: px2rem(311);
+    height: px2rem(105);
+  }
+}
+
+

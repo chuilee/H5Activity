@@ -1,6 +1,9 @@
 @import '../../assets/style/mixins/_mixins.scss';
 
 .rank-page {
+  .rank-container {
+    padding-bottom: px2rem(40);
+  }
   .btns {
     margin: 0 auto;
     width: px2rem(644);

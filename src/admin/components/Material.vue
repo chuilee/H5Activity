@@ -57,6 +57,7 @@ export default {
     getMaterialList(pageNum) {
       this.currentPage = pageNum;
       api.getMaterialList(this, {
+        work_id: 20,
         page_size: this.pageSize,
         page_num: pageNum
       }, (response) => {

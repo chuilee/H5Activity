@@ -5,9 +5,9 @@ export default {
     // alert("appid"+data.appid+"----timestamp"+data.timestamp+"-----nonceStr"+data.noncestr+"----signature"+data.signature);
     wx.config({
       debug: false,
-      appId: data.appId,
+      appId: data.appid,
       timestamp: parseInt(data.timestamp, 10),
-      nonceStr: data.nonceStr,
+      nonceStr: data.noncestr,
       signature: data.signature,
       jsApiList: [
         'checkJsApi',

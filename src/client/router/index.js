@@ -7,6 +7,8 @@ import Complete from '@/client/components/complete/complete';
 import Result from '@/client/components/result/result';
 import Rank from '@/client/components/rank/rank';
 import MyWork from '@/client/components/myWork/my-work';
+import workDetails from '@/client/components/workDetails/work-details';
+import Share from '@/client/components/share/share';
 
 Vue.use(Router);
 
@@ -41,6 +43,16 @@ export default new Router({
       path: '/my-work',
       name: 'my-work',
       component: MyWork,
+    },
+    {
+      path: '/work-details/:id',
+      name: 'work-details',
+      component: workDetails,
+    },
+    {
+      path: '/share/:id',
+      name: 'share',
+      component: Share,
     },
     {
       path: '/result/:percent/:type',

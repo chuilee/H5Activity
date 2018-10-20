@@ -30,7 +30,7 @@
                   <div class="index">排名 {{work.rn}}</div>
                 </div>
               </div>
-              <button class="btn-work"><img :src="likeHim" alt=""></button>
+              <button class="btn-work" @click="likeWork(work)"><img :src="likeHim" alt=""></button>
             </div>
           </div>
         </div>
@@ -107,7 +107,24 @@ export default {
         })
       }
 
-    }, 500)
+    }, 500),
+
+    likeWork(work) {
+      api.addLike(this, {
+        work_id: work.work_id
+      }, (response) => {
+        this.liked = true;
+        if (response.body.resCode == '0') {
+          work.like = parseInt(work.like, 10) + 1;
+          return Toast('投票成功')
+        }
+        if (response.body.resCode == '10001') {
+          return Toast(response.body.resMsg)
+        }
+      }, (err) => {
+
+      })
+    },
   },
   watch: {
 

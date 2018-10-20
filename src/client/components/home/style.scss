@@ -1,9 +1,15 @@
 @import '../../assets/style/mixins/_mixins.scss';
 
 .home-page {
+  .diy-slogan {
+    display: block;
+    margin: px2rem(40) auto px2rem(20);
+    width: px2rem(714);
+    height: px2rem(270);
+  }
   .btn-details {
     position: absolute;
-    top: px2rem(64);
+    top: px2rem(342);
     right: - px2rem(4);
     width: px2rem(178);
     height: px2rem(65);
@@ -11,12 +17,12 @@
 
   .kids {
     display: block;
-    margin: px2rem(157) auto;
-    width: px2rem(551);
-    height: px2rem(611);
+    margin: px2rem(50) auto;
+    width: px2rem(724);
+    height: px2rem(519);
 
     @media screen and (min-height: 600px) {
-      margin: px2rem(227) auto;
+      margin: px2rem(100) auto;
     }
   }
 
@@ -63,17 +69,19 @@
 
   .rule-item {
     min-height: px2rem(54);
-    margin-bottom: px2rem(20);
+    margin-bottom: px2rem(43);
 
     .index {
       float: left;
       display: block;
-      width: px2rem(54);
-      height: px2rem(54);
+      margin-top: - px2rem(10);
+      width: px2rem(59);
+      height: px2rem(59);
       text-align: center;
-      line-height: px2rem(54);
-      background: url(../../assets/images/rule-index.jpg);
+      line-height: px2rem(59);
+      background: url(../../assets/images/rule-index1.png);
       background-size: contain;
+      font-weight: bold;
     }
 
     p {
@@ -94,7 +102,7 @@
 
     .title {
       font-size: px2rem(26);
-      color: #ff8b4e;
+      color: #000;
       text-align: center;
     }
   }
@@ -107,5 +115,9 @@
     height: px2rem(750);
     padding: 0 px2rem(20);
     overflow: hidden;
+
+    .container {
+      padding-bottom: px2rem(60);
+    }
   }
 }

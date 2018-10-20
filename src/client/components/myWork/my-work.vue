@@ -25,10 +25,10 @@
               <button class="btn-work"><img :src="likeHim" alt=""></button>
             </div>
             <div class="work-container">
-              <div class="work-item create">
+              <button class="work-item create" @click="goRouter('diy')">
                 <img class="go-create" :src="gocreate" alt="">
-              </div>
-              <button class="btn-work"><img :src="btnGocreate" alt=""></button>
+              </button>
+              <button class="btn-work" @click="goRouter('diy')"><img :src="btnGocreate" alt=""></button>
             </div>
           </div>
         </div>
@@ -95,13 +95,12 @@ export default {
     getWork(img_url) {
       this.thumb = img_url;
       this.preview = true;
-      // api.getWorkId(this, {
-      //   work_id: id
-      // }, (response) => {
-      //   this.thumb = response.body.repBody.works[0].img_url
-      // }, (err) => {
+    },
 
-      // })
+    goRouter(route) {
+      this.$router.push({
+        name: route
+      })
     }
   },
   watch: {
