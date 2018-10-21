@@ -6,14 +6,13 @@
           :default-active="activeIndex"
           class="el-menu-demo"
           mode="horizontal"
-          :router="true"
+          :router="false"
           @select="handleSelect"
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-          <el-menu-item index="userList">用户管理</el-menu-item>
-          <el-menu-item index="material">素材管理</el-menu-item>
-          <el-menu-item index="activityList">活动排行榜</el-menu-item>
+          <el-menu-item index="1" :route="{name: 'home'}">设计榜单</el-menu-item>
+          <el-menu-item index=""><a href="http://www.baidu.com" target="_blank" style="display: block;">H5日访问量</a></el-menu-item>
         </el-menu>
       </el-header>
       <el-main>
@@ -28,11 +27,12 @@ export default {
   name: "App",
   data() {
     return {
-      activeIndex: 'userList'
+      activeIndex: '1'
     };
   },
   created() {
-    this.activeIndex = this.$route.name;
+    console.log(this.$route)
+    this.activeIndex = this.$route.path;
   },
   methods: {
     handleSelect(key, keyPath) {

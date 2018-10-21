@@ -11,8 +11,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'userList',
-      component: UserList,
+      name: 'home',
+      redirect: {
+        name: 'activityList',
+        params: {
+          page: 1,
+        },
+      },
     },
     {
       path: '/userList',
@@ -25,7 +30,7 @@ export default new Router({
       component: Material,
     },
     {
-      path: '/activityList',
+      path: '/activityList/:page',
       name: 'activityList',
       component: ActivityList,
     },
