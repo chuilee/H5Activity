@@ -1,6 +1,9 @@
 # SVN
 http://svn.easier.cn/product/projects/sh_milk/sh_milk/kids
 
+APPID=wxbd6431c6679a9972
+APPSECRET=d06140b45d9fba1a4a0d1968f8ba49b7
+
 # html5
 
 > h5活动

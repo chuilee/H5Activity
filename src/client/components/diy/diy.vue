@@ -47,14 +47,14 @@
       </div>
     </div>
     <div class="diy-picker" ref="BScroll">
-      <div class="diy-picker-scroll" :class="(side == 1 || side == 2) ? 'has-file' : null">
+      <div class="diy-picker-scroll" :class="(currentPart == 'left_part_1' || currentPart == 'right_part_1') ? 'has-file' : null">
         <div class="diy-file" id="container1">
           <div class="text"><span>自定义图案</span><p>推荐宝宝的画</p></div>
           <button class="add-file" id="selectfiles1"><img :src="file" alt=""></button>
           <a id="postfiles1" href="javascript:void(0);"></a>
         </div>
         <div class="colors">
-          <span>颜色(12)</span>
+          <span>颜色({{colors.length}})</span>
           <span
             v-for="(color, index) in colors" :style="{'background': color}"
             v-bind:key="'color'+index"
@@ -121,10 +121,10 @@ export default {
       side: 1,
       currentPart: 'left_part_1',
       sideParts: [[{name: '左侧帮面', value: '', code: 'left_part_1'}/*, {name: '围条', value: '', code: 'left_part_2'}*/],
-      [{name: '右侧帮面', value: '', code: 'right_part_1'}/*, {name: '围条', value: '', code: 'right_part_2'}, {name: '鞋扣', value: '', code: 'right_part_3'}*/],
-      [{name: '魔术贴', value: '', code: 'front_part_1'}, {name: '鞋头', value: '', code: 'front_part_2'}, {name: '包头片', value: '', code: 'front_part_3'}, {name: '鞋舌', value: '', code: 'front_part_4'}, {name: '微笑曲线', value: '', code: 'front_part_5'}],
-      [{name: 'LOGO', value: '', code: 'back_part_1'}, {name: '后跟条', value: '', code: 'back_part_2'}]],
-      colors: ['#000000', '#cccccc', '#ff00dd', '#ff22de', '#cccccc', '#ff00dd', '#ff22de', '#cccccc', '#ff00dd', '#ff22de', '#cccccc', '#ff00dd']
+      [{name: '右侧帮面', value: '', code: 'right_part_1'}/*, {name: '围条', value: '', code: 'right_part_2'}*/, {name: '鞋扣', value: '', code: 'right_part_3'}],
+      [/*{name: '魔术贴', value: '', code: 'front_part_1'}, {name: '鞋头', value: '', code: 'front_part_2'}, {name: '包头片', value: '', code: 'front_part_3'}, {name: '鞋舌', value: '', code: 'front_part_4'}, */{name: '微笑曲线', value: '', code: 'front_part_5'}],
+      [{name: 'LOGO', value: '', code: 'back_part_1'}/*, {name: '后跟条', value: '', code: 'back_part_2'}*/]],
+      colors: ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
     };
   },
   computed: {
@@ -260,6 +260,20 @@ export default {
       //   }
       // })
     },
+    currentPart(v) {
+      switch(v) {
+        case 'back_part_1':
+          this.colors = ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
+          break;
+        case 'back_part_2':
+          this.colors = ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
+          break;
+        case 'front_part_5':
+          this.colors = ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
+          break;
+        default:
+      }
+    }
   }
 };
 </script>

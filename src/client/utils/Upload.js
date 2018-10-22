@@ -4,9 +4,9 @@ import '../../../static/sha1-min';
 import Base64 from '../../../static/base64';
 import utils from './Utils';
 
-let accessid = 'LTAII42mDKxzhxmT';
-let accesskey = 'KlJ8Cm3PwQH2yNzVEKVuRxXs07ybaJ';
-let host = 'http://xd-learn.oss-cn-shenzhen.aliyuncs.com';
+let accessid = 'LTAIBIySKafuaaYh';
+let accesskey = '4LgWJemVuiscrs7UOp2oxoXUqX9ERu';
+let host = 'http://litecoder.oss-cn-shenzhen.aliyuncs.com';
 let policyBase64 = '';
 let signature = '';
 let path = '';
@@ -42,7 +42,7 @@ function getSuffix(filename) {
 }
 
 function setUploadParam(up, filename, ret) {
-  path = `learn/mp3/${utils.formatDate('yyyyMMdd')}/${Date.now()}${getSuffix(filename)}`;
+  path = `kidsing/${utils.formatDate('yyyyMMdd')}/${Date.now()}${getSuffix(filename)}`;
   const newMultipartParams = {
     key: path,
     policy: policyBase64,
@@ -67,7 +67,7 @@ function upload(self, callback, id) {
     container: document.getElementById(id ? `container${id}` : 'container'),
     flash_swf_url: '../../../static/Moxie.swf',
     silverlight_xap_url: '../../../static/Moxie.xap',
-    url: 'http://xd-learn.oss-cn-shenzhen.aliyuncs.com',
+    url: 'http://litecoder.oss-cn-shenzhen.aliyuncs.com',
 
     init: {
       PostInit() {
@@ -92,7 +92,7 @@ function upload(self, callback, id) {
       },
 
       FileUploaded(up, file, info) {
-        callback(`https://xd-learn.oss-cn-shenzhen.aliyuncs.com/${path}`);
+        callback(`https://litecoder.oss-cn-shenzhen.aliyuncs.com/${path}`);
       },
 
       Error(up, err) {

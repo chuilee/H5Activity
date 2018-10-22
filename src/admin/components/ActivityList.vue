@@ -2,10 +2,13 @@
   <div class="activity-list">
     <el-table
       :data="tableData"
+      :default-sort="{prop: 'like', order: 'ascending'}"
+      @sort-change="sortChange"
       style="width: 100%">
       <el-table-column
-        prop="rn"
+        prop="rank"
         label="排名"
+        sortable="custom"
         width="180">
       </el-table-column>
       <el-table-column
@@ -28,10 +31,10 @@
         label="联系电话">
       </el-table-column>
       <el-table-column
+        prop="ctime"
+        sortable="custom"
+        :formatter="formatter"
         label="提交时间">
-        <template slot-scope="scope">
-          <span>{{scope.row.ctime.split(' ')[0]}}</span>
-        </template>
       </el-table-column>
       <el-table-column
         label="最终效果"
@@ -42,6 +45,8 @@
       </el-table-column>
       <el-table-column
         prop="like"
+        @sort-method="sortMethod"
+        sortable="custom"
         label="当前票数"
         width="180">
       </el-table-column>
@@ -63,17 +68,60 @@
     </el-pagination>
     <el-dialog
       title="素材展示"
+      :fullscreen="true"
       :visible.sync="centerDialogVisible"
       width="50%"
       center>
-      
-      <el-carousel height="300px" :autoplay="false">
-        <el-carousel-item v-for="(item, index) in materials" :key="'material'+index">
-          <img v-if="index>3" :src="item" alt="">
-          <div v-else v-html="item" style="width: 99%;"></div>
-        </el-carousel-item>
-      </el-carousel>
-      
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-card :body-style="{ padding: '0px' }">
+            <img :src="materials[5]" class="image">
+            <div style="padding: 14px;">
+              <span>整体效果</span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card :body-style="{ padding: '0px' }">
+            <div v-html="materials[0]" style="height: 380px; width: 300px; margin: 0 auto;"></div>
+            <div style="padding: 14px;">
+              <span>左侧</span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card :body-style="{ padding: '0px' }">
+            <div v-html="materials[1]" style="height: 380px; width: 300px; margin: 0 auto;"></div>
+            <div style="padding: 14px;">
+              <span>右侧</span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card :body-style="{ padding: '0px' }">
+            <div v-html="materials[2]" style="height: 380px; width: 300px; margin: 0 auto;"></div>
+            <div style="padding: 14px;">
+              <span>正面</span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card :body-style="{ padding: '0px' }">
+            <div v-html="materials[3]" style="height: 380px; width: 300px; margin: 0 auto;"></div>
+            <div style="padding: 14px;">
+              <span>后面</span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card :body-style="{ padding: '0px' }">
+            <img :src="materials[4]" class="image">
+            <div style="padding: 14px;">
+              <span>侧面图片</span>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="centerDialogVisible = false">关闭</el-button>
       </span>
@@ -136,6 +184,19 @@ export default {
         }
 
       })
+    },
+    formatter(row, column) {
+      return row.ctime.split(' ')[0];
+    },
+
+    sortChange(order) {
+      let page = this.currentPage;
+      let type = order.prop == 'ctime' ? 'time' : 'like';
+      let sort = order.order == 'descending' ? 'desc' : 'asc';
+      this.getWorksList(page, type, sort);
+    },
+
+    sortMethod(a, b) {
     }
   },
   data() {
@@ -151,9 +212,9 @@ export default {
     };
   },
   created() {
-    
+
   },
-  
+
   mounted() {
     this.currentPage = parseInt(this.$route.params.page, 10)
     this.getWorksList(this.currentPage, this.type, this.order);
@@ -166,38 +227,15 @@ export default {
   table img {
     width: 160px;
   }
-  .el-carousel__item {
-    position: relative;
-    h3 {
-      color: #475669;
-      font-size: 14px;
-      opacity: 0.75;
-      line-height: 150px;
-      margin: 0;
-    }
 
-    svg {
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
-      margin: 0 auto;
-    }
+  .el-card__body img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 380px;
   }
 
-  .el-carousel__item:nth-child(2n) {
-     background-color: #99a9bf;
-  }
-  
-  .el-carousel__item:nth-child(2n+1) {
-     background-color: #d3dce6;
+  .el-col {
+    height: 500px;
   }
 </style>
