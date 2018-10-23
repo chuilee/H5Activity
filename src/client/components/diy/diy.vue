@@ -189,9 +189,11 @@ export default {
       .then((response) => {
         console.log(document.querySelector('#front-container'));
         this.$refs.front_side1.innerHTML = response.body;
-
-        document.querySelectorAll('.left_part_1.right_part_1').forEach((part,index) => {
-          part.setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
+        document.querySelectorAll('.right_part_1').forEach((part,index) => {
+          part.setAttribute('xlink:href', 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg');
+        })
+        document.querySelectorAll('.left_part_1').forEach((part,index) => {
+          part.setAttribute('xlink:href', 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg');
         })
       }, (error) => {
 
@@ -202,6 +204,12 @@ export default {
       .then((response) => {
         console.log(document.querySelector('#back-container'));
         this.$refs.back_side1.innerHTML = response.body;
+        document.querySelectorAll('.right_part_1').forEach((part,index) => {
+          part.setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
+        })
+        document.querySelectorAll('.left_part_1').forEach((part,index) => {
+          part.setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
+        })
       }, (error) => {
 
       });
