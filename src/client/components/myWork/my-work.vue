@@ -19,7 +19,7 @@
                 <p class="no">NO.{{work.work_id}}</p>
                 <div class="clearfix">
                   <div class="like">{{work.like}}</div>
-                  <div class="index">排名 {{work.rn}}</div>
+                  <div class="index">排名 {{work.rank}}</div>
                 </div>
               </div>
               <button class="btn-work"><img :src="likeHim" alt=""></button>

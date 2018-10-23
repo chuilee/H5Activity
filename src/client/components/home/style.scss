@@ -21,7 +21,7 @@
     width: px2rem(724);
     height: px2rem(519);
 
-    @media screen and (min-height: 600px) {
+    @media screen and (min-height: 700px) {
       margin: px2rem(100) auto;
     }
   }
@@ -104,6 +104,7 @@
       font-size: px2rem(26);
       color: #000;
       text-align: center;
+      font-weight: bold;
     }
   }
 

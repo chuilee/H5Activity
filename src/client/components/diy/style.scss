@@ -47,7 +47,7 @@
   .swiper-pagination-fraction,
   .swiper-pagination-custom,
   .swiper-container-horizontal > .swiper-pagination-bullets {
-    bottom: px2rem(80);
+    bottom: px2rem(20);
   }
 
   .swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
@@ -199,23 +199,23 @@
 #front-container,
 #right-container,
 #left-container {
-  padding-left: px2rem(80);
-  padding-right: px2rem(80);
-  height: px2rem(840);
+  padding-left: px2rem(90);
+  padding-right: px2rem(90);
+  height: px2rem(710);
   box-sizing: border-box;
   background: #f1f2ed;
 }
 
 #back-container {
-  padding-left: px2rem(100);
-  padding-right: px2rem(100);
-  padding-top: px2rem(200);
+  padding-left: px2rem(150);
+  padding-right: px2rem(150);
+  padding-top: px2rem(220);
 }
 
 #front-container {
-  padding-left: px2rem(150);
-  padding-right: px2rem(150);
-  padding-top: px2rem(200);
+  padding-left: px2rem(190);
+  padding-right: px2rem(190);
+  padding-top: px2rem(220);
 }
 
 #right-container {

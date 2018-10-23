@@ -63,6 +63,7 @@ export default {
 
         /* 加载并绘制作品 */
         const work = new Image();
+        work.setAttribute('crossOrigin', 'anonymous');
         work.onload = () => {
           ctx.drawImage(
             work,
@@ -99,9 +100,9 @@ export default {
             percent55.height * w_ratio);
           cb();
         };
-        percent55.src = this.percent55;
+        percent55.src = window.location.origin + this.percent55;
       };
-      canvasbg.src = this.canvasbg;
+      canvasbg.src = window.location.origin + this.canvasbg;
     },
     goRouter(route) {
       this.$router.push({

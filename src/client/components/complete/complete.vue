@@ -51,7 +51,8 @@ export default {
         this.$refs.left_side.innerHTML = response.body;
 
         document.querySelectorAll('.left_part_1').forEach((part,index) => {
-          part.setAttribute('xlink:href', decodeURIComponent(Utils.getcookie('image_url')));
+          part.setAttribute('crossOrigin', '')
+          part.setAttribute('xlink:href', decodeURIComponent(Utils.getcookie('image_url')).split(';')[0]);
         })
 
         this.parts.forEach((part, index) => {
@@ -85,32 +86,27 @@ export default {
       canvas.height = 460 * w_ratio;
       canvas.style.width = canvas.width / 2 + "px";
       canvas.style.height = canvas.height / 2 + "px";
- 
-      
+
+
       let svg = this.$refs.left_side.innerHTML;
 
       that.drawImgs(ctx, w_ratio, () => {
-        ctx.drawSvg(svg, 50*w_ratio, 110*w_ratio, 295*w_ratio, 190*w_ratio);
-        setTimeout(() => {
-          // that.uploaded = true;
-          that.workImg = canvas.toDataURL("image/jpg");
-          that.upload(); // 上传服务器
-        }, 1000);
-        // canvg(canvas, svg, {
-        //   scaleWidth: 351.6*w_ratio,
-        //   scaleHeight: 227.1*w_ratio,
-        //   useCORS: true,
-        //   renderCallback: () => {
-        //     that.uploaded = true;
-        //     that.workImg = canvas.toDataURL("image/png");
-        //     // that.upload(); // 上传服务器
-        //   }
-        // })
-
-        
+        // ctx.drawSvg(svg, 50*w_ratio, 110*w_ratio, 295*w_ratio, 190*w_ratio);
+        // that.uploaded = true;
+        // that.workImg = canvas.toDataURL("image/jpg");
+          // that.upload(); // 上传服务器
+        canvg(canvas, svg, {
+          scaleWidth: 351.6*w_ratio,
+          scaleHeight: 227.1*w_ratio,
+          useCORS: true,
+          ignoreClear: true,
+          renderCallback: () => {
+            // that.uploaded = true;
+            that.workImg = canvas.toDataURL("image/jpg");
+            that.upload(); // 上传服务器
+          }
+        })
       })
-
-      
     },
 
     drawImgs(ctx, w_ratio, cb) {
@@ -125,14 +121,14 @@ export default {
           workbg.height * w_ratio);
         cb();
       };
-      workbg.src = this.workbg;
+      workbg.src = window.location.origin + this.workbg;
     },
 
     goRebuild() {
       this.parts.forEach((part, index) => {
         // debugger
-        Utils.addcookie(part, ''); 
-        Utils.addcookie('image_url', ''); 
+        Utils.addcookie(part, '');
+        Utils.addcookie('image_url', '');
       })
       this.$router.push({
         name: 'diy'
@@ -147,8 +143,7 @@ export default {
 
     },
     upload() {
-      
-
+      // alert('upload');
       api.updateUserInfo(this, {
         real_name: 'username',
         address: '',

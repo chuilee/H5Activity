@@ -109,6 +109,7 @@ export default {
       text_back,
       text_right,
       text_left,
+      uploadimgs: ['null', 'null'],
       isUploadSuccess1: 0,
       percent1: 0,
       sendPic: '',
@@ -142,7 +143,12 @@ export default {
     console.log(Upload.upload)
     this.sendPic = Upload.upload(this, (url) => {
       console.log(url)
-      Utils.addcookie('image_url', url);
+      if (this.currentPart == 'left_part_1') {
+        this.uploadimgs[0] = url;
+      }
+      if (this.currentPart == 'right_part_1') {
+        this.uploadimgs[1] = url;
+      }
       document.querySelectorAll('.' + this.currentPart).forEach((part,index) => {
         part.setAttribute('xlink:href', url);
       })
@@ -244,6 +250,16 @@ export default {
       window.right_side = this.$refs.right_side1.innerHTML;
       window.front_side = this.$refs.front_side1.innerHTML;
       window.back_side = this.$refs.back_side1.innerHTML;
+
+      if (this.uploadimgs[0] == 'null') {
+        return Toast('左侧帮面图片还没上传哦')
+      }
+
+      if (this.uploadimgs[1] == 'null') {
+        return Toast('右侧帮面图片还没上传哦')
+      }
+
+      Utils.addcookie('image_url', this.uploadimgs.join(';'));
 
       this.$router.push({
         name: 'complete'

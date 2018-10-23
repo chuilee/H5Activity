@@ -19,7 +19,7 @@
         label="用户头像"
         width="180">
         <template slot-scope="scope">
-          <img :src="scope.row.img_url" />
+          <img :src="scope.row.head_img" />
         </template>
       </el-table-column>
       <el-table-column
@@ -27,7 +27,7 @@
         label="用户名称">
       </el-table-column>
       <el-table-column
-        prop="rn"
+        prop="mobile"
         label="联系电话">
       </el-table-column>
       <el-table-column
@@ -75,7 +75,7 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-card :body-style="{ padding: '0px' }">
-            <img :src="materials[5]" class="image">
+            <img :src="materials[4]" class="image">
             <div style="padding: 14px;">
               <span>整体效果</span>
             </div>
@@ -115,9 +115,17 @@
         </el-col>
         <el-col :span="8">
           <el-card :body-style="{ padding: '0px' }">
-            <img :src="materials[4]" class="image">
+            <img :src="uploadimgs[0]" class="image">
             <div style="padding: 14px;">
-              <span>侧面图片</span>
+              <span>左侧面图片</span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card :body-style="{ padding: '0px' }">
+            <img :src="uploadimgs[1]" class="image">
+            <div style="padding: 14px;">
+              <span>右侧面图片</span>
             </div>
           </el-card>
         </el-col>
@@ -142,8 +150,9 @@ export default {
         this.centerDialogVisible = true;
         console.log(response.body)
         const sides = response.body.repBody[0]
-        this.materials = [sides.left, sides.right, sides.front, sides.back, sides.img_url];
+        this.materials = [sides.left, sides.right, sides.front, sides.back];
         this.materials.push(img_url);
+        this.uploadimgs = sides.img_url.split(';').length == 2 ? sides.img_url.split(';') : [sides.img_url, sides.img_url]
         console.log(this.materials)
       })
     },
@@ -208,7 +217,8 @@ export default {
       centerDialogVisible: false,
       materials: [],
       type: 'like',
-      order: 'desc'
+      order: 'desc',
+      uploadimgs: ['null', 'null']
     };
   },
   created() {

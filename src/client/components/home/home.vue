@@ -60,7 +60,7 @@
 import Bscroll from 'better-scroll';
 import { Toast } from 'mint-ui';
 
-const start = require('../../assets/images/btn-start1.png');
+const start = require('../../assets/images/btn-start.png');
 const kids = require('../../assets/images/shoes.png');
 const details = require('../../assets/images/btn-details1.png');
 const rank = require('../../assets/images/btn-rank1.png');
