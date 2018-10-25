@@ -216,6 +216,21 @@
   padding-left: px2rem(190);
   padding-right: px2rem(190);
   padding-top: px2rem(220);
+
+  .right_part_1 {
+    transform: rotate(90deg) translate(0, -60px);
+    transform-origin: 0 0;
+  }
+
+  .left_part_1 {
+    transform: rotate(90deg) translate(0, -60px);
+    transform-origin: 0 0;
+  }
+
+  .right_part_1_2 {
+    transform: rotate(90deg) translate(-380px, -60px);
+    transform-origin: 0 190px;
+  }
 }
 
 #right-container {
@@ -225,3 +240,4 @@
 #left-container {
   padding-top: px2rem(260);
 }
+
