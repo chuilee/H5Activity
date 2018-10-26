@@ -58,13 +58,13 @@
 	c0.6-0.1,0.9-0.1,0.9-0.1c2.6,8,8.1,41.2,4.8,61.7c-0.2,1.4-0.5,2.8-0.8,4c-0.2,0.8-0.4,1.5-0.6,2.3c-1.4,3.3-9.4,5.9-18.7,6.9
 	L334,396.7z"/>
 <g style="clip-path:url(#clipPath8_1);" width="60" height="310" x="0" y="0">
-	<image xmlns:link="http://www.w3.org/1999/xlink" class="right_part_1" xlink:href="" width="30" height="80" x="330" y="395" preserveAspectRatio="none"/>
+	<image xmlns:link="http://www.w3.org/1999/xlink" class="right_part_1" xlink:href="" width="230" height="80" x="330" y="395" preserveAspectRatio="none"/>
 	</g>
 <path fill="#FFFFFF" stroke="#040000" stroke-width="0.3386" d="M306.9,395.9L306.9,395.9c0.4,0,0.8,0,1.2,0.1
 	c4.7,0.4,9.3,0.6,13.6,0.8l-1.1,74.2c-9.3-0.8-17.5-3.5-19.8-8.8c-0.1-0.3-0.1-0.7-0.2-1.3l0,0C299.4,452,300.6,408.3,306.9,395.9z"
 	/>
 <g style="clip-path:url(#clipPath7_1);" width="60" height="310" x="0" y="0">
-<image xmlns:link="http://www.w3.org/1999/xlink" class="left_part_1" xlink:href="" width="30" height="80" x="295" y="395" preserveAspectRatio="none"/>
+<image xmlns:link="http://www.w3.org/1999/xlink" class="left_part_1" xlink:href="" width="230" height="80" x="295" y="395" preserveAspectRatio="none"/>
 </g>
 <path fill="#FFFFFF" stroke="#040000" stroke-width="0.3386" d="M333.9,396.4"/>
 <path fill="#FFFFFF" stroke="#040000" stroke-width="0.3386" d="M335,470.4"/>
@@ -150,7 +150,7 @@
 		c-0.6-0.1-0.9-0.1-0.9-0.1c-2.6,8-8.1,41.2-4.8,61.7c0.2,1.4,0.5,2.8,0.8,4c0.2,0.8,0.4,1.5,0.6,2.3c1.4,3.3,9.4,5.9,18.7,6.9
 		L252.1,396.6z"/>
 	<g style="clip-path:url(#clipPath7);" width="60" height="310" x="0" y="0">
-	<image xmlns:link="http://www.w3.org/1999/xlink" class="left_part_1" xlink:href="" width="30" height="80" x="225" y="395" preserveAspectRatio="none"/>
+	<image xmlns:link="http://www.w3.org/1999/xlink" class="left_part_1" xlink:href="" width="230" height="80" x="225" y="395" preserveAspectRatio="none"/>
 	</g>
 	<path fill="#FFFFFF" stroke="#040000" stroke-width="0.3386" d="M252.7,470.8c2,0.1,4,0.3,5.9,0.3L252.7,470.8z"/>
 	<path fill="#FFFFFF" stroke="#040000" stroke-width="0.3386" d="M258.9,471c2.1,0,4.2-0.1,6.3-0.2L258.9,471z"/>
@@ -158,7 +158,7 @@
 		c-0.4,0-0.8,0-1.2,0.1c-4.7,0.4-9.3,0.6-13.6,0.8l1.1,74.2c9.3-0.8,17.5-3.5,19.8-8.8c0.1-0.3,0.1-0.7,0.2-1.3l0,0
 		C286.7,451.9,285.6,408.2,279.2,395.8z"/>
 	<g style="clip-path:url(#clipPath8);" width="60" height="310" x="0" y="0">
-	<image xmlns:link="http://www.w3.org/1999/xlink" class="right_part_1" xlink:href="" width="30" height="80" x="260" y="395" preserveAspectRatio="none"/>
+	<image xmlns:link="http://www.w3.org/1999/xlink" class="right_part_1" xlink:href="" width="230" height="80" x="260" y="395" preserveAspectRatio="none"/>
 	</g>
 </g>
 <line fill="none" stroke="#040000" stroke-width="0.25" stroke-linecap="round" stroke-dasharray="1,1" x1="262.5" y1="396.7" x2="263.6" y2="470.9"/>

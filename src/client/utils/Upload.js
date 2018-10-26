@@ -1,3 +1,6 @@
+import {
+  Indicator
+} from 'mint-ui';
 import '../../../static/crypto-min';
 import '../../../static/hmac-min';
 import '../../../static/sha1-min';
@@ -76,6 +79,7 @@ function upload(self, callback, id) {
 
       FilesAdded(up, files) {
         console.log(files)
+        Indicator.open('图片正在上传...');
         setUploadParam(uploader, '', false);
       },
 
@@ -92,6 +96,7 @@ function upload(self, callback, id) {
       },
 
       FileUploaded(up, file, info) {
+        Indicator.close();
         callback(`https://litecoder.oss-cn-shenzhen.aliyuncs.com/${path}`);
       },
 

@@ -37,14 +37,14 @@ export default {
       share: {
         title: 'DIY童鞋定制大赛',
         desc: 'KIDS.ING定制大赛，DIY宝宝的专属童鞋！',
-        url: '',
-        img: ''
+        url: 'http://kidsing.litecoder.com/kids/index',
+        img: 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg'
       },
       share2: {
-        title: 'DIY童鞋定制大赛',
-        desc: 'KIDS.ING定制大赛，DIY宝宝的专属童鞋！',
-        url: '',
-        img: ''
+        title: '为我助力吧',
+        desc: '为我助力吧，KIDS.ING定制大赛，DIY宝宝的专属童鞋！',
+        url: 'http://kidsing.litecoder.com/kids/index',
+        img: 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg'
       }
     }
   },
@@ -63,20 +63,36 @@ export default {
       jsurl: window.location.href
     }, (response) => {
       wx.config(response.body.repBody, false, () => {
-        wx.share(this.share.title, this.share.desc, this.share.url, this.share.img);
+        const id = utils.getQueryStringByName('share');
+        if (id !== '') {
+          this.share2.url = `http://kidsing.litecoder.com/kids/index?share=${id}`;
+          wx.share(this.share2.title, this.share2.desc, this.share2.url, this.share2.img);
+        } else {
+          wx.share(this.share.title, this.share.desc, this.share.url, this.share.img);
+        }
       })
     }, (err) => {
 
     })
   },
   mounted() {
-    var audio = document.querySelector("#audio");
+    const audio = document.querySelector("#audio");
     document.addEventListener("WeixinJSBridgeReady", () => {
       // this.isPlay = true;
       audio.play();
     }, false);
 
     this.$refs.goback.style.display = 'none';
+
+    const id = utils.getQueryStringByName('share');
+    if (id !== '') {
+      this.$router.push({
+        name: 'share',
+        params: {
+          id: id
+        }
+      })
+    }
   },
   methods: {
     toggleAudio() {
@@ -101,7 +117,8 @@ export default {
   watch: {
     '$route' (to, from) {
       console.log(to);
-      if (to.name == 'share') {
+      if (to.name == 'share' || to.name == 'work-details') {
+        this.share2.url = `http://kidsing.litecoder.com/kids/index?share=${this.$route.params.id}`;
         wx.share(this.share2.title, this.share2.desc, this.share2.url, this.share2.img);
       } else {
         wx.share(this.share.title, this.share.desc, this.share.url, this.share.img);

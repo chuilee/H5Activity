@@ -1,5 +1,10 @@
 @import '../../assets/style/mixins/_mixins.scss';
 
+.mint-indicator {
+  position: relative;
+  z-index: 99;
+}
+
 .diy-page {
   background: #fff;
 
@@ -210,6 +215,16 @@
   padding-left: px2rem(150);
   padding-right: px2rem(150);
   padding-top: px2rem(220);
+
+  .right_part_1 {
+    transform: translate(0%, 0);
+    transform-origin: 0 0;
+  }
+
+  .left_part_1 {
+    transform: translate(-160%, 0);
+    transform-origin: 0 0;
+  }
 }
 
 #front-container {
@@ -223,7 +238,12 @@
   }
 
   .left_part_1 {
-    transform: rotate(90deg) translate(0, -60px);
+    transform: rotateY(180deg) rotate(90deg);
+    transform-origin: 0 0;
+  }
+  
+  .left_part_1_2 {
+    transform: rotateY(180deg) rotate(90deg);
     transform-origin: 0 0;
   }
 

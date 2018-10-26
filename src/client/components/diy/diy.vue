@@ -70,7 +70,6 @@
 </template>
 
 <script>
-import { Toast } from 'mint-ui';
 import 'swiper/dist/css/swiper.css';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import Bscroll from 'better-scroll';
@@ -143,6 +142,7 @@ export default {
     console.log(Upload.upload)
     this.sendPic = Upload.upload(this, (url) => {
       console.log(url)
+      // Indicator.close();
       if (this.currentPart == 'left_part_1') {
         this.uploadimgs[0] = url;
       }
@@ -163,7 +163,7 @@ export default {
         //   console.log(item)
         //   item.style.fill='red';
         // })
-        // document.querySelector('#imgPath').setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
+        // document.querySelector('#imgPath').setAttribute('xlink:href', 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg');
 
         // this.createWork();
         // this.workImg = 'data:image/svg+xml;base64,' +  window.btoa(unescape(encodeURIComponent(svg)))
@@ -205,10 +205,10 @@ export default {
         console.log(document.querySelector('#back-container'));
         this.$refs.back_side1.innerHTML = response.body;
         document.querySelectorAll('.right_part_1').forEach((part,index) => {
-          part.setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
+          part.setAttribute('xlink:href', 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg');
         })
         document.querySelectorAll('.left_part_1').forEach((part,index) => {
-          part.setAttribute('xlink:href', 'https://xd-learn.oss-cn-shenzhen.aliyuncs.com/learn/mp3/20181011/1539246726879.jpg');
+          part.setAttribute('xlink:href', 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg');
         })
       }, (error) => {
 
@@ -225,6 +225,7 @@ export default {
   methods: {
     uploadPic() {
       // console.log(this.sendPic)
+      Indicator.open('正在上传图片...');
       Upload.setUploadParam(this.sendPic, '')
     },
 

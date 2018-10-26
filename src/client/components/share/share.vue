@@ -12,7 +12,7 @@
     <button v-show="!liked" class="btn-like-hime" @click="likeHim"><img :src="btnLike" alt=""></button>
     <div class="flex-wrp btns" v-show="liked">
       <div class="flex-item">
-        <button class="btn-goon" @click="goRouter('ho')"><img :src="btnCreate" alt=""></button>
+        <button class="btn-goon" @click="goRouter('home')"><img :src="btnCreate" alt=""></button>
       </div>
       <div class="flex-item">
         <button class="btn-viewlist" @click="invite"><img :src="btnMore" alt=""></button>
