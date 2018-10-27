@@ -23,7 +23,10 @@ const slogan = require('../../assets/images/finish-slogan.png');
 const input = require('../../assets/images/input-bg.png');
 const btnDone = require('../../assets/images/btn-done.png');
 const shoe_left = require('../diy/images/shoe_left.svg');
-const workbg = require("../../assets/images/work-bg.jpg");
+const workbg1 = require("../../assets/images/work-bg1.jpg");
+const workbg2 = require("../../assets/images/work-bg2.jpg");
+const workbg3 = require("../../assets/images/work-bg3.jpg");
+const workbg4 = require("../../assets/images/work-bg4.jpg");
 
 export default {
   name: 'complete',
@@ -34,7 +37,7 @@ export default {
       input,
       btnDone,
       shoe_left,
-      workbg,
+      workbg: [workbg1, workbg2, workbg3, workbg4],
       phone: '13112312312',
       workImg: '',
       uploaded: false,
@@ -82,8 +85,8 @@ export default {
 
       const w_ratio = w / 375;
 
-      canvas.width = 500 * w_ratio;
-      canvas.height = 460 * w_ratio;
+      canvas.width = 508 * w_ratio;
+      canvas.height = 484 * w_ratio;
       canvas.style.width = canvas.width / 2 + "px";
       canvas.style.height = canvas.height / 2 + "px";
 
@@ -96,8 +99,10 @@ export default {
         // that.workImg = canvas.toDataURL("image/jpg");
           // that.upload(); // 上传服务器
         canvg(canvas, svg, {
-          scaleWidth: 351.6*w_ratio,
-          scaleHeight: 227.1*w_ratio,
+          scaleWidth: 351.6*w_ratio*0.7,
+          scaleHeight: 227.1*w_ratio*0.7,
+          offsetX:147*0.7,
+          offsetY:107*0.7,
           useCORS: true,
           ignoreClear: true,
           renderCallback: () => {
@@ -121,7 +126,7 @@ export default {
           workbg.height * w_ratio);
         cb();
       };
-      workbg.src = window.location.origin + this.workbg;
+      workbg.src = window.location.origin + this.workbg[Math.floor(Math.random()*4)];
     },
 
     goRebuild() {
@@ -167,6 +172,7 @@ export default {
                 work_id: response.body.repBody.work_id,
                 img_url: decodeURIComponent(Utils.getcookie('image_url'))
               }, (success1) => {
+                // this.uploaded = true;
                 this.$router.push({
                   name: 'work-details',
                   params: {

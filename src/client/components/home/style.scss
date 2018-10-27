@@ -4,22 +4,23 @@
   .diy-slogan {
     display: block;
     margin: px2rem(40) auto px2rem(20);
-    width: px2rem(714);
-    height: px2rem(270);
+    width: px2rem(662);
+    height: px2rem(333);
   }
   .btn-details {
     position: absolute;
-    top: px2rem(342);
-    right: - px2rem(4);
+    top: px2rem(392);
+    right: - px2rem(8);
     width: px2rem(178);
     height: px2rem(65);
   }
 
   .kids {
     display: block;
-    margin: px2rem(50) auto;
-    width: px2rem(724);
-    height: px2rem(519);
+    margin: - px2rem(60) auto;
+    margin-top: - px2rem(160);
+    width: px2rem(750);
+    height: px2rem(714);
 
     @media screen and (min-height: 700px) {
       margin: px2rem(100) auto;

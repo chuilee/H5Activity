@@ -1,6 +1,12 @@
 @import '../../assets/style/mixins/_mixins.scss';
 
+.page-view {
+  width: 100%;
+}
+
 .rank-page {
+  width: 100%;
+
   .rank-container {
     padding-bottom: px2rem(40);
   }
@@ -67,22 +73,26 @@
 
   .rank-list {
     position: relative;
-    margin: - px2rem(20) auto 0;
-    padding-top: px2rem(70);
+    margin: - px2rem(24) auto 0;
     width: px2rem(712);
-    height: px2rem(1187);
-    background: url(../../assets/images/rank-bg.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: left bottom;
     z-index: 2;
     box-sizing: border-box;
+
+    .rank-bg {
+      display: block;
+      width: px2rem(712);
+    }
 
     .work-container {
       float: left;
       width: 50%;
       padding: px2rem(20);
       box-sizing: border-box;
+    }
+
+    .bscroll-wrapper {
+      background: url(../../assets/images/rank-bg_3.png) repeat-y 0 0;
+      background-size: 100% auto;
     }
   }
 
@@ -97,7 +107,6 @@
   .bscroll-wrapper {
     padding-bottom: px2rem(80);
     width: px2rem(712);
-    height: px2rem(1060);
     overflow: hidden;
     box-sizing: border-box;
   }
@@ -142,6 +151,36 @@
       float: left;
       font-size: px2rem(36);
       line-height: 1;
+    }
+  }
+
+  .work-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .35);
+    z-index: 100;
+
+    .work {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: px2rem(500);
+      height: px2rem(460);
+    }
+
+    .btn-close {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, px2rem(260));
+      width: px2rem(64);
+      height: px2rem(64);
     }
   }
 }

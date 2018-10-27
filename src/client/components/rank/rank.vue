@@ -1,5 +1,7 @@
 <template>
-  <div class="page rank-page">
+
+  <div class="page rank-page" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+    <!-- <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore"> -->
     <img class="rank-title" :src="title" alt="">
     <div class="search">
       <img :src="search" alt="">
@@ -15,15 +17,16 @@
         </div>
       </div>
       <div class="rank-list clearfix">
+        <img class="rank-bg" :src="rankBg1" alt="">
         <div class="bscroll-wrapper" ref="rankBScroll">
           <div class="bscroll-container clearfix">
             <div class="work-container"
               v-for="(work, index) in works"
               v-bind:key="'work'+index">
               <div class="work-item">
-                <div class="img">
+                <button class="img" @click="getWork(work.img_url)">
                   <img :src="work.img_url" alt="">
-                </div>
+                </button>
                 <p class="no">NO.{{work.work_id}}</p>
                 <div class="clearfix">
                   <div class="like">{{work.like}}</div>
@@ -34,8 +37,14 @@
             </div>
           </div>
         </div>
+        <img class="rank-bg" :src="rankBg2" alt="">
       </div>
     </div>
+    <div class="work-preview" v-show="preview">
+      <img class="work" :src="thumb" alt="">
+      <button class="btn-close" @click="preview = false"><img :src="btnClose" alt=""></button>
+    </div>
+  <!-- </mt-loadmore> -->
   </div>
 </template>
 
@@ -51,6 +60,9 @@ const search = require('../../assets/images/search-bg.png');
 const rankAll = require('../../assets/images/rank-all.png');
 const rankNew = require('../../assets/images/rank-new.png');
 const likeHim = require('../../assets/images/btn-like-him.png');
+const btnClose = require('../../assets/images/btn-close.png');
+const rankBg1 = require('../../assets/images/rank-bg_1.png');
+const rankBg2 = require('../../assets/images/rank-bg_2.png');
 
 export default {
   name: 'rank',
@@ -60,9 +72,16 @@ export default {
       search,
       rankAll,
       rankNew,
+      btnClose,
       likeHim,
+      rankBg1,
+      rankBg2,
+      allLoaded: false,
+      wrapperHeight: 0,
       works: [],
       workid: '',
+      thumb: '',
+      preview: false,
       currentRank: 'like' // type=like就是点赞榜单,type=time就是新榜
     };
   },
@@ -71,25 +90,31 @@ export default {
   },
   mounted() {
     // this.searchWorks('like')
+    this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
   },
   methods: {
+    loadBottom(id) {
+      this.searchWorks(this.currentRank);
+      this.allLoaded = true;
+      this.$refs.loadmore.onBottomLoaded();
+    },
     searchWorks(type) {
       this.currentRank = type;
 
       api.getIndex(this, {
         type: type,
         page_num: 1,
-        page_size: 9999,
+        page_size: 10000,
       }, (response) => {
         console.log(response.body.repBody)
         this.works = response.body.repBody.works;
-        this.$nextTick(() => {
-          if (!this.scroll) {
-            this.scroll = new Bscroll(this.$refs.rankBScroll, {})
-          } else {
-            this.scroll.refresh()
-          }
-        })
+        // this.$nextTick(() => {
+        //   if (!this.scroll) {
+        //     this.scroll = new Bscroll(this.$refs.rankBScroll, {})
+        //   } else {
+        //     this.scroll.refresh()
+        //   }
+        // })
       }, (err) => {
 
       })
@@ -124,6 +149,11 @@ export default {
       }, (err) => {
 
       })
+    },
+
+    getWork(img_url) {
+      this.thumb = img_url;
+      this.preview = true;
     },
   },
   watch: {

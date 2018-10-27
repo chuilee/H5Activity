@@ -67,6 +67,12 @@ export default {
         if (id !== '') {
           this.share2.url = `http://kidsing.litecoder.com/kids/index?share=${id}`;
           wx.share(this.share2.title, this.share2.desc, this.share2.url, this.share2.img);
+              this.$router.push({
+            name: 'share',
+            params: {
+              id: id
+            }
+          })
         } else {
           wx.share(this.share.title, this.share.desc, this.share.url, this.share.img);
         }
@@ -84,15 +90,7 @@ export default {
 
     this.$refs.goback.style.display = 'none';
 
-    const id = utils.getQueryStringByName('share');
-    if (id !== '') {
-      this.$router.push({
-        name: 'share',
-        params: {
-          id: id
-        }
-      })
-    }
+    
   },
   methods: {
     toggleAudio() {

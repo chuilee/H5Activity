@@ -39,6 +39,10 @@
     z-index: 10;
   }
 
+  .swiper-container {
+    pointer-events: none;
+  }
+
   .swiper-pagination-bullet {
     border: px2rem(4) solid transparent;
     width: px2rem(20);

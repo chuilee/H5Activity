@@ -1,7 +1,7 @@
 <template>
   <div class="page diy-page">
     <img class="logo" :src="logo" alt="">
-    <swiper :options="swiperOption" ref="mySwiper">
+    <swiper :options="swiperOption" ref="mySwiper" :prevent="true">
       <swiper-slide>
         <div id="left-container" ref="left_side1" style="width: 100%"></div>
       </swiper-slide>

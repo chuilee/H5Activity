@@ -1,4 +1,5 @@
 import {
+  Toast,
   Indicator
 } from 'mint-ui';
 import '../../../static/crypto-min';
@@ -66,7 +67,7 @@ function upload(self, callback, id) {
   const uploader = new plupload.Uploader({
     runtimes: 'html5,flash,silverlight,html4',
     browse_button: id ? `selectfiles${id}` : 'selectfiles',
-    // multi_selection: false,
+    multi_selection: false,
     container: document.getElementById(id ? `container${id}` : 'container'),
     flash_swf_url: '../../../static/Moxie.swf',
     silverlight_xap_url: '../../../static/Moxie.xap',
@@ -79,11 +80,16 @@ function upload(self, callback, id) {
 
       FilesAdded(up, files) {
         console.log(files)
-        Indicator.open('图片正在上传...');
         setUploadParam(uploader, '', false);
       },
 
       BeforeUpload(up, file) {
+        // alert(file.name)
+        if (/.(vob|ifo|mpg|mpeg|dat|mp4|3gp|mov|rm|ram|rmvb|wmv|asf|avi|asx)$/.test(file.name.toLowerCase())) {
+          Toast('请上传图片文件')
+          return;
+        }
+        Indicator.open('图片正在上传...');
         setUploadParam(up, file.name, true);
       },
 

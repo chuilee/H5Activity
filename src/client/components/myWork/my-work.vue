@@ -22,7 +22,7 @@
                   <div class="index">排名 {{work.rank}}</div>
                 </div>
               </div>
-              <button class="btn-work"><img :src="likeHim" alt=""></button>
+              <button class="btn-work" @click="goRouter('work-details', work.work_id)"><img :src="likeHim" alt=""></button>
             </div>
             <div class="work-container">
               <button class="work-item create" @click="goRouter('diy')">
@@ -97,10 +97,20 @@ export default {
       this.preview = true;
     },
 
-    goRouter(route) {
-      this.$router.push({
-        name: route
-      })
+    goRouter(route, id) {
+      if (id) {
+        this.$router.push({
+          name: route,
+          params: {
+            id: id
+          }
+        })
+      } else {
+        this.$router.push({
+          name: route
+        })
+      }
+      
     }
   },
   watch: {

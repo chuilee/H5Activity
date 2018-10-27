@@ -35,6 +35,10 @@ button {
     outline: none;
   }
 
+  &:active {
+    background-color: none;
+  }
+
   img {
     display: block;
     width: 100%;
@@ -77,7 +81,7 @@ img {
   flex: 1;
 }
 .btn-back {
-  position: absolute;
+  position: fixed;
   top: px2rem(20);
   left: px2rem(20);
   width: px2rem(60);
@@ -145,7 +149,7 @@ img {
 }
 
 .music-warp{
-  position: absolute;
+  position: fixed;
   right: px2rem(30);
   top: px2rem(10);
   font-size: 0;
