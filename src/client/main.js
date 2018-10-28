@@ -5,14 +5,21 @@ import VueResource from 'vue-resource';
 import VueBus from 'vue-bus';
 
 import MintUI from 'mint-ui';
+import {
+  VueHammer,
+} from 'vue2-hammer';
 
 import App from './App';
 import router from './router';
 
 Vue.config.productionTip = false;
+VueHammer.config.pinch = {
+  threshold: 0,
+};
 Vue.use(VueResource);
 Vue.use(VueBus);
 Vue.use(MintUI);
+Vue.use(VueHammer);
 
 /* eslint-disable no-new */
 new Vue({

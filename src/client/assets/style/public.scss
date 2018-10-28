@@ -153,7 +153,7 @@ img {
   right: px2rem(30);
   top: px2rem(10);
   font-size: 0;
-  z-index: 9;
+  z-index: 19;
   img{
     width: px2rem(80);
     pointer-events: auto;
@@ -163,7 +163,7 @@ img {
   animation: roll 5s linear infinite;
 }
 
-@keyframes roll{
+@keyframes roll {
   0%{transform: rotate(0deg);}
   100%{transform: rotate(360deg);}
 }

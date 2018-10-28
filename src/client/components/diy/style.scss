@@ -36,11 +36,20 @@
     right: px2rem(30);
     width: px2rem(256);
     height: px2rem(72);
-    z-index: 10;
+    z-index: 100;
   }
 
   .swiper-container {
     pointer-events: none;
+  }
+
+  .hammer-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: px2rem(750);
+    height: px2rem(750);
+    z-index: 10;
   }
 
   .swiper-pagination-bullet {

@@ -16,6 +16,10 @@
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
+    <a
+      class="hammer-container"
+      v-hammer:pan="onPan"
+      v-hammer:pinch="onPinch">{{hammerInfo}}</a>
     <button class="btn-finished" @click="complete"><img :src="finished" alt=""></button>
     <div class="side-container">
       <div class="side-items flex-wrp">
@@ -70,6 +74,7 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui';
 import 'swiper/dist/css/swiper.css';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import Bscroll from 'better-scroll';
@@ -112,6 +117,15 @@ export default {
       isUploadSuccess1: 0,
       percent1: 0,
       sendPic: '',
+      hammerInfo: '',
+      left_pos: {
+        x: 0,
+        y: 0
+      },
+      right_pos: {
+        x: 0,
+        y: 0
+      },
       swiperOption: {
         pagination: {
           el: '.swiper-pagination',
@@ -143,15 +157,60 @@ export default {
     this.sendPic = Upload.upload(this, (url) => {
       console.log(url)
       // Indicator.close();
-      if (this.currentPart == 'left_part_1') {
-        this.uploadimgs[0] = url;
+      const uploadimg = new Image();
+      uploadimg.onload = () => {
+        console.log(uploadimg.width, uploadimg.height)
+        const img_ratio = uploadimg.width / uploadimg.height;
+        const left_ratio = 222/126;
+        const right_ratio = 226/126;
+        const $leftupload = document.getElementById('left_upload');
+        const $rightupload = document.getElementById('right_upload');
+        let width = 0;
+        let height = 0;
+        let x = 0;
+        let y = 0;
+        if (this.currentPart == 'left_part_1') {
+          this.uploadimgs[0] = url;
+          if (img_ratio > left_ratio) {
+            height = 165;
+            width = uploadimg.width*height/uploadimg.height;
+          }else{
+            width = 296;
+            height = uploadimg.height*width/uploadimg.width;
+          }
+          $leftupload.setAttribute('width', width);
+          $leftupload.setAttribute('height', height);
+          this.left_pos = {
+            x: $leftupload.getBBox().x,
+            y: $leftupload.getBBox().y
+          }
+          Utils.addcookie('img_width', width);
+          Utils.addcookie('img_height', height);
+          Utils.addcookie('img_x', this.left_pos.x);
+          Utils.addcookie('img_y', this.left_pos.y);
+          Utils.addcookie('img_scale', 1);
+        }
+        if (this.currentPart == 'right_part_1') {
+          this.uploadimgs[1] = url;
+          if (img_ratio > right_ratio) {
+            height = 130;
+            width = uploadimg.width*height/uploadimg.height;
+          }else{
+            width = 234;
+            height = uploadimg.height*width/uploadimg.width;
+          }
+          $rightupload.setAttribute('width', width);
+          $rightupload.setAttribute('height', height);
+          this.right_pos = {
+            x: $rightupload.getBBox().x,
+            y: $rightupload.getBBox().y
+          }
+        }
+        document.querySelectorAll('.' + this.currentPart).forEach((part,index) => {
+          part.setAttribute('xlink:href', url);
+        })
       }
-      if (this.currentPart == 'right_part_1') {
-        this.uploadimgs[1] = url;
-      }
-      document.querySelectorAll('.' + this.currentPart).forEach((part,index) => {
-        part.setAttribute('xlink:href', url);
-      })
+      uploadimg.src = url
     }, 1);
 
     // 左侧面
@@ -159,6 +218,7 @@ export default {
       .then((response) => {
         console.log(document.querySelector('#left-container'));
         this.$refs.left_side1.innerHTML = response.body;
+
         // document.querySelectorAll('.part2').forEach((item, index) => {
         //   console.log(item)
         //   item.style.fill='red';
@@ -247,7 +307,9 @@ export default {
         Utils.addcookie(this.currentPart, color);
         if (this.currentPart == 'front_part_5') {
           item.style.stroke = color;
-          document.querySelector('.left_side.'+this.currentPart).style.fill = color;
+          document.querySelectorAll('.left_side.'+this.currentPart).forEach((side, index) => {
+            side.style.fill = color;
+          });
         } else {
           item.style.fill = color;
         }
@@ -273,6 +335,65 @@ export default {
       this.$router.push({
         name: 'complete'
       })
+    },
+
+    onPan(ev) {
+      this.hammerInfo = `move: ${ev.deltaX} ${ev.deltaY}`;
+      let $left = document.getElementById('left_upload');
+      let $right = document.getElementById('right_upload');
+      // debugger;
+      // let width = $left.getAttribute('width');
+      if (this.currentPart == 'left_part_1' && this.uploadimgs[0]) {
+        this.left_pos.x += ev.deltaX;
+        this.left_pos.y += ev.deltaY;
+        $left.setAttribute('x', this.left_pos.x*0.1);
+        $left.setAttribute('y', this.left_pos.y*0.1);
+        Utils.addcookie('img_x', this.left_pos.x*0.1);
+        Utils.addcookie('img_y', this.left_pos.y*0.1);
+      }
+      if (this.currentPart == 'right_part_1' && this.uploadimgs[1]) {
+        this.right_pos.x -= ev.deltaX;
+        this.right_pos.y += ev.deltaY;
+        $right.setAttribute('x', this.right_pos.x*0.1);
+        $right.setAttribute('y', this.right_pos.y*0.1);
+      }
+    },
+
+    onPinch(ev) {
+      this.hammerInfo = `pinch: ${ev.scale}`;
+      let $left = document.getElementById('left_upload');
+      let $right = document.getElementById('right_upload');
+      let scale = ev.scale;
+
+      if (ev.scale > 1) {
+        scale = ev.scale*0.8;
+      } else {
+        scale = ev.scale*1.2;
+      }
+
+      if (this.currentPart == 'left_part_1' && this.uploadimgs[0]) {
+        // this.left_pos.x += ev.deltaX;
+        // this.left_pos.y += ev.deltaY;
+        let width = $left.width.animVal.value;
+        let height = $left.height.animVal.value;
+        // $left.setAttribute('width', width*scale);
+        // $left.setAttribute('height', height*scale);
+        $left.style.transform = `scale(${scale})`;
+        Utils.addcookie('img_scale', scale);
+        // Utils.addcookie('img_height', height*scale);
+        // $left.setAttribute('x', this.left_pos.x+width*(1-scale)/2);
+        // $left.setAttribute('y', this.left_pos.y+height*(1-scale)/2);
+        
+      }
+      if (this.currentPart == 'right_part_1' && this.uploadimgs[1]) {
+        let width = $right.width.animVal.value;
+        let height = $right.height.animVal.value;
+        // $right.setAttribute('x', this.right_pos.x);
+        // $right.setAttribute('y', this.right_pos.y);
+        // $right.setAttribute('width', width);
+        // $right.setAttribute('height', height);
+        $right.style.transform = `scale(${scale})`;
+      }
     }
   },
   watch: {

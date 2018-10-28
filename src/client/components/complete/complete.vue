@@ -38,7 +38,7 @@ export default {
       btnDone,
       shoe_left,
       workbg: [workbg1, workbg2, workbg3, workbg4],
-      phone: '13112312312',
+      phone: '',
       workImg: '',
       uploaded: false,
       activityDetails: false,
@@ -54,7 +54,12 @@ export default {
         this.$refs.left_side.innerHTML = response.body;
 
         document.querySelectorAll('.left_part_1').forEach((part,index) => {
-          part.setAttribute('crossOrigin', '')
+          part.setAttribute('crossOrigin', '');
+          part.setAttribute('width', Utils.getcookie('img_width'));
+          part.setAttribute('height', Utils.getcookie('img_height'));
+          part.style.transform = `scale(${Utils.getcookie('img_scale')})`;
+          part.setAttribute('x', Utils.getcookie('img_x'));
+          part.setAttribute('y', Utils.getcookie('img_y'));
           part.setAttribute('xlink:href', decodeURIComponent(Utils.getcookie('image_url')).split(';')[0]);
         })
 
@@ -63,7 +68,9 @@ export default {
           document.querySelectorAll('.'+part).forEach((item, index) => {
             if (part == 'front_part_5') {
               item.style.stroke = decodeURIComponent(Utils.getcookie(part));
-              document.querySelector('.left_side.'+part).style.fill = decodeURIComponent(Utils.getcookie(part));
+              document.querySelectorAll('.left_side.'+part).forEach((side, index) => {
+                side.style.fill = decodeURIComponent(Utils.getcookie(part));
+              });
             } else {
               item.style.fill = decodeURIComponent(Utils.getcookie(part));
             }
