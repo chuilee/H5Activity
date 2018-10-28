@@ -12,41 +12,43 @@
 </template>
 
 <script>
-import utils from '@/client/utils';
-import api from '@/client/api';
-import wx from './utils/wx';
+import utils from "@/client/utils";
+import api from "@/client/api";
+import wx from "./utils/wx";
 
-const musicbg = require('./assets/music.png');
-const musicPause = require('./assets/music-close.png');
-const musicsrc = require('./assets/music.mp3');
-const back = require('./assets/images/btn-back.png');
+const musicbg = require("./assets/music.png");
+const musicPause = require("./assets/music-close.png");
+const musicsrc = require("./assets/music.mp3");
+const back = require("./assets/images/btn-back.png");
 
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      transitionName: 'slide-right',
+      transitionName: "slide-right",
       back,
       musicData: {
         musicBg: musicbg,
         musicPause: musicPause,
         musicSrc: musicsrc,
-        showMusic: true,
+        showMusic: true
       },
       isPlay: true,
       share: {
-        title: 'DIY童鞋定制大赛',
-        desc: 'KIDS.ING定制大赛，DIY宝宝的专属童鞋！',
-        url: 'http://kidsing.litecoder.com/kids/index',
-        img: 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg'
+        title: "DIY童鞋定制大赛",
+        desc: "KIDS.ING定制大赛，DIY宝宝的专属童鞋！",
+        url: "http://kidsing.litecoder.com/kids/index",
+        img:
+          "https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg"
       },
       share2: {
-        title: '为我助力吧',
-        desc: '为我助力吧，KIDS.ING定制大赛，DIY宝宝的专属童鞋！',
-        url: 'http://kidsing.litecoder.com/kids/index',
-        img: 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg'
+        title: "为我助力吧",
+        desc: "为我助力吧，KIDS.ING定制大赛，DIY宝宝的专属童鞋！",
+        url: "http://kidsing.litecoder.com/kids/index",
+        img:
+          "https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg"
       }
-    }
+    };
   },
   created() {
     // this.$http['get']('/index/getShare')
@@ -59,51 +61,66 @@ export default {
 
     //   })
 
-    api.getJsConfig(this, {
-      jsurl: window.location.href
-    }, (response) => {
-      wx.config(response.body.repBody, false, () => {
-        const id = utils.getQueryStringByName('share');
-        if (id !== '') {
-          this.share2.url = `http://kidsing.litecoder.com/kids/index?share=${id}`;
-          wx.share(this.share2.title, this.share2.desc, this.share2.url, this.share2.img);
-              this.$router.push({
-            name: 'share',
-            params: {
-              id: id
-            }
-          })
-        } else {
-          wx.share(this.share.title, this.share.desc, this.share.url, this.share.img);
-        }
-      })
-    }, (err) => {
-
-    })
+    api.getJsConfig(
+      this,
+      {
+        jsurl: window.location.href
+      },
+      response => {
+        wx.config(response.body.repBody, false, () => {
+          const id = utils.getQueryStringByName("share");
+          if (id !== "") {
+            this.share2.url = `http://kidsing.litecoder.com/kids/index?share=${id}`;
+            wx.share(
+              this.share2.title,
+              this.share2.desc,
+              this.share2.url,
+              this.share2.img
+            );
+            this.$router.push({
+              name: "share",
+              params: {
+                id: id
+              }
+            });
+          } else {
+            wx.share(
+              this.share.title,
+              this.share.desc,
+              this.share.url,
+              this.share.img
+            );
+          }
+        });
+      },
+      err => {}
+    );
   },
   mounted() {
     const audio = document.querySelector("#audio");
-    document.addEventListener("WeixinJSBridgeReady", () => {
-      // this.isPlay = true;
-      audio.play();
-    }, false);
+    document.addEventListener(
+      "WeixinJSBridgeReady",
+      () => {
+        // this.isPlay = true;
+        audio.play();
+      },
+      false
+    );
 
-    this.$refs.goback.style.display = 'none';
-
-    
+    this.$refs.goback.style.display = "none";
   },
   methods: {
     toggleAudio() {
       this.isPlay = !this.isPlay;
       var audio = document.querySelector("#audio");
-      if(audio.paused){
+      if (audio.paused) {
         // this.musicBg = 'http://157.255.23.23/images/fsd/ap/20171208/88_8864959d_4fb2_4c8e_945f_010384a41ec1.png';
-        this.musicStatus = 'play';
+        this.musicStatus = "play";
         audio.loop = true;
         audio.play();
-      }else{
+      } else {
         // this.musicBg = 'http://157.255.23.23/images/fsd/ap/20171208/88_8864959d_4fb2_4c8e_945f_010384a41ec1.png';
-        this.musicStatus = 'pause';
+        this.musicStatus = "pause";
         audio.pause();
       }
     },
@@ -113,22 +130,34 @@ export default {
   },
   // watch $route 决定使用哪种过渡
   watch: {
-    '$route' (to, from) {
+    $route(to, from) {
       console.log(to);
-      if (to.name == 'share' || to.name == 'work-details') {
-        this.share2.url = `http://kidsing.litecoder.com/kids/index?share=${this.$route.params.id}`;
-        wx.share(this.share2.title, this.share2.desc, this.share2.url, this.share2.img);
+      if (to.name == "share" || to.name == "work-details") {
+        this.share2.url = `http://kidsing.litecoder.com/kids/index?share=${
+          this.$route.params.id
+        }`;
+        wx.share(
+          this.share2.title,
+          this.share2.desc,
+          this.share2.url,
+          this.share2.img
+        );
       } else {
-        wx.share(this.share.title, this.share.desc, this.share.url, this.share.img);
+        wx.share(
+          this.share.title,
+          this.share.desc,
+          this.share.url,
+          this.share.img
+        );
       }
-      if (to.name == 'home' || to.name == 'share') {
-        this.$refs.goback.style.display = 'none';
+      if (to.name == "home" || to.name == "share") {
+        this.$refs.goback.style.display = "none";
       } else {
-        this.$refs.goback.style.display = 'block';
+        this.$refs.goback.style.display = "block";
       }
-      const toDepth = to.path.split('/').length;
-      const fromDepth = from.path.split('/').length;
-      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+      const toDepth = to.path.split("/").length;
+      const fromDepth = from.path.split("/").length;
+      this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
     }
   }
 };

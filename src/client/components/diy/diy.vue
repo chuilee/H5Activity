@@ -19,7 +19,7 @@
     <a
       class="hammer-container"
       v-hammer:pan="onPan"
-      v-hammer:pinch="onPinch">{{hammerInfo}}</a>
+      v-hammer:pinch="onPinch"></a>
     <button class="btn-finished" @click="complete"><img :src="finished" alt=""></button>
     <div class="side-container">
       <div class="side-items flex-wrp">
@@ -343,7 +343,7 @@ export default {
       let $right = document.getElementById('right_upload');
       // debugger;
       // let width = $left.getAttribute('width');
-      if (this.currentPart == 'left_part_1' && this.uploadimgs[0]) {
+      if (this.currentPart == 'left_part_1' && this.uploadimgs[0] != 'null') {
         this.left_pos.x += ev.deltaX;
         this.left_pos.y += ev.deltaY;
         $left.setAttribute('x', this.left_pos.x*0.1);
@@ -351,7 +351,7 @@ export default {
         Utils.addcookie('img_x', this.left_pos.x*0.1);
         Utils.addcookie('img_y', this.left_pos.y*0.1);
       }
-      if (this.currentPart == 'right_part_1' && this.uploadimgs[1]) {
+      if (this.currentPart == 'right_part_1' && this.uploadimgs[1] != 'null') {
         this.right_pos.x -= ev.deltaX;
         this.right_pos.y += ev.deltaY;
         $right.setAttribute('x', this.right_pos.x*0.1);
