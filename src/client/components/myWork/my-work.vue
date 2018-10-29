@@ -7,6 +7,7 @@
         </div>
       </div>
       <div class="rank-list">
+        <img class="rank-bg" :src="rankBg1" alt="">
         <div class="bscroll-wrapper" ref="BScroll">
           <div class="bscroll-container clearfix">
             <div class="work-container"
@@ -32,6 +33,7 @@
             </div>
           </div>
         </div>
+        <img class="rank-bg" :src="rankBg2" alt="">
       </div>
     </div>
     <div class="work-preview" v-show="preview">
@@ -52,6 +54,8 @@ const likeHim = require('../../assets/images/btn-invite-friend.png');
 const btnGocreate = require('../../assets/images/btn-go-create.png');
 const gocreate = require('../../assets/images/go-create.png');
 const btnClose = require('../../assets/images/btn-close.png');
+const rankBg1 = require('../../assets/images/rank-bg_1.png');
+const rankBg2 = require('../../assets/images/rank-bg_2.png');
 
 export default {
   name: 'my-work',
@@ -62,6 +66,8 @@ export default {
       gocreate,
       btnClose,
       btnGocreate,
+      rankBg1,
+      rankBg2,
       works: [],
       thumb: '',
       preview: false
@@ -80,13 +86,13 @@ export default {
         console.log(response.body.repBody)
         this.works = response.body.repBody;
 
-        this.$nextTick(() => {
-          if (!this.scroll) {
-            this.scroll = new Bscroll(this.$refs.BScroll, {})
-          } else {
-            this.scroll.refresh()
-          }
-        })
+        // this.$nextTick(() => {
+        //   if (!this.scroll) {
+        //     this.scroll = new Bscroll(this.$refs.BScroll, {})
+        //   } else {
+        //     this.scroll.refresh()
+        //   }
+        // })
       }, (err) => {
 
       })

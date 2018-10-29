@@ -3,7 +3,7 @@
     <button ref='goback' class="btn-back" @click="goback"><img :src="back" alt=""></button>
     <div v-show="musicData.showMusic" class="music-warp">
       <img class="music" :src="isPlay ? musicData.musicBg : musicData.musicPause"  @click="toggleAudio" :class="{isturn:isPlay}">
-     <audio id="audio" :src="musicData.musicSrc" autoplay="autoplay" loop="loop">您的浏览器不支持 audio 标签.</audio>
+     <audio ref='audio' id="audio" :src="musicData.musicSrc" loop="loop" preload="auto">您的浏览器不支持 audio 标签.</audio>
     </div>
     <transition :name="transitionName">
       <router-view  class="page-view"></router-view>
@@ -30,7 +30,9 @@ export default {
       musicData: {
         musicBg: musicbg,
         musicPause: musicPause,
-        musicSrc: musicsrc,
+        // musicSrc: `http://lb.yi-shang.cn//lalabobo/static/media/music.9edb5d6.mp3`,
+        musicSrc: `http://176.122.170.131/music.77ba454.mp3`,
+        // musicSrc: `${musicsrc}`,
         showMusic: true
       },
       isPlay: true,
@@ -97,16 +99,15 @@ export default {
     );
   },
   mounted() {
-    const audio = document.querySelector("#audio");
+    const audio = this.$refs.audio;
     document.addEventListener(
       "WeixinJSBridgeReady",
       () => {
-        // this.isPlay = true;
+        this.isPlay = true;
         audio.play();
       },
       false
     );
-
     this.$refs.goback.style.display = "none";
   },
   methods: {
@@ -116,7 +117,7 @@ export default {
       if (audio.paused) {
         // this.musicBg = 'http://157.255.23.23/images/fsd/ap/20171208/88_8864959d_4fb2_4c8e_945f_010384a41ec1.png';
         this.musicStatus = "play";
-        audio.loop = true;
+        // audio.loop = true;
         audio.play();
       } else {
         // this.musicBg = 'http://157.255.23.23/images/fsd/ap/20171208/88_8864959d_4fb2_4c8e_945f_010384a41ec1.png';
