@@ -371,28 +371,30 @@ export default {
         scale = ev.scale*1.2;
       }
 
-      if (this.currentPart == 'left_part_1' && this.uploadimgs[0]) {
-        // this.left_pos.x += ev.deltaX;
-        // this.left_pos.y += ev.deltaY;
+      if (this.currentPart == 'left_part_1' && this.uploadimgs[0] != 'null') {
         let width = $left.width.animVal.value;
         let height = $left.height.animVal.value;
+        this.left_pos.x = 230 - width*scale/2;
+        this.left_pos.y = 115 - height*scale/2;
         // $left.setAttribute('width', width*scale);
         // $left.setAttribute('height', height*scale);
         $left.style.transform = `scale(${scale})`;
         Utils.addcookie('img_scale', scale);
         // Utils.addcookie('img_height', height*scale);
-        // $left.setAttribute('x', this.left_pos.x+width*(1-scale)/2);
-        // $left.setAttribute('y', this.left_pos.y+height*(1-scale)/2);
+        $left.setAttribute('x', this.left_pos.x);
+        $left.setAttribute('y', this.left_pos.y);
         
       }
-      if (this.currentPart == 'right_part_1' && this.uploadimgs[1]) {
+      if (this.currentPart == 'right_part_1' && this.uploadimgs[1] != 'null') {
         let width = $right.width.animVal.value;
         let height = $right.height.animVal.value;
-        // $right.setAttribute('x', this.right_pos.x);
-        // $right.setAttribute('y', this.right_pos.y);
+        // this.right_pos.x = -80 - width*scale/2;
+        // this.right_pos.y = 75 - height*scale/2;
         // $right.setAttribute('width', width);
         // $right.setAttribute('height', height);
         $right.style.transform = `scale(${scale})`;
+        // $right.setAttribute('x', this.right_pos.x);
+        // $right.setAttribute('y', this.right_pos.y);
       }
     }
   },

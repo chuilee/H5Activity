@@ -12,7 +12,7 @@
           text-color="#fff"
           active-text-color="#ffd04b">
           <el-menu-item index="1" :route="{name: 'home'}">设计榜单</el-menu-item>
-          <el-menu-item index=""><a href="http://www.baidu.com" target="_blank" style="display: block;">H5日访问量</a></el-menu-item>
+          <el-menu-item index=""><a href="https://tongji.baidu.com/web/welcome/login" target="_blank" style="display: block;">H5日访问量</a></el-menu-item>
         </el-menu>
       </el-header>
       <el-main>

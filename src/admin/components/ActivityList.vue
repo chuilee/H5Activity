@@ -9,17 +9,18 @@
         prop="rank"
         label="排名"
         sortable="custom"
-        width="180">
+        width="80">
       </el-table-column>
       <el-table-column
         prop="work_id"
+        width="80"
         label="作品编号">
       </el-table-column>
       <el-table-column
         label="用户头像"
-        width="180">
+        width="120">
         <template slot-scope="scope">
-          <img :src="scope.row.head_img" />
+          <img class="thumb" :src="scope.row.head_img" />
         </template>
       </el-table-column>
       <el-table-column
@@ -236,6 +237,9 @@ export default {
 <style lang="scss">
   table img {
     width: 160px;
+  }
+  .thumb {
+    width: 80px;
   }
 
   .el-card__body img {

@@ -17,8 +17,9 @@ function putApi(name, url, code, method) {
     httpmethod = 'post';
   }
   api[name] = (context, body, fun, funErr) => {
+    // const fullurl = `http://192.168.2.1/kids/${url}`;
+    // const fullurl = `http://172.20.10.5/kids/${url}`;
     const fullurl = `/kids/${url}`;
-    // const fullurl = `http://localhost/kids/${url}`;
     context.$http[httpmethod](fullurl, getCreds(code, body))
       .then((response) => {
         // success

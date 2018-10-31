@@ -44,8 +44,8 @@ export default {
           "https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg"
       },
       share2: {
-        title: "为我助力吧",
-        desc: "为我助力吧，KIDS.ING定制大赛，DIY宝宝的专属童鞋！",
+        title: "DIY童鞋定制大赛",
+        desc: "我家宝宝从小才华横溢，为我的DIY童鞋打Call！",
         url: "http://kidsing.litecoder.com/kids/index",
         img:
           "https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg"
