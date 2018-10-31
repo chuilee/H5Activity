@@ -13,6 +13,7 @@
       </div>
     </div>
     <canvas id="workCanvas" v-show="false"></canvas>
+    <div id="qrcode" ref='qrcode' v-show="false"></div>
   </div>
 </template>
 
@@ -43,6 +44,11 @@ export default {
   },
   mounted() {
     this.getWork();
+    new QRCode(this.$refs.qrcode, {
+      text: `http://kidsing.litecoder.com/kids/index?share=${this.$route.params.id}`,
+      width: 90,
+      height: 90,
+    });
   },
   methods: {
     createWork() {
@@ -55,7 +61,7 @@ export default {
       const w_ratio = w / 375;
 
       canvas.width = 519 * w_ratio;
-      canvas.height = 654 * w_ratio;
+      canvas.height = 695 * w_ratio;
       canvas.style.width = canvas.width / 2 + "px";
       canvas.style.height = canvas.height / 2 + "px";
 
@@ -67,12 +73,31 @@ export default {
         work.onload = () => {
           ctx.drawImage(
             work,
-            10 * w_ratio,
+            5 * w_ratio,
             0,
-            500 * w_ratio,
-            460 * w_ratio);
-          that.workImg = canvas.toDataURL("image/jpg");
-          that.uploaded = true;
+            work.width * w_ratio,
+            work.height * w_ratio);
+          // that.workImg = canvas.toDataURL("image/jpg");
+          // that.uploaded = true;
+
+          ctx.font="32px Arial";
+          ctx.fillText(`No.${this.$route.params.id}`,
+            15 * w_ratio,
+            670 * w_ratio);
+
+
+          const qrcode = new Image();
+          qrcode.onload = () => {
+            ctx.drawImage(
+              qrcode,
+              405 * w_ratio,
+              518 * w_ratio,
+              90 * w_ratio,
+              90 * w_ratio);
+            that.workImg = canvas.toDataURL("image/jpg");
+            that.uploaded = true;
+          }
+          qrcode.src = this.$refs.qrcode.querySelector('img').src
         };
         work.src = this.work_url;
       })
@@ -95,14 +120,14 @@ export default {
           ctx.drawImage(
             percent55,
             10 * w_ratio,
-            480 * w_ratio,
+            530 * w_ratio,
             percent55.width * w_ratio,
             percent55.height * w_ratio);
           cb();
         };
-        percent55.src = window.location.origin + this.percent55;
+        percent55.src = this.percent55;
       };
-      canvasbg.src = window.location.origin + this.canvasbg;
+      canvasbg.src = this.canvasbg;
     },
     goRouter(route) {
       this.$router.push({
@@ -111,6 +136,8 @@ export default {
     },
     getWork() {
       Indicator.open('生成海报中...');
+      // this.work_url = 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181031/2_6A8CD3E598385DFA82C831BC4F2E3F13.jpg';
+      // this.createWork();
       api.getWorkId(this, {
         work_id: this.$route.params.id,
       }, (response) => {

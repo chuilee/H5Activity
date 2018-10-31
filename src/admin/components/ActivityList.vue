@@ -99,7 +99,7 @@
         </el-col>
         <el-col :span="8">
           <el-card :body-style="{ padding: '0px' }">
-            <div v-html="materials[2]" style="height: 380px; width: 300px; margin: 0 auto;"></div>
+            <div class="front-side" v-html="materials[2]" style="height: 380px; width: 300px; margin: 0 auto;"></div>
             <div style="padding: 14px;">
               <span>正面</span>
             </div>
@@ -107,7 +107,7 @@
         </el-col>
         <el-col :span="8">
           <el-card :body-style="{ padding: '0px' }">
-            <div v-html="materials[3]" style="height: 380px; width: 300px; margin: 0 auto;"></div>
+            <div class="back-side" v-html="materials[3]" style="height: 380px; width: 300px; margin: 0 auto;"></div>
             <div style="padding: 14px;">
               <span>后面</span>
             </div>
@@ -233,7 +233,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
   table img {
     width: 160px;
   }
@@ -247,5 +247,39 @@ export default {
 
   .el-col {
     height: 500px;
+  }
+
+  .front-side {
+    .right_part_1 {
+      transform: rotate(90deg) translate(0, -60px);
+      transform-origin: 0 0;
+    }
+
+    .left_part_1 {
+      transform: rotateY(180deg) rotate(90deg);
+      transform-origin: 0 0;
+    }
+    
+    .left_part_1_2 {
+      transform: rotateY(180deg) rotate(90deg);
+      transform-origin: 0 0;
+    }
+
+    .right_part_1_2 {
+      transform: rotate(90deg) translate(-380px, -60px);
+      transform-origin: 0 190px;
+    }
+  }
+
+  .back-side {
+    .right_part_1 {
+      transform: translate(0%, 0);
+      transform-origin: 0 0;
+    }
+
+    .left_part_1 {
+      transform: translate(-160%, 0);
+      transform-origin: 0 0;
+    }
   }
 </style>

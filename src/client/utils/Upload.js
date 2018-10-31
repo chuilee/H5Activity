@@ -80,15 +80,15 @@ function upload(self, callback, id) {
 
       FilesAdded(up, files) {
         console.log(files)
+        if (/.(vob|ifo|mpg|mpeg|dat|mp4|3gp|mov|rm|ram|rmvb|wmv|asf|avi|asx)$/.test(files[0].name.toLowerCase())) {
+          Toast('请上传图片文件')
+          return;
+        }
         setUploadParam(uploader, '', false);
       },
 
       BeforeUpload(up, file) {
         // alert(file.name)
-        if (/.(vob|ifo|mpg|mpeg|dat|mp4|3gp|mov|rm|ram|rmvb|wmv|asf|avi|asx)$/.test(file.name.toLowerCase())) {
-          Toast('请上传图片文件')
-          return;
-        }
         Indicator.open('图片正在上传...');
         setUploadParam(up, file.name, true);
       },

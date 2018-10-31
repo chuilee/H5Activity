@@ -30,8 +30,8 @@ export default {
       musicData: {
         musicBg: musicbg,
         musicPause: musicPause,
-        // musicSrc: `http://lb.yi-shang.cn//lalabobo/static/media/music.9edb5d6.mp3`,
-        musicSrc: `http://176.122.170.131/music.77ba454.mp3`,
+        musicSrc: `https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181031/1540960892585.mp3`,
+        // musicSrc: `http://176.122.170.131/music.77ba454.mp3`,
         // musicSrc: `${musicsrc}`,
         showMusic: true
       },
