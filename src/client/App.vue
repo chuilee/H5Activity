@@ -41,14 +41,14 @@ export default {
         desc: "KIDS.ING定制大赛，DIY宝宝的专属童鞋！",
         url: "http://kidsing.litecoder.com/kids/index",
         img:
-          "https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg"
+          "https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181101/1541058941725.jpg"
       },
       share2: {
-        title: "DIY童鞋定制大赛",
-        desc: "我家宝宝从小才华横溢，为我的DIY童鞋打Call！",
+        title: "为我助力吧",
+        desc: "我正在参加香港潮牌KIDS.ING童鞋定制大赛，助我进入TOP100赢免费定制",
         url: "http://kidsing.litecoder.com/kids/index",
         img:
-          "https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181023/1540282512411.jpg"
+          "https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181101/1541058941725.jpg"
       }
     };
   },
