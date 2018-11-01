@@ -125,7 +125,7 @@ export default {
           }
           qrcode.src = this.$refs.qrcode.querySelector('img').src
         };
-        work.src = this.work.work_url;
+        work.src = this.work.img_url;
       })
     },
 
@@ -167,7 +167,7 @@ export default {
       //   like: 9999
       // };
       // this.createWork();
-
+      
       Indicator.open('生成海报中...');
       api.getWorkId(this, {
         work_id: this.$route.params.id,
