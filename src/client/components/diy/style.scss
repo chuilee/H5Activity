@@ -222,6 +222,10 @@
   height: px2rem(710);
   box-sizing: border-box;
   background: #f1f2ed;
+
+  @media screen and (min-height: 700px) {
+    height: px2rem(900);
+  }
 }
 
 #back-container {
@@ -274,3 +278,17 @@
   padding-top: px2rem(260);
 }
 
+@media screen and (min-height: 700px) {
+  #back-container,
+  #front-container {
+    padding-top: px2rem(320);
+  }
+
+  #right-container {
+    padding-top: px2rem(360);
+  }
+
+  #left-container {
+    padding-top: px2rem(360);
+  }
+}

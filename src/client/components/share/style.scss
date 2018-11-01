@@ -27,6 +27,10 @@
     background-size: contain;
     box-sizing: border-box;
 
+     @media screen and (min-height: 700px) {
+       margin: px2rem(80) auto;
+     }
+
     img {
       position: relative;
       display: block;
