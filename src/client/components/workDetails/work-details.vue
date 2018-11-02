@@ -75,8 +75,8 @@ export default {
             work,
             5 * w_ratio,
             0,
-            work.width * w_ratio,
-            work.height * w_ratio);
+            508 * w_ratio,
+            484 * w_ratio);
           // that.workImg = canvas.toDataURL("image/jpg");
           // that.uploaded = true;
 
@@ -136,7 +136,7 @@ export default {
     },
     getWork() {
       Indicator.open('生成海报中...');
-      // this.work_url = 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181031/2_6A8CD3E598385DFA82C831BC4F2E3F13.jpg';
+      // this.work_url = 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181101/2_8AAFD27FE990FAA77C8B4C9540DFAE02.jpg';
       // this.createWork();
       api.getWorkId(this, {
         work_id: this.$route.params.id,

@@ -92,8 +92,8 @@ export default {
             work,
             5 * w_ratio,
             0,
-            work.width * w_ratio,
-            work.height * w_ratio);
+            508 * w_ratio,
+            484 * w_ratio);
           // that.workImg = canvas.toDataURL("image/jpg");
           // that.uploaded = true;
 

@@ -106,10 +106,10 @@ export default {
         // that.workImg = canvas.toDataURL("image/jpg");
           // that.upload(); // 上传服务器
         canvg(canvas, svg, {
-          scaleWidth: 351.6*w_ratio*0.7,
-          scaleHeight: 227.1*w_ratio*0.7,
-          offsetX:147*0.7,
-          offsetY:107*0.7,
+          scaleWidth: w_ratio > 1 ? 351.6*w_ratio*0.65 : 351.6*w_ratio*0.7,
+          scaleHeight: w_ratio > 1 ? 227.1*w_ratio*0.65 : 227.1*w_ratio*0.7,
+          offsetX: w_ratio > 1 ? 147*0.75 : 147*0.7,
+          offsetY: w_ratio > 1 ?  107*0.65 : 107*0.7,
           useCORS: true,
           ignoreClear: true,
           renderCallback: () => {
