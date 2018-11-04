@@ -150,14 +150,14 @@ export default {
         ctx.textAlign = "left";
         const txt = '设计师'; // 名字
         const txt_w = ctx.measureText(txt).width;
-        ctx.fillText(txt, (508 - txt_w) / 2, 430 * w_ratio);
+        ctx.fillText(txt, (508 * w_ratio - txt_w) / 2, 430 * w_ratio);
 
         ctx.fillStyle = "#000"; //设置笔触的颜色
         ctx.font = "bold 38px '字体','字体','微软雅黑','宋体'";
         ctx.textAlign = "left";
         const name = this.name; // 名字
         const name_w = ctx.measureText(name).width;
-        ctx.fillText(name, (508 - name_w) / 2, 390 * w_ratio);
+        ctx.fillText(name, (508 * w_ratio - name_w) / 2, 390 * w_ratio);
         
         cb();
       };

@@ -107,6 +107,17 @@
       text-align: center;
       font-weight: bold;
     }
+
+    .container {
+      position: relative;
+    }
+
+    .tmall {
+      position: absolute;
+      right: px2rem(0);
+      top: px2rem(150);
+      color: red;
+    }
   }
 
   .details {

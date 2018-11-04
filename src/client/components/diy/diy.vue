@@ -366,9 +366,9 @@ export default {
       let scale = ev.scale;
 
       if (ev.scale > 1) {
-        scale = ev.scale*0.8;
+        scale = ev.scale*0.75;
       } else {
-        scale = ev.scale*1.2;
+        scale = ev.scale*1.25;
       }
 
       if (this.currentPart == 'left_part_1' && this.uploadimgs[0] != 'null') {

@@ -20,6 +20,7 @@
             <div class="container">
               <p class="title">KIDS.ING定制鞋大赛全网首发<br>创作作品邀请朋友投票助力，即机会获得免费定制特权！</p>
               <img class="title-rule" :src="titleRule" alt="">
+              <p class="tmall">上天猫“kidsing旗舰店”可直接定制</p>
               <div>
                 <p style="margin-bottom: 10px;">100名免费定制评选规则：</p>
               </div>
