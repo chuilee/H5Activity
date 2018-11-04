@@ -37,7 +37,7 @@ const canvasbg = require("../../assets/images/canvas-bg.jpg");
 const btnCreate = require("../../assets/images/btn-create.png");
 const btnMore = require("../../assets/images/btn-invite-more.png");
 const pen = require("../../assets/images/icon-pen.png");
-const slogan = require("../../assets/images/slogan3.png");
+const slogan = require("../../assets/images/slogan2.png");
 const btnHome = require("../../assets/images/btn-home1.png");
 const haibaobg = require("../../assets/images/canvas-bg.jpg");
 

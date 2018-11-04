@@ -11,7 +11,7 @@
 
   .slogan {
     display: block;
-    margin: px2rem(70) auto;
+    margin: px2rem(40) auto px2rem(20);
     width: px2rem(521);
     height: px2rem(184);
 
@@ -22,16 +22,25 @@
 
   .btn-done {
     display: block;
-    margin: 0 auto px2rem(57);
+    margin: px2rem(40) auto px2rem(57);
     width: px2rem(522);
     height: px2rem(122);
   }
 
   .input {
     position: relative;
-    margin: px2rem(40) auto px2rem(60);
+    margin: px2rem(20) auto px2rem(20);
     width: px2rem(533);
     height: px2rem(151);
+
+    &.input-name{
+      width: px2rem(533);
+      height: px2rem(97);
+
+      input {
+        top: px2rem(5);
+      }
+    }
 
     img {
       display: block;
@@ -49,6 +58,7 @@
       font-size: px2rem(30);
       border: 0;
       background: transparent;
+      text-align: center;
     }
   }
   .left-container {

@@ -1,6 +1,15 @@
 @import '../../assets/style/mixins/_mixins.scss';
 
 .my-work-page {
+  .btn-home {
+    position: fixed;
+    right: - px2rem(4);
+    top: px2rem(344);
+    width: px2rem(117);
+    height: px2rem(65);
+    z-index: 10;
+  }
+
   .rank-container {
     padding-top: px2rem(80);
     padding-bottom: px2rem(40);
@@ -169,16 +178,16 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: px2rem(500);
-      height: px2rem(460);
+      width: 80%;
+      
+      > img {
+        width: 100%;
+      }
     }
 
     .btn-close {
       display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, px2rem(260));
+      margin: px2rem(20) auto;
       width: px2rem(64);
       height: px2rem(64);
     }

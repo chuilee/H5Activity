@@ -37,9 +37,12 @@
       </div>
     </div>
     <div class="work-preview" v-show="preview">
-      <img class="work" :src="thumb" alt="">
-      <button class="btn-close" @click="preview = false"><img :src="btnClose" alt=""></button>
+      <div class="work">
+        <img :src="thumb" alt="">
+        <button class="btn-close" @click="preview = false"><img :src="btnClose" alt=""></button>
+      </div>
     </div>
+    <button class="btn-home" @click="goRouter('home')"><img :src="btnHome" alt=""></button>
   </div>
 </template>
 
@@ -56,6 +59,7 @@ const gocreate = require('../../assets/images/go-create.png');
 const btnClose = require('../../assets/images/btn-close.png');
 const rankBg1 = require('../../assets/images/rank-bg_1.png');
 const rankBg2 = require('../../assets/images/rank-bg_2.png');
+const btnHome = require("../../assets/images/btn-home1.png");
 
 export default {
   name: 'my-work',
@@ -70,6 +74,7 @@ export default {
       rankBg2,
       works: [],
       thumb: '',
+      btnHome,
       preview: false
     };
   },

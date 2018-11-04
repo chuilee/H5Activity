@@ -41,9 +41,12 @@
       </div>
     </div>
     <div class="work-preview" v-show="preview">
-      <img class="work" :src="thumb" alt="">
-      <button class="btn-close" @click="preview = false"><img :src="btnClose" alt=""></button>
+      <div class="work">
+        <img :src="thumb" alt="">
+        <button class="btn-close" @click="preview = false"><img :src="btnClose" alt=""></button>
+      </div>
     </div>
+    <button class="btn-home" @click="goRouter('home')"><img :src="btnHome" alt=""></button>
   <!-- </mt-loadmore> -->
   </div>
 </template>
@@ -63,6 +66,7 @@ const likeHim = require('../../assets/images/btn-like-him.png');
 const btnClose = require('../../assets/images/btn-close.png');
 const rankBg1 = require('../../assets/images/rank-bg_1.png');
 const rankBg2 = require('../../assets/images/rank-bg_2.png');
+const btnHome = require("../../assets/images/btn-home1.png");
 
 export default {
   name: 'rank',
@@ -81,6 +85,7 @@ export default {
       works: [],
       workid: '',
       thumb: '',
+      btnHome,
       preview: false,
       currentRank: 'like' // type=like就是点赞榜单,type=time就是新榜
     };
@@ -155,6 +160,22 @@ export default {
       this.thumb = img_url;
       this.preview = true;
     },
+
+    goRouter(route, id) {
+      if (id) {
+        this.$router.push({
+          name: route,
+          params: {
+            id: id
+          }
+        })
+      } else {
+        this.$router.push({
+          name: route
+        })
+      }
+      
+    }
   },
   watch: {
 

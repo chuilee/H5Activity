@@ -5,6 +5,10 @@
     <img class="slogan" :src="slogan" alt="">
     <div class="input">
       <img :src="input" alt="">
+      <input v-model="name" type="text" placeholder="填写设计师名字">
+    </div>
+    <div class="input-name input">
+      <img :src="inputName" alt="">
       <input v-model="phone" type="number" placeholder="填写电话号码，作为后期认领凭证">
     </div>
     <button class="btn-done" @click="complete"><img :src="btnDone" alt=""></button>
@@ -21,6 +25,7 @@ import api from '@/client/api';
 const rebuild = require('../../assets/images/btn-rebuild.png');
 const slogan = require('../../assets/images/finish-slogan.png');
 const input = require('../../assets/images/input-bg.png');
+const inputName = require('../../assets/images/input_name.png');
 const btnDone = require('../../assets/images/btn-done.png');
 const shoe_left = require('../diy/images/shoe_left.svg');
 const workbg1 = require("../../assets/images/work-bg1.jpg");
@@ -37,13 +42,19 @@ export default {
       input,
       btnDone,
       shoe_left,
+      inputName,
       workbg: [workbg1, workbg2, workbg3, workbg4],
       phone: '',
+      name: '',
       workImg: '',
       uploaded: false,
       activityDetails: false,
       parts: ['front_part_1', 'front_part_2', 'front_part_3', 'front_part_4', 'front_part_5','left_part_2']
     };
+  },
+  created() {
+    this.name = unescape(Utils.getcookie('name'));
+    this.phone = Utils.getcookie('phone');
   },
   mounted() {
     const hash = (new Date()).getTime();
@@ -83,6 +94,8 @@ export default {
   },
   methods: {
     createWork() {
+      Utils.addcookie('name', this.name);
+      Utils.addcookie('phone', this.phone);
       Indicator.open('作品提交中...');
       const that = this;
       let canvas = document.getElementById("workCanvas"),
@@ -104,7 +117,7 @@ export default {
         // ctx.drawSvg(svg, 50*w_ratio, 110*w_ratio, 295*w_ratio, 190*w_ratio);
         // that.uploaded = true;
         // that.workImg = canvas.toDataURL("image/jpg");
-          // that.upload(); // 上传服务器
+        // that.upload(); // 上传服务器
         canvg(canvas, svg, {
           scaleWidth: w_ratio > 1 ? 351.6*w_ratio*0.65 : 351.6*w_ratio*0.7,
           scaleHeight: w_ratio > 1 ? 227.1*w_ratio*0.65 : 227.1*w_ratio*0.7,
@@ -131,6 +144,21 @@ export default {
           0,
           workbg.width * w_ratio,
           workbg.height * w_ratio);
+
+        ctx.fillStyle = "#000"; //设置笔触的颜色
+        ctx.font = "bold 24px '字体','字体','微软雅黑','宋体'";
+        ctx.textAlign = "left";
+        const txt = '设计师'; // 名字
+        const txt_w = ctx.measureText(txt).width;
+        ctx.fillText(txt, (508 - txt_w) / 2, 430 * w_ratio);
+
+        ctx.fillStyle = "#000"; //设置笔触的颜色
+        ctx.font = "bold 38px '字体','字体','微软雅黑','宋体'";
+        ctx.textAlign = "left";
+        const name = this.name; // 名字
+        const name_w = ctx.measureText(name).width;
+        ctx.fillText(name, (508 - name_w) / 2, 390 * w_ratio);
+        
         cb();
       };
       workbg.src = window.location.origin + this.workbg[Math.floor(Math.random()*4)];
@@ -147,17 +175,24 @@ export default {
       })
     },
     complete() {
-      if (/^\d{11}$/.test(this.phone.replace(/\s/g, ''))) {
-        this.createWork();
-      } else {
-        Toast('请输入正确的手机号码');
+      if (!/^\d{11}$/.test(this.phone.replace(/\s/g, ''))) {
+        return Toast('请填写正确的手机号码');
+        
       }
-
+      if (this.name.replace(/\s/g, '') == '') {
+        return Toast('请填写设计师姓名');
+      }
+      this.createWork();
     },
     upload() {
       // alert('upload');
+      debugger;
+      const xk = unescape(Utils.getcookie('right_part_3')) || '#ffffff';
+      const smile = unescape(Utils.getcookie('front_part_5')) || '#ffffff';
+      const logo = unescape(Utils.getcookie('back_part_1')) || '#ffffff';
+      const colorjson = `鞋扣: ${xk};微笑曲线: ${smile};logo: ${logo}`;
       api.updateUserInfo(this, {
-        real_name: 'username',
+        real_name: this.name,
         address: '',
         mobile: this.phone
       }, (response) => {
@@ -171,7 +206,8 @@ export default {
               back: window.back_side,
               right: window.right_side,
               left: window.left_side,
-              img_url: success2.body.url
+              img_url: success2.body.url,
+              color_json: colorjson
             }, (response) => {
               console.log(response)
               api.addImg(this, {

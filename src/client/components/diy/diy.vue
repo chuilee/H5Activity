@@ -138,7 +138,7 @@ export default {
       [{name: '右侧帮面', value: '', code: 'right_part_1'}/*, {name: '围条', value: '', code: 'right_part_2'}*/, {name: '鞋扣', value: '', code: 'right_part_3'}],
       [/*{name: '魔术贴', value: '', code: 'front_part_1'}, {name: '鞋头', value: '', code: 'front_part_2'}, {name: '包头片', value: '', code: 'front_part_3'}, {name: '鞋舌', value: '', code: 'front_part_4'}, */{name: '微笑曲线', value: '', code: 'front_part_5'}],
       [{name: 'LOGO', value: '', code: 'back_part_1'}/*, {name: '后跟条', value: '', code: 'back_part_2'}*/]],
-      colors: ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
+      colors: ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a'],
     };
   },
   computed: {
@@ -346,10 +346,10 @@ export default {
       if (this.currentPart == 'left_part_1' && this.uploadimgs[0] != 'null') {
         this.left_pos.x += ev.deltaX;
         this.left_pos.y += ev.deltaY;
-        $left.setAttribute('x', this.left_pos.x*0.1);
-        $left.setAttribute('y', this.left_pos.y*0.1);
-        Utils.addcookie('img_x', this.left_pos.x*0.1);
-        Utils.addcookie('img_y', this.left_pos.y*0.1);
+        $left.setAttribute('x', this.left_pos.x*0.06);
+        $left.setAttribute('y', this.left_pos.y*0.06);
+        Utils.addcookie('img_x', this.left_pos.x*0.06);
+        Utils.addcookie('img_y', this.left_pos.y*0.06);
       }
       if (this.currentPart == 'right_part_1' && this.uploadimgs[1] != 'null') {
         this.right_pos.x -= ev.deltaX;
