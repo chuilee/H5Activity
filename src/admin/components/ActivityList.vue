@@ -1,5 +1,6 @@
 <template>
   <div class="activity-list">
+    <el-button type="primary"><a :href="exportUrl">导出数据</a></el-button>
     <el-table
       :data="tableData"
       :default-sort="{prop: 'like', order: 'ascending'}"
@@ -67,6 +68,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
+    
     <el-dialog
       title="素材展示"
       :fullscreen="true"
@@ -168,6 +170,7 @@ export default {
       this.getWorksList(val, this.type, this.order);
     },
     getWorksList(pageNum, type, order) {
+      this.exportUrl = `http://kidsing.litecoder.com/kids/bg/get_works_list_toExcel?page_num=${pageNum}&page_size=${this.pageSize}&type=${type}&order=${order}`
       this.$router.push({
         name: 'activityList',
         params: {
@@ -219,7 +222,8 @@ export default {
       materials: [],
       type: 'like',
       order: 'desc',
-      uploadimgs: ['null', 'null']
+      uploadimgs: ['null', 'null'],
+      exportUrl: 'http://kidsing.litecoder.com/kids/bg/get_works_list_toExcel?page_num=1&page_size=30&type=like&order=desc'
     };
   },
   created() {
@@ -284,6 +288,13 @@ export default {
     .left_part_1 {
       transform: translate(-160%, 0);
       transform-origin: 0 0;
+    }
+  }
+
+  .el-button {
+    margin: 20px 0;
+    a {
+      color: #fff;
     }
   }
 </style>

@@ -25,7 +25,7 @@ export default new Router({
       component: UserList,
     },
     {
-      path: '/material',
+      path: '/details/:id',
       name: 'material',
       component: Material,
     },
