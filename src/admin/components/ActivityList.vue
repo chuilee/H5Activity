@@ -29,6 +29,10 @@
         label="用户名称">
       </el-table-column>
       <el-table-column
+        prop="real_name"
+        label="设计师">
+      </el-table-column>
+      <el-table-column
         prop="mobile"
         label="联系电话">
       </el-table-column>
@@ -37,6 +41,10 @@
         sortable="custom"
         :formatter="formatter"
         label="提交时间">
+      </el-table-column>
+      <el-table-column
+        prop="color_json"
+        label="颜色">
       </el-table-column>
       <el-table-column
         label="最终效果"

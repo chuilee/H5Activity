@@ -186,10 +186,10 @@ export default {
     },
     upload() {
       // alert('upload');
-      debugger;
+      // debugger;
       const xk = unescape(Utils.getcookie('right_part_3')) || '#ffffff';
-      const smile = unescape(Utils.getcookie('front_part_5')) || '#ffffff';
-      const logo = unescape(Utils.getcookie('back_part_1')) || '#ffffff';
+      const smile = unescape(Utils.getcookie('front_part_5')) || '#000000';
+      const logo = unescape(Utils.getcookie('back_part_1')) || '#000000';
       const colorjson = `鞋扣: ${xk};微笑曲线: ${smile};logo: ${logo}`;
       api.updateUserInfo(this, {
         real_name: this.name,
@@ -210,6 +210,9 @@ export default {
               color_json: colorjson
             }, (response) => {
               console.log(response)
+              Utils.addcookie('right_part_3', '');
+              Utils.addcookie('front_part_5', '');
+              Utils.addcookie('back_part_1', '');
               api.addImg(this, {
                 type: 'material',
                 work_id: response.body.repBody.work_id,
