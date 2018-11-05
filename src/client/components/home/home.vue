@@ -18,7 +18,9 @@
         <div class="details-content">
           <div class="BScroll" ref="BScroll">
             <div class="container">
-              <p class="title">KIDS.ING定制鞋大赛全网首发<br>创作作品邀请朋友投票助力，即机会获得免费定制特权！</p>
+              <p class="title">
+                参与KIDS.ING童鞋定制创作，<br>邀朋友投票助力即有机会获得免费定制名额，<br>限量100名噢！
+              </p>
               <img class="title-rule" :src="titleRule" alt="">
               <p class="tmall">上天猫“kidsing旗舰店”可直接定制</p>
               <div>
@@ -50,10 +52,14 @@
               </div>
               <div class="rule-item">
                 <span class="index">7</span>
-                <p>本活动时间截止2018年11月30日；</p>
+                <p>获奖作品，KIDS.ING享有著作权</p>
               </div>
               <div class="rule-item">
                 <span class="index">8</span>
+                <p>本活动时间截止2018年11月30日；</p>
+              </div>
+              <div class="rule-item">
+                <span class="index">9</span>
                 <p>如存在活动方面疑问，请联系微信客服kidsing888；</p>
               </div>
             </div>
