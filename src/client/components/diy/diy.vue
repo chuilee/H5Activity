@@ -83,7 +83,7 @@ import api from '@/client/api';
 import Upload from '../../utils/Upload';
 
 const shoe_left = require('./images/shoe_left.svg');
-const shoe_right = require('./images/shoe_right.svg');
+const shoe_right = require('./images/shoe_right1.svg');
 const shoe_front = require('./images/shoe_front.svg');
 const shoe_back = require('./images/shoe_back.svg');
 const finished = require("../../assets/images/btn-finished.png");
@@ -153,6 +153,7 @@ export default {
     //   console.log(item)
     //   item.style.fill='red';
     // })
+    const hash = (new Date()).getTime();
     console.log(Upload.upload)
     this.sendPic = Upload.upload(this, (url) => {
       console.log(url)
@@ -207,14 +208,16 @@ export default {
           }
         }
         document.querySelectorAll('.' + this.currentPart).forEach((part,index) => {
-          part.setAttribute('xlink:href', url);
+          // alert(url)
+          part.setAttribute('xlink:href', `${url}?hash=${hash+index}`);
         })
       }
       uploadimg.src = url
     }, 1);
 
+    
     // 左侧面
-    this.$http['get'](this.shoe_left)
+    this.$http['get'](`${this.shoe_left}?hash=${hash}`)
       .then((response) => {
         console.log(document.querySelector('#left-container'));
         this.$refs.left_side1.innerHTML = response.body;
@@ -236,16 +239,15 @@ export default {
       });
 
       // 右侧面
-      this.$http['get'](this.shoe_right)
+      this.$http['get'](`${this.shoe_right}?hash=${hash}`)
       .then((response) => {
-        console.log(document.querySelector('#right-container'));
         this.$refs.right_side1.innerHTML = response.body;
       }, (error) => {
 
       });
 
       // 正面
-      this.$http['get'](this.shoe_front)
+      this.$http['get'](`${this.shoe_front}?hash=${hash}`)
       .then((response) => {
         console.log(document.querySelector('#front-container'));
         this.$refs.front_side1.innerHTML = response.body;
@@ -260,7 +262,7 @@ export default {
       });
 
       // 后面
-      this.$http['get'](this.shoe_back)
+      this.$http['get'](`${this.shoe_back}?hash=${hash}`)
       .then((response) => {
         console.log(document.querySelector('#back-container'));
         this.$refs.back_side1.innerHTML = response.body;
@@ -352,7 +354,7 @@ export default {
         Utils.addcookie('img_y', this.left_pos.y*0.06);
       }
       if (this.currentPart == 'right_part_1' && this.uploadimgs[1] != 'null') {
-        this.right_pos.x -= ev.deltaX;
+        this.right_pos.x += ev.deltaX;
         this.right_pos.y += ev.deltaY;
         $right.setAttribute('x', this.right_pos.x*0.1);
         $right.setAttribute('y', this.right_pos.y*0.1);

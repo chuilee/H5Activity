@@ -49,15 +49,25 @@ export default {
       workImg: '',
       uploaded: false,
       activityDetails: false,
+      workuploaded: false,
       parts: ['front_part_1', 'front_part_2', 'front_part_3', 'front_part_4', 'front_part_5','left_part_2']
     };
   },
   created() {
     this.name = unescape(Utils.getcookie('name'));
-    this.phone = Utils.getcookie('phone');
+    this.phone = unescape(Utils.getcookie('phone'));
   },
   mounted() {
+    Indicator.open('图片加载中。。。');
     const hash = (new Date()).getTime();
+    const img = new Image();
+    img.onload = () => {
+      // alert(111)
+      Indicator.close();
+    }
+    img.src = unescape(Utils.getcookie('image_url')).split(';')[0]+'?hash='+hash;
+
+    // alert(unescape(Utils.getcookie('image_url')).split(';')[0]+'?hash='+hash)
     // this.$refs.left_side.innerHTML = this.$refs.left_side1.innerHTML;
     this.$http['get'](`${this.shoe_left}?hash=${hash}`)
       .then((response) => {
@@ -65,28 +75,28 @@ export default {
         this.$refs.left_side.innerHTML = response.body;
 
         document.querySelectorAll('.left_part_1').forEach((part,index) => {
-          part.setAttribute('crossOrigin', '');
+          // part.setAttribute('crossOrigin', 'anonymous');
           part.setAttribute('width', Utils.getcookie('img_width'));
           part.setAttribute('height', Utils.getcookie('img_height'));
           part.style.transform = `scale(${Utils.getcookie('img_scale')})`;
           part.setAttribute('x', Utils.getcookie('img_x'));
           part.setAttribute('y', Utils.getcookie('img_y'));
-          part.setAttribute('xlink:href', decodeURIComponent(Utils.getcookie('image_url')).split(';')[0]);
+          part.setAttribute('xlink:href', unescape(Utils.getcookie('image_url')).split(';')[0]);
         })
 
         this.parts.forEach((part, index) => {
           // debugger
           document.querySelectorAll('.'+part).forEach((item, index) => {
             if (part == 'front_part_5') {
-              item.style.stroke = decodeURIComponent(Utils.getcookie(part));
+              item.style.stroke = unescape(Utils.getcookie(part));
               document.querySelectorAll('.left_side.'+part).forEach((side, index) => {
-                side.style.fill = decodeURIComponent(Utils.getcookie(part));
+                side.style.fill = unescape(Utils.getcookie(part));
               });
             } else {
-              item.style.fill = decodeURIComponent(Utils.getcookie(part));
+              item.style.fill = unescape(Utils.getcookie(part));
             }
           })
-          // document.querySelector('.' + part).style.fill = decodeURIComponent(Utils.getcookie(part))
+          // document.querySelector('.' + part).style.fill = unescape(Utils.getcookie(part))
         })
       }, (error) => {
 
@@ -113,6 +123,8 @@ export default {
 
       let svg = this.$refs.left_side.innerHTML;
 
+      // alert(svg)
+
       that.drawImgs(ctx, w_ratio, () => {
         // ctx.drawSvg(svg, 50*w_ratio, 110*w_ratio, 295*w_ratio, 190*w_ratio);
         // that.uploaded = true;
@@ -129,6 +141,47 @@ export default {
             // that.uploaded = true;
             that.workImg = canvas.toDataURL("image/jpg");
             that.upload(); // 上传服务器
+          }
+        })
+      })
+    },
+
+    createWork1() {
+      Utils.addcookie('name', this.name);
+      Utils.addcookie('phone', this.phone);
+      // Indicator.open('作品提交中...');
+      const that = this;
+      let canvas = document.getElementById("workCanvas"),
+        ctx = canvas.getContext("2d"),
+        w = window.innerWidth,
+        h = window.innerHeight;
+
+      const w_ratio = w / 375;
+
+      canvas.width = 508 * w_ratio;
+      canvas.height = 484 * w_ratio;
+      canvas.style.width = canvas.width / 2 + "px";
+      canvas.style.height = canvas.height / 2 + "px";
+
+
+      let svg = this.$refs.left_side.innerHTML;
+
+      // alert(svg)
+
+      that.drawImgs(ctx, w_ratio, () => {
+        // ctx.drawSvg(svg, 50*w_ratio, 110*w_ratio, 295*w_ratio, 190*w_ratio);
+        // that.uploaded = true;
+        // that.workImg = canvas.toDataURL("image/jpg");
+        // that.upload(); // 上传服务器
+        canvg(canvas, svg, {
+          scaleWidth: w_ratio > 1 ? 351.6*w_ratio*0.65 : 351.6*w_ratio*0.7,
+          scaleHeight: w_ratio > 1 ? 227.1*w_ratio*0.65 : 227.1*w_ratio*0.7,
+          offsetX: w_ratio > 1 ? 147*0.75 : 147*0.7,
+          offsetY: w_ratio > 1 ?  107*0.65 : 107*0.7,
+          useCORS: true,
+          ignoreClear: true,
+          renderCallback: () => {
+            that.createWork();
           }
         })
       })
@@ -182,7 +235,7 @@ export default {
       if (this.name.replace(/\s/g, '') == '') {
         return Toast('请填写设计师姓名');
       }
-      this.createWork();
+      this.createWork1();
     },
     upload() {
       // alert('upload');
@@ -216,7 +269,7 @@ export default {
               api.addImg(this, {
                 type: 'material',
                 work_id: response.body.repBody.work_id,
-                img_url: decodeURIComponent(Utils.getcookie('image_url'))
+                img_url: unescape(Utils.getcookie('image_url'))
               }, (success1) => {
                 // this.uploaded = true;
                 this.$router.push({
@@ -243,9 +296,6 @@ export default {
       })
     }
   },
-  watch: {
-
-  }
 };
 </script>
 <style lang="scss" src='./style.scss'></style>

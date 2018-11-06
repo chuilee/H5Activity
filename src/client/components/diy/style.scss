@@ -241,6 +241,10 @@
   .left_part_1 {
     transform: translate(-160%, 0);
     transform-origin: 0 0;
+
+    @media screen and (width: 414px) {
+      transform: translate(-84%, 0);
+    }
   }
 }
 
