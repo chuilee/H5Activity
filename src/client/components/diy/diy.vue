@@ -415,8 +415,8 @@ export default {
         case 'back_part_1':
           this.colors = ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
           break;
-        case 'back_part_2':
-          this.colors = ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
+        case 'right_part_3':
+          this.colors = ['#2d3036', '#ffffff', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
           break;
         case 'front_part_5':
           this.colors = ['#2d3036', '#cd2a3e', '#2e3561', '#f1acb0', '#00926a']
