@@ -37,7 +37,7 @@ export default {
       },
       isPlay: true,
       share: {
-        title: "DIY童鞋定制大赛",
+        title: "KIDS.ING童鞋定制大赛",
         desc: "参与KIDS.ING童鞋定制创作，邀朋友投票助力即有机会获得免费定制名额，限量100名噢！",
         url: "http://kidsing.litecoder.com/kids/index",
         img:
