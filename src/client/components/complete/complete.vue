@@ -58,7 +58,7 @@ export default {
     this.phone = unescape(Utils.getcookie('phone'));
   },
   mounted() {
-    Indicator.open('图片加载中。。。');
+    Indicator.open('图片加载中...');
     const hash = (new Date()).getTime();
     const img = new Image();
     img.onload = () => {

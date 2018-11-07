@@ -56,7 +56,7 @@
               </div>
               <div class="rule-item">
                 <span class="index">8</span>
-                <p>本活动时间截止2018年11月30日；</p>
+                <p>本活动时间截止2018年12月12日；</p>
               </div>
               <div class="rule-item">
                 <span class="index">9</span>
