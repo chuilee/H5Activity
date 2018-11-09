@@ -18,8 +18,8 @@ function putApi(name, url, code, method) {
   }
   api[name] = (context, body, fun, funErr) => {
     // const fullurl = `http://192.168.1.123/kids/${url}`;
-    // const fullurl = `http://172.20.10.5/kids/${url}`;
-    const fullurl = `/kids/${url}`;
+    const fullurl = `http://10.118.27.105/kids/${url}`;
+    // const fullurl = `/kids/${url}`;
     context.$http[httpmethod](fullurl, getCreds(code, body))
       .then((response) => {
         // success
@@ -89,6 +89,14 @@ putApi('updateUserInfo', 'update_user_info', '1000', '');
  *
  */
 putApi('uploadToOss', 'uploadToOss', '1000', '');
+
+/**
+ * 上传base64格式图片
+ * @param {String} page_num
+ * @param {String} page_size
+ *
+ */
+putApi('uploadSvg', 'upload_svg', '1000', '');
 
 /**
  * 点赞作品

@@ -18,23 +18,23 @@
 </template>
 
 <script>
-import { Toast, Indicator } from 'mint-ui';
-import Utils from '@/client/utils';
-import api from '@/client/api';
+import { Toast, Indicator } from "mint-ui";
+import Utils from "@/client/utils";
+import api from "@/client/api";
 
-const rebuild = require('../../assets/images/btn-rebuild.png');
-const slogan = require('../../assets/images/finish-slogan.png');
-const input = require('../../assets/images/input-bg.png');
-const inputName = require('../../assets/images/input_name.png');
-const btnDone = require('../../assets/images/btn-done.png');
-const shoe_left = require('../diy/images/shoe_left.svg');
+const rebuild = require("../../assets/images/btn-rebuild.png");
+const slogan = require("../../assets/images/finish-slogan.png");
+const input = require("../../assets/images/input-bg.png");
+const inputName = require("../../assets/images/input_name.png");
+const btnDone = require("../../assets/images/btn-done.png");
+const shoe_left = require("../diy/images/shoe_left.svg");
 const workbg1 = require("../../assets/images/work-bg1.jpg");
 const workbg2 = require("../../assets/images/work-bg2.jpg");
 const workbg3 = require("../../assets/images/work-bg3.jpg");
 const workbg4 = require("../../assets/images/work-bg4.jpg");
 
 export default {
-  name: 'complete',
+  name: "complete",
   data() {
     return {
       rebuild,
@@ -44,69 +44,82 @@ export default {
       shoe_left,
       inputName,
       workbg: [workbg1, workbg2, workbg3, workbg4],
-      phone: '',
-      name: '',
-      workImg: '',
+      phone: "",
+      name: "",
+      workImg: "",
       uploaded: false,
       activityDetails: false,
       workuploaded: false,
-      parts: ['front_part_1', 'front_part_2', 'front_part_3', 'front_part_4', 'front_part_5','left_part_2']
+      parts: [
+        "front_part_1",
+        "front_part_2",
+        "front_part_3",
+        "front_part_4",
+        "front_part_5",
+        "left_part_2"
+      ]
     };
   },
   created() {
-    this.name = unescape(Utils.getcookie('name'));
-    this.phone = unescape(Utils.getcookie('phone'));
+    this.name = unescape(Utils.getcookie("name"));
+    this.phone = unescape(Utils.getcookie("phone"));
   },
   mounted() {
-    Indicator.open('图片加载中...');
-    const hash = (new Date()).getTime();
+    Indicator.open("图片加载中...");
+    const hash = new Date().getTime();
     const img = new Image();
     img.onload = () => {
       // alert(111)
       Indicator.close();
-    }
-    img.src = unescape(Utils.getcookie('image_url')).split(';')[0]+'?hash='+hash;
+    };
+    img.src =
+      unescape(Utils.getcookie("image_url")).split(";")[0] + "?hash=" + hash;
 
     // alert(unescape(Utils.getcookie('image_url')).split(';')[0]+'?hash='+hash)
     // this.$refs.left_side.innerHTML = this.$refs.left_side1.innerHTML;
-    this.$http['get'](`${this.shoe_left}?hash=${hash}`)
-      .then((response) => {
-        console.log(document.querySelector('#left-container'));
+    this.$http["get"](`${this.shoe_left}?hash=${hash}`).then(
+      response => {
+        console.log(document.querySelector("#left-container"));
         this.$refs.left_side.innerHTML = response.body;
 
-        document.querySelectorAll('.left_part_1').forEach((part,index) => {
+        document.querySelectorAll(".left_part_1").forEach((part, index) => {
           // part.setAttribute('crossOrigin', 'anonymous');
-          part.setAttribute('width', Utils.getcookie('img_width'));
-          part.setAttribute('height', Utils.getcookie('img_height'));
-          part.style.transform = `scale(${Utils.getcookie('img_scale')})`;
-          part.setAttribute('x', Utils.getcookie('img_x'));
-          part.setAttribute('y', Utils.getcookie('img_y'));
-          part.setAttribute('xlink:href', unescape(Utils.getcookie('image_url')).split(';')[0]);
-        })
+          part.setAttribute("width", Utils.getcookie("img_width"));
+          part.setAttribute("height", Utils.getcookie("img_height"));
+          part.style.transform = `scale(${Utils.getcookie("img_scale")})`;
+          part.setAttribute("x", Utils.getcookie("img_x"));
+          part.setAttribute("y", Utils.getcookie("img_y"));
+          part.setAttribute(
+            "xlink:href",
+            unescape(Utils.getcookie("image_url")).split(";")[0]
+          );
+        });
 
         this.parts.forEach((part, index) => {
           // debugger
-          document.querySelectorAll('.'+part).forEach((item, index) => {
-            if (part == 'front_part_5') {
+          document.querySelectorAll("." + part).forEach((item, index) => {
+            if (part == "front_part_5") {
               item.style.stroke = unescape(Utils.getcookie(part));
-              document.querySelectorAll('.left_side.'+part).forEach((side, index) => {
-                side.style.fill = unescape(Utils.getcookie(part));
-              });
+              document
+                .querySelectorAll(".left_side." + part)
+                .forEach((side, index) => {
+                  side.style.fill = unescape(Utils.getcookie(part));
+                });
             } else {
               item.style.fill = unescape(Utils.getcookie(part));
             }
-          })
+          });
           // document.querySelector('.' + part).style.fill = unescape(Utils.getcookie(part))
-        })
-      }, (error) => {
-
-      });
+        });
+      },
+      error => {}
+    );
   },
   methods: {
     createWork() {
-      Utils.addcookie('name', this.name);
-      Utils.addcookie('phone', this.phone);
-      Indicator.open('作品提交中...');
+      Utils.addcookie("name", this.name);
+      Utils.addcookie("phone", this.phone);
+      Indicator.open("作品提交中...");
       const that = this;
       let canvas = document.getElementById("workCanvas"),
         ctx = canvas.getContext("2d"),
@@ -120,8 +133,9 @@ export default {
       canvas.style.width = canvas.width / 2 + "px";
       canvas.style.height = canvas.height / 2 + "px";
 
-
       let svg = this.$refs.left_side.innerHTML;
+
+      svg = svg.replace(/[\n\r]/g, "");
 
       // alert(svg)
 
@@ -130,25 +144,56 @@ export default {
         // that.uploaded = true;
         // that.workImg = canvas.toDataURL("image/jpg");
         // that.upload(); // 上传服务器
-        canvg(canvas, svg, {
-          scaleWidth: w_ratio > 1 ? 351.6*w_ratio*0.65 : 351.6*w_ratio*0.7,
-          scaleHeight: w_ratio > 1 ? 227.1*w_ratio*0.65 : 227.1*w_ratio*0.7,
-          offsetX: w_ratio > 1 ? 147*0.75 : 147*0.7,
-          offsetY: w_ratio > 1 ?  107*0.65 : 107*0.7,
-          useCORS: true,
-          ignoreClear: true,
-          renderCallback: () => {
-            // that.uploaded = true;
-            that.workImg = canvas.toDataURL("image/jpg");
-            that.upload(); // 上传服务器
-          }
-        })
-      })
+        // canvg(canvas, svg, {
+        //   scaleWidth: w_ratio > 1 ? 351.6*w_ratio*0.65 : 351.6*w_ratio*0.7,
+        //   scaleHeight: w_ratio > 1 ? 227.1*w_ratio*0.65 : 227.1*w_ratio*0.7,
+        //   offsetX: w_ratio > 1 ? 147*0.75 : 147*0.7,
+        //   offsetY: w_ratio > 1 ?  107*0.65 : 107*0.7,
+        //   useCORS: true,
+        //   ignoreClear: true,
+        //   renderCallback: () => {
+        //     that.uploaded = true;
+        //     that.workImg = canvas.toDataURL("image/jpg");
+        //     // that.upload(); // 上传服务器
+        //   }
+        // })
+       var formData = new FormData();
+
+        formData.append("svg", svg);
+
+        console.log(formData);
+
+        this.$http
+          .post("http://10.118.27.105/kids/upload_svg", formData, {
+            headers: { "Content-Type": "multipart/form-data" }
+          })
+          .then(response => {
+            const svgImg = new Image();
+
+            svgImg.onload = () => {
+              ctx.drawImage(
+                svgImg,
+                137 * 0.7 * w_ratio,
+                107 * 0.7 * w_ratio,
+                svgImg.width * w_ratio * 0.8,
+                svgImg.height * w_ratio * 0.8
+              );
+
+              // Indicator.close();
+
+              // that.uploaded = true;
+              that.workImg = canvas.toDataURL("image/jpg");
+              that.upload(); // 上传服务器
+            };
+
+            svgImg.src = response.body.url;
+          });
+      });
     },
 
     createWork1() {
-      Utils.addcookie('name', this.name);
-      Utils.addcookie('phone', this.phone);
+      Utils.addcookie("name", this.name);
+      Utils.addcookie("phone", this.phone);
       // Indicator.open('作品提交中...');
       const that = this;
       let canvas = document.getElementById("workCanvas"),
@@ -163,10 +208,9 @@ export default {
       canvas.style.width = canvas.width / 2 + "px";
       canvas.style.height = canvas.height / 2 + "px";
 
-
       let svg = this.$refs.left_side.innerHTML;
 
-      // alert(svg)
+      console.log(svg);
 
       that.drawImgs(ctx, w_ratio, () => {
         // ctx.drawSvg(svg, 50*w_ratio, 110*w_ratio, 295*w_ratio, 190*w_ratio);
@@ -174,21 +218,23 @@ export default {
         // that.workImg = canvas.toDataURL("image/jpg");
         // that.upload(); // 上传服务器
         canvg(canvas, svg, {
-          scaleWidth: w_ratio > 1 ? 351.6*w_ratio*0.65 : 351.6*w_ratio*0.7,
-          scaleHeight: w_ratio > 1 ? 227.1*w_ratio*0.65 : 227.1*w_ratio*0.7,
-          offsetX: w_ratio > 1 ? 147*0.75 : 147*0.7,
-          offsetY: w_ratio > 1 ?  107*0.65 : 107*0.7,
+          scaleWidth:
+            w_ratio > 1 ? 351.6 * w_ratio * 0.65 : 351.6 * w_ratio * 0.7,
+          scaleHeight:
+            w_ratio > 1 ? 227.1 * w_ratio * 0.65 : 227.1 * w_ratio * 0.7,
+          offsetX: w_ratio > 1 ? 147 * 0.75 : 147 * 0.7,
+          offsetY: w_ratio > 1 ? 107 * 0.65 : 107 * 0.7,
           useCORS: true,
           ignoreClear: true,
           renderCallback: () => {
             that.createWork();
           }
-        })
-      })
+        });
+      });
     },
 
     drawImgs(ctx, w_ratio, cb) {
-       /* 加载并绘制二维码 */
+      /* 加载并绘制二维码 */
       const workbg = new Image();
       workbg.onload = () => {
         ctx.drawImage(
@@ -196,12 +242,13 @@ export default {
           0,
           0,
           workbg.width * w_ratio,
-          workbg.height * w_ratio);
+          workbg.height * w_ratio
+        );
 
         ctx.fillStyle = "#000"; //设置笔触的颜色
         ctx.font = "bold 24px '字体','字体','微软雅黑','宋体'";
         ctx.textAlign = "left";
-        const txt = '设计师'; // 名字
+        const txt = "设计师"; // 名字
         const txt_w = ctx.measureText(txt).width;
         ctx.fillText(txt, (508 * w_ratio - txt_w) / 2, 430 * w_ratio);
 
@@ -211,91 +258,109 @@ export default {
         const name = this.name; // 名字
         const name_w = ctx.measureText(name).width;
         ctx.fillText(name, (508 * w_ratio - name_w) / 2, 390 * w_ratio);
-        
+
         cb();
       };
-      workbg.src = window.location.origin + this.workbg[Math.floor(Math.random()*4)];
+      workbg.src =
+        window.location.origin + this.workbg[Math.floor(Math.random() * 4)];
     },
 
     goRebuild() {
       this.parts.forEach((part, index) => {
         // debugger
-        Utils.addcookie(part, '');
-        Utils.addcookie('image_url', '');
-      })
+        Utils.addcookie(part, "");
+        Utils.addcookie("image_url", "");
+      });
       this.$router.push({
-        name: 'diy'
-      })
+        name: "diy"
+      });
     },
     complete() {
-      if (!/^\d{11}$/.test(this.phone.replace(/\s/g, ''))) {
-        return Toast('请填写正确的手机号码');
-        
+      if (!/^\d{11}$/.test(this.phone.replace(/\s/g, ""))) {
+        return Toast("请填写正确的手机号码");
       }
-      if (this.name.replace(/\s/g, '') == '') {
-        return Toast('请填写设计师姓名');
+      if (this.name.replace(/\s/g, "") == "") {
+        return Toast("请填写设计师姓名");
       }
-      this.createWork1();
+      this.createWork();
     },
     upload() {
       // alert('upload');
       // debugger;
-      const xk = unescape(Utils.getcookie('right_part_3')) || '#ffffff';
-      const smile = unescape(Utils.getcookie('front_part_5')) || '#000000';
-      const logo = unescape(Utils.getcookie('back_part_1')) || '#000000';
+      const xk = unescape(Utils.getcookie("right_part_3")) || "#ffffff";
+      const smile = unescape(Utils.getcookie("front_part_5")) || "#000000";
+      const logo = unescape(Utils.getcookie("back_part_1")) || "#000000";
       const colorjson = `鞋扣: ${xk};微笑曲线: ${smile};logo: ${logo}`;
-      api.updateUserInfo(this, {
-        real_name: this.name,
-        address: '',
-        mobile: this.phone
-      }, (response) => {
-        if (response.body.resCode === '0') {
-          api.uploadToOss(this, {
-            base64: this.workImg.split(',')[1]
-          }, (success2) => {
-            api.addImg(this, {
-              type: 'works',
-              front: window.front_side,
-              back: window.back_side,
-              right: window.right_side,
-              left: window.left_side,
-              img_url: success2.body.url,
-              color_json: colorjson
-            }, (response) => {
-              console.log(response)
-              Utils.addcookie('right_part_3', '');
-              Utils.addcookie('front_part_5', '');
-              Utils.addcookie('back_part_1', '');
-              api.addImg(this, {
-                type: 'material',
-                work_id: response.body.repBody.work_id,
-                img_url: unescape(Utils.getcookie('image_url'))
-              }, (success1) => {
-                // this.uploaded = true;
-                this.$router.push({
-                  name: 'work-details',
-                  params: {
-                    id: response.body.repBody.work_id
+      api.updateUserInfo(
+        this,
+        {
+          real_name: this.name,
+          address: "",
+          mobile: this.phone
+        },
+        response => {
+          if (response.body.resCode === "0") {
+            api.uploadToOss(
+              this,
+              {
+                base64: this.workImg.split(",")[1]
+              },
+              success2 => {
+                api.addImg(
+                  this,
+                  {
+                    type: "works",
+                    front: window.front_side,
+                    back: window.back_side,
+                    right: window.right_side,
+                    left: window.left_side,
+                    img_url: success2.body.url,
+                    color_json: colorjson
+                  },
+                  response => {
+                    console.log(response);
+                    Utils.addcookie("right_part_3", "");
+                    Utils.addcookie("front_part_5", "");
+                    Utils.addcookie("back_part_1", "");
+                    api.addImg(
+                      this,
+                      {
+                        type: "material",
+                        work_id: response.body.repBody.work_id,
+                        img_url: unescape(Utils.getcookie("image_url"))
+                      },
+                      success1 => {
+                        // this.uploaded = true;
+                        this.$router.push({
+                          name: "work-details",
+                          params: {
+                            id: response.body.repBody.work_id
+                          }
+                        });
+                        Indicator.close();
+                      },
+                      err1 => {
+                        Indicator.close();
+                      }
+                    );
+                  },
+                  err => {
+                    Indicator.close();
                   }
-                })
+                );
+              },
+              err2 => {
                 Indicator.close();
-              }, (err1) => {
-                Indicator.close();
-              })
-            }, (err) => {
-              Indicator.close();
-            })
-
-          }, (err2) => {
-            Indicator.close();
-          })
-
+              }
+            );
+          }
+        },
+        err => {
+          Indicator.close();
         }
-      }, (err) => {
-        Indicator.close();
-      })
+      );
     }
-  },
+  }
 };
 </script>
 <style lang="scss" src='./style.scss'></style>
