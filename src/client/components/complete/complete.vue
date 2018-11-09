@@ -164,7 +164,7 @@ export default {
         console.log(formData);
 
         this.$http
-          .post("http://10.118.27.105/kids/upload_svg", formData, {
+          .post("/kids/upload_svg", formData, {
             headers: { "Content-Type": "multipart/form-data" }
           })
           .then(response => {
