@@ -52,7 +52,7 @@
               </div>
               <div class="rule-item">
                 <span class="index">7</span>
-                <p>获奖作品，KIDS.ING享有著作权</p>
+                <p>所有获奖作品必须原创，KIDS.ING享有作品的使用权</p>
               </div>
               <div class="rule-item">
                 <span class="index">8</span>
