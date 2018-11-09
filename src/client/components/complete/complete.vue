@@ -164,11 +164,13 @@ export default {
         console.log(formData);
 
         this.$http
-          .post("/kids/upload_svg", formData, {
+          .post("http://10.118.27.105/kids/upload_svg", formData, {
             headers: { "Content-Type": "multipart/form-data" }
           })
           .then(response => {
             const svgImg = new Image();
+
+            svgImg.setAttribute('crossOrigin', 'anonymous');
 
             svgImg.onload = () => {
               ctx.drawImage(
@@ -181,9 +183,9 @@ export default {
 
               // Indicator.close();
 
-              // that.uploaded = true;
+              that.uploaded = true;
               that.workImg = canvas.toDataURL("image/jpg");
-              that.upload(); // 上传服务器
+              // that.upload(); // 上传服务器
             };
 
             svgImg.src = response.body.url;
