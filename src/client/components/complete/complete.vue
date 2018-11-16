@@ -86,7 +86,7 @@ export default {
           // part.setAttribute('crossOrigin', 'anonymous');
           part.setAttribute("width", Utils.getcookie("img_width"));
           part.setAttribute("height", Utils.getcookie("img_height"));
-          part.style.transform = `scale(${Utils.getcookie("img_scale")})`;
+          // part.style.transform = `scale(${Utils.getcookie("img_scale")})`;
           part.setAttribute("x", Utils.getcookie("img_x"));
           part.setAttribute("y", Utils.getcookie("img_y"));
           part.setAttribute(
@@ -164,7 +164,7 @@ export default {
         console.log(formData);
 
         this.$http
-          .post("http://10.118.27.105/kids/upload_svg", formData, {
+          .post("/kids/upload_svg", formData, {
             headers: { "Content-Type": "multipart/form-data" }
           })
           .then(response => {
@@ -182,10 +182,9 @@ export default {
               );
 
               // Indicator.close();
-
-              that.uploaded = true;
+              // that.uploaded = true;
               that.workImg = canvas.toDataURL("image/jpg");
-              // that.upload(); // 上传服务器
+              that.upload(); // 上传服务器
             };
 
             svgImg.src = response.body.url;

@@ -346,12 +346,12 @@ export default {
       // debugger;
       // let width = $left.getAttribute('width');
       if (this.currentPart == 'left_part_1' && this.uploadimgs[0] != 'null') {
-        this.left_pos.x += ev.deltaX;
-        this.left_pos.y += ev.deltaY;
-        $left.setAttribute('x', this.left_pos.x*0.06);
-        $left.setAttribute('y', this.left_pos.y*0.06);
-        Utils.addcookie('img_x', this.left_pos.x*0.06);
-        Utils.addcookie('img_y', this.left_pos.y*0.06);
+        this.left_pos.x += ev.deltaX*0.06;
+        this.left_pos.y += ev.deltaY*0.06;
+        $left.setAttribute('x', this.left_pos.x);
+        $left.setAttribute('y', this.left_pos.y);
+        Utils.addcookie('img_x', this.left_pos.x);
+        Utils.addcookie('img_y', this.left_pos.y);
       }
       if (this.currentPart == 'right_part_1' && this.uploadimgs[1] != 'null') {
         this.right_pos.x += ev.deltaX;
@@ -374,15 +374,21 @@ export default {
       }
 
       if (this.currentPart == 'left_part_1' && this.uploadimgs[0] != 'null') {
+        if (ev.scale > 1) {
+          scale = ev.scale*0.95;
+        } else {
+          scale = ev.scale*1.05;
+        }
         let width = $left.width.animVal.value;
         let height = $left.height.animVal.value;
         this.left_pos.x = 230 - width*scale/2;
         this.left_pos.y = 115 - height*scale/2;
-        // $left.setAttribute('width', width*scale);
-        // $left.setAttribute('height', height*scale);
-        $left.style.transform = `scale(${scale})`;
+        $left.setAttribute('width', width * scale);
+        $left.setAttribute('height', height * scale);
+        // $left.style.transform = `scale(${scale})`;
         Utils.addcookie('img_scale', scale);
-        // Utils.addcookie('img_height', height*scale);
+        Utils.addcookie('img_width', width*scale);
+        Utils.addcookie('img_height', height*scale);
         $left.setAttribute('x', this.left_pos.x);
         $left.setAttribute('y', this.left_pos.y);
         
