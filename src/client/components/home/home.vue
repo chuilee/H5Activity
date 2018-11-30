@@ -22,7 +22,7 @@
                 参与KIDS.ING童鞋定制创作，<br>邀朋友投票助力即有机会获得免费定制名额，<br>限量100名噢！
               </p>
               <img class="title-rule" :src="titleRule" alt="">
-              <p class="tmall">上天猫“kidsing旗舰店”可直接定制</p>
+              <!-- <p class="tmall">上天猫“kidsing旗舰店”可直接定制</p> -->
               <div>
                 <p style="margin-bottom: 10px;">100名免费定制评选规则：</p>
               </div>

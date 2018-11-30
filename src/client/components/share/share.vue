@@ -162,7 +162,7 @@ export default {
     },
     getWork() {
       // this.work = {
-      //   work_url: 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181031/2_6A8CD3E598385DFA82C831BC4F2E3F13.jpg',
+      //   img_url: 'https://litecoder.oss-cn-shenzhen.aliyuncs.com/kidsing/20181031/2_6A8CD3E598385DFA82C831BC4F2E3F13.jpg',
       //   rank: 100,
       //   like: 9999
       // };
