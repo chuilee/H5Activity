@@ -191,7 +191,7 @@ export default {
         this.liked = true;
         if (response.body.resCode == '0') {
           this.work.like = parseInt(this.work.like, 10) + 1;
-          return Toast('投票成功')
+          return Toast(response.body.resMsg)
         }
         if (response.body.resCode == '10001') {
           return Toast(response.body.resMsg)
