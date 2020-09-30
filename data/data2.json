@@ -1,0 +1,43 @@
+{
+  "javaClass": "com.huawei.sdm.page.extend.mobile.container.MobilePage",
+  "title": "home_Mateline.bullletin",
+  "fullScreen": true,
+  "includes": [
+    {
+      "javaClass": "com.huawei.sdm.page.extend.mobile.include.MCss",
+      "code": "div[spl-id=\"home_bulletin_header\"]{\n    background-color: #2b2e59 !important;\n}\ndiv[spl-id=\"home_bulletin_listview\"] .bulletin_time{\n   font-size: 12px;\n}\n.bullentin_container{\n    display: flex;\n    justify-content: space-between;\n\n}\n.bulletin_from{\n    margin-left: 10px;\n}\n.bulletin_icon{\n    width: 25px;\n    height: 25px;\n    vertical-align: text-bottom;\n}\n.bulletin_text{\n    white-space: normal;\n    display:none;\n    padding: 10px;\n}\n.bulletin_header{\n    width: 70%;\n    text-overflow: ellipsis;\n    overflow: hidden;\n    white-space: nowrap;\n}"
+    },
+    {
+      "javaClass": "com.huawei.sdm.page.extend.mobile.include.MJavaScript",
+      "code": "Nf.PageReady(function(){\n    C(\"home_bulletin_listview\").on(\"dataLoaded\", function (data) {\n    \t\t$(\".bulletin_text>span\").html(Nf.res(\"home_Mateline.content\"));\n    })\n    $(\"div[spl-id='home_bulletin_listview']\").on(\"click\",\".list ion-item\",function(e){\n            e.stopPropagation();\n            $(this).find(\".bulletin_text\").slideToggle();\n    });\n})"
+    },
+    {
+      "javaClass": "com.huawei.sdm.page.extend.mobile.include.MI18n",
+      "bundle": "home_Mateline"
+    }
+  ],
+  "body": [
+    {
+      "javaClass": "com.huawei.sdm.page.extend.mobile.list.MListView",
+      "id": "home_bulletin_listview",
+      "serviceId": "mobilesocial_notice_message_pull_getList",
+      "itemIdentifyField": "id",
+      "pageSize": 10,
+      "ignoreItemPageHistory": false,
+      "buttons": [],
+      "customRowTemplate": "<div>\n    <div class=\"bullentin_container\">\n        <div class=\"bulletin_header\">\n            <img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAD3klEQVR4Xu2aTWgdVRTH/2fG8KppNCF5b56bBhXqR9tdi4IaEfzYmYDQRaFCSorCewEDRaQktPUDxYWGOC+aRUT8Wkq2dlfbUknqMoIFFy4KmXkv320SYmZOmZe8ZExefEnu3DvTeGeRTeaec/6/OffMOXceIabLKWTOEVMHgGNMGAXzd1be/V51OKTaITPIHbSGCHR2s29i7knnnX6VMSkHMDloPecx3dhOZCq10PxI19yUKgjKAbi2dR5EH28nkOG/aeXcn/cvgIL1PkCf/G8BhLdAkH5cJhH8XU3GuuWlpqaemZl9mwFBESwWrGEQdVYR2Z3JTdiqxAd+lNeAwOn8NwfTi4sH/wDQsiGW54m94+l86da+BjA31NCy9E/9VRCe2iyUgZLBK8+rhKA0A/5LfAVGAOEBEy81vzMRZIj0SxmA+YFsetHAr+EnH4iF73eQYQwDeDKkdtpkvNicnxiXTUAJgGpPPpzuc3ZD8xLVX98CwcQLsjNBOoBa4itPOICwiIeuENGRf2WCZAhSAexUfEXw9BeNjct1qWsqIUgDsFvxcUGQAmCv4uOAEDkAUfGqIUQKICrxKiFEBiBq8aogRAJAlngVEIQByBYvG4IQAFXiZUJYBzD1lXXUW6HQeFq7C/cNfEtA6/ogwzxjwn+X2fy79uo93mFwgw/0E+jxjQEqGKX9LmLT3ZFVE5wy744//PZ8qQyg+KX1BhsYAUgoI3bkPCk3MfsALpQFuwXrF4Be21tsDAaBQsdae7MTxyqeXQOQHQVwIo4Q4vZZDcAY+Xgv7sBk+fcJZ4hwumK/CgC+nMk5r8sKIG67rm19CKJeDWCNgM6A1bdAuAjqLaBrgC6C+i2gX4O6D9iuYSnZVrtH+Dw8jcXd3IT8TwP8WSbnfLpdTMKNkFvIBt/snk6Q6CqheA2ZXPFOtRiFATgFa4RA7ckFwLfTRecQXUQw7m65hAHwAFKukTkJMp5IGgRinjpQt/BTcNAhbQskTfRu4xHOgN06TNr9GoAeh/V5gD4QET4RmrYfbV1hfiyKAsem56UfLI5RJ5aisFfLhnARdOzsJSLui/YbAs8aoFdbchNjtQSI/l8YgGtn/wThsGggW9Yz92XyzkeR291kUBiAU8h+QODeqDOAfO+VdHfpZuIBBAFODTUd8pZT69/mRIK+72qAiNgkrBXeAkkQIRKDBqBbYd0K61ZYuBUWKUJxr9VFUBfBWkWQ+S8m+iHuVJXlnxgvg9BWsV/+fYBjW78R0bOynCbXLnMFwI9EdCq5gcqJjJlHywAmv84+462gAHAbiAw57hJn9XfTxFv3AEFR5cYy+mNlAAAAAElFTkSuQmCC\" class=\"bulletin_icon\">\n            <span class=\"bulletin_from\">{{row.send_from}}: </span>\n            <span>{{row.title}}</span>\n        </div>\n        <span class=\"bulletin_time\">{{row.send_time}}<span>\n    </div>\n    <div class=\"bulletin_text\"><span> </span> {{row.message_data}}</div>\n</div>",
+      "canUseWhenOffline": true,
+      "supportMultipleSelect": false
+    }
+  ],
+  "header": {
+    "javaClass": "com.huawei.sdm.page.extend.mobile.container.MHeader",
+    "id": "home_bulletin_header",
+    "text": "home_Mateline.bullletin",
+    "backButton": {
+      "javaClass": "com.huawei.sdm.page.extend.mobile.button.MBackButton",
+      "align": "left"
+    },
+    "buttons": []
+  }
+}
