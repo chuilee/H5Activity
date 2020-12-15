@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="68px" viewBox="0 0 80 68" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.4 (8053) - http://www.bohemiancoding.com/sketch -->
+    <title>编组-2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="编组-2" sketch:type="MSLayerGroup">
+            <g id="编组" sketch:type="MSShapeGroup">
+                <path d="M34,17 L69.8372093,17 L80,34 L44.1627907,34 L34,17 Z" id="矩形备份-14" fill="#1B34FF"></path>
+                <path d="M60,18 L80,18 L49.1839964,68.0003036 L40,52.3885334 L60,18 Z" id="矩形备份-13" fill="#1362FC" transform="translate(60.000000, 43.000000) scale(-1, -1) translate(-60.000000, -43.000000) "></path>
+                <path d="M9.99950651,51 L70,51 L59.9101227,68 L20.1125757,68 L9.99950651,51 Z" id="矩形" fill="#1086FA"></path>
+                <path d="M20,34 L40,34 L20,68 L1.56319402e-13,68 L20,34 Z" id="矩形备份-12" fill="#09A5FA" transform="translate(20.000000, 51.000000) scale(1, -1) translate(-20.000000, -51.000000) "></path>
+                <path d="M20,0 L40,0 L10.005499,51 L1.56319402e-13,34 L20,0 Z" id="矩形" fill="#01C7FE"></path>
+                <path d="M20,34 L13.9524878,58 L10,51.1994407 L20,34 Z" id="路径-10" opacity="0.147995722" fill="#000000"></path>
+                <path d="M40.3094392,68 L30,51 L48,68 L40.3094392,68 Z" id="路径-11" opacity="0.147995722" fill="#000000"></path>
+                <path d="M51,51 L70.4713598,51 L74,45 L51,51 Z" id="路径-12" opacity="0.147995722" fill="#000000"></path>
+            </g>
+            <path d="M61,34 L71,18.8060903 L69.8705335,17 L64.3325172,17 L61,34 Z" id="路径-13" opacity="0.147995722" fill="#000000" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>
