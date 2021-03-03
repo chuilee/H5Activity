@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Document</title>
+    <!--    <script src="./cordova.js" type="text/javascript"></script>-->
+    <style>
+		#show_result{
+			min-height: 250px;
+			height: auto;
+			width: 100%;
+			background: #f1f1f1;
+			margin-bottom: 10px;
+			white-space: wrap;
+			word-break: break-all;
+		}
+
+
+
+    </style>
+</head>
+
+<body>
+<div id="show_result">
+
+</div>
+
+
+<!--<button id='id1'>全屏</button>-->
+<!--<button id='id2'>取消全屏</button>-->
+<button id='id3'>用户名</button>
+<button id='id4'>用户ID</button>
+<button id='id5'>租户ID</button>
+<button id='id6'>app的存放的根路径</button>
+<button id='id7'>位置信息</button>
+<button id='id8'>屏幕分辨率</button>
+<button id='id9'>终端SDK版本</button>
+<button id='id10'>状态栏高度</button>
+<button id='id11'>服务器UTC时间</button>
+<button id='id12'>服务器当前时间</button>
+<button id='id13'>服务器时间转本地时区</button>
+<button id='id14'>语言和国家</button>
+<button id='id15'>时区</button>
+<button id='id16'>当前处理的工单</button>
+<button id='id17'>UUID</button>
+<button id='id18'>消息</button>
+<button id='id19'>联系人</button>
+<button id='id20'>聊天</button>
+<button id='id21'>相机</button>
+<button id='id22'>定位</button>
+<button id='id23'>打电话</button>
+<button id='id24'>二维码</button>
+<button id='id25'>签名板</button>
+<!--<button id="id26">Cordova</button>-->
+<button id="id27">获取文件根目录路径</button>
+<button id="id28">下载文件</button>
+<button id="id29">解压文件</button>
+<button id="id30">获取指定目录下的所有文件</button>
+<button id="id31">创建数据库表</button>
+<button id="id32">删除数据库表</button>
+<button id="id33">往数据库插入数据</button>
+<button id="id34">往数据库更新数据</button>
+<button id="id35">往数据库删除数据</button>
+<button id="id36">往数据库查询数据</button>
+<!--<button id="id37">文件管理</button>-->
+</body>
+<script>
+	function showResult(result){
+		var show_result = document.getElementById("show_result")
+		show_result.innerHTML = result
+	}
+	
+<!--	document.getElementById("id1").onclick = function(){-->
+<!--	    native.dispatchMsgLocal('hideFrame','');-->
+<!--		showResult(native.dispatchMsgLocal('hideFrame',''))-->
+<!--	}-->
+<!--	-->
+<!--	document.getElementById("id2").onclick = function () {-->
+<!--	    native.dispatchMsgLocal('revealFrame','');-->
+<!--		showResult(native.dispatchMsgLocal('revealFrame',''))-->
+<!--	}-->
+	
+    document.getElementById("id3").onclick = function(){
+        var username=native.readLocalData('username');
+		showResult(username)
+    }
+
+    document.getElementById("id4").onclick = function () {
+        var userId=native.readLocalData('user_id');
+		showResult(userId)
+    }
+    document.getElementById("id5").onclick = function () {
+        console.log(native.readLocalData('tenant_id'));
+		showResult(native.readLocalData('tenant_id'))
+    }
+    document.getElementById("id6").onclick = function () {
+        console.log(native.readLocalData('appBaseDir'));
+		showResult(native.readLocalData('appBaseDir'))
+    }
+    document.getElementById("id7").onclick = function () {
+        console.log(native.readLocalData('location'));
+		showResult(native.readLocalData('location'))
+    }
+    document.getElementById("id8").onclick = function(){
+		console.log(native.readLocalData('screenResolution'));
+		showResult(native.readLocalData('screenResolution'))
+    }
+
+    document.getElementById("id9").onclick = function () {
+        console.log(native.readLocalData('sdk'));
+		showResult(native.readLocalData('sdk'))
+    }
+    document.getElementById("id10").onclick = function () {
+        console.log(native.readLocalData('statusBarHeight'));
+		showResult(native.readLocalData('statusBarHeight'))
+    }
+    document.getElementById("id11").onclick = function () {
+        console.log(native.readLocalData('utc'));
+		showResult(native.readLocalData('utc'))
+    }
+    document.getElementById("id12").onclick = function () {
+        console.log(native.readLocalData('now'));
+		showResult(native.readLocalData('now'))
+    }
+    document.getElementById("id13").onclick = function(){
+        console.log(native.readLocalData('localtime'));
+		showResult(native.readLocalData('localtime'))
+    }
+
+    document.getElementById("id14").onclick = function () {
+        console.log(native.readLocalData('locale'));
+		showResult(native.readLocalData('locale'))
+    }
+    document.getElementById("id15").onclick = function () {
+        console.log(native.readLocalData('timezone'));
+		showResult(native.readLocalData('timezone'))
+    }
+    document.getElementById("id16").onclick = function () {
+        console.log(native.readLocalData('inprocess_task'));
+		showResult(native.readLocalData('inprocess_task'))
+    }
+    document.getElementById("id17").onclick = function () {
+        console.log(native.readLocalData('UUID'));
+		showResult(native.readLocalData('UUID'))
+    }
+    document.getElementById("id18").onclick = function () {
+        var json={"waterMarkTextBold":"false","item":"photo","watermark":[],"optimize":"true","callback":"showPath","page":"message","taskId":"photoid","group":"group1"};
+        native.dispatchMsgLocal('pageForward',JSON.stringify(json));
+		showResult(native.dispatchMsgLocal('pageForward',JSON.stringify(json)))
+    }
+    document.getElementById("id19").onclick = function () {
+        var json={"waterMarkTextBold":"false","item":"photo","watermark":[],"optimize":"true","callback":"showPath","page":"contacts","taskId":"photoid","group":"group1"};
+        native.dispatchMsgLocal('pageForward',JSON.stringify(json));
+		showResult(native.dispatchMsgLocal('pageForward',JSON.stringify(json)))
+    }
+    document.getElementById("id20").onclick = function () {
+        var json={"waterMarkTextBold":"false","item":"photo","watermark":[],"optimize":"true","callback":"showPath","page":"chat","taskId":"photoid","group":"group1"};
+        native.dispatchMsgLocal('pageForward',JSON.stringify(json));
+		showResult(native.dispatchMsgLocal('pageForward',JSON.stringify(json)))
+    }
+    document.getElementById("id21").onclick = function () {
+        var json={"waterMarkTextBold":"false","item":"photo","watermark":[],"optimize":"true","callback":"showPath","page":"camera","taskId":"photoid","group":"group1","total":10};
+        native.dispatchMsgLocal('pageForward',JSON.stringify(json));
+		showResult(native.dispatchMsgLocal('pageForward',JSON.stringify(json)))
+    }
+    document.getElementById("id22").onclick = function () {
+        var callback='getLocation';
+        native.getLocation(callback, 60, 'gps');
+		showResult(native.getLocation(callback, 60, 'gps'))
+    }
+    document.getElementById("id23").onclick = function () {
+        native.call('13570460314');
+		showResult(native.call('13570460314'))
+    }
+    document.getElementById("id24").onclick = function () {
+        var json={"waterMarkTextBold":"false","item":"photo","watermark":[],"optimize":"true","callback":"showPath","page":"qrscan","taskId":"photoid","group":"group1"};
+        native.dispatchMsgLocal('pageForward',JSON.stringify(json));
+		showResult(native.dispatchMsgLocal('pageForward',JSON.stringify(json)))
+    }
+    document.getElementById("id25").onclick = function () {
+        var json={"waterMarkTextBold":"false","item":"photo","watermark":[],"optimize":"true","callback":"showPath","page":"digitalSignature","taskId":"photoid","group":"group1"};
+        native.dispatchMsgLocal('pageForward',JSON.stringify(json));
+		showResult(native.dispatchMsgLocal('pageForward',JSON.stringify(json)))
+    }
+	
+<!--    document.getElementById("id26").onclick = function () {-->
+<!--		console.log(cordova);-->
+<!--		var rawArgs=[{'serviceId':'service.do'}];-->
+<!--&lt;!&ndash;        cordova.plugins.JsInterfacePlugin.processMessage("JsInterfacePlugin",successCallback,failCallback);&ndash;&gt;-->
+<!--        cordova.exec(successCallback,failCallback,"JsInterfacePlugin","processMessage",rawArgs);-->
+<!--    }-->
+    
+    document.getElementById("id27").onclick = function () {
+        var json ={"callback":"showResult","serviceId":"path","appName":"bestdc"};
+        var rootPath = native.dispatchMsgLocal('fileService',JSON.stringify(json));
+        showResult(rootPath);
+    }
+    document.getElementById("id28").onclick = function () {
+        var rootPath=native.getGDELinkPath();
+        var path=rootPath+"/bestdc/download/assets.zip";
+        var url="http://81.69.46.155:2333/assets.zip";
+        var json ={"callback":"showResult","serviceId":"downloadFile","appName":"bestdc","url":url,"path":path};
+        native.dispatchMsgLocal('fileService',JSON.stringify(json));
+    }
+    document.getElementById("id29").onclick = function () {
+        var rootPath=native.getGDELinkPath();
+        var source=rootPath+"/bestdc/download/assets.zip";
+        var path=rootPath+"/bestdc/business";
+        var json ={"callback":"showResult","serviceId":"unzipFile","appName":"bestdc","source":source,"path":path};
+        var rootPath = native.dispatchMsgLocal('fileService',JSON.stringify(json));
+    }
+    document.getElementById("id30").onclick = function () {
+        var rootPath=native.getGDELinkPath();
+        var source=rootPath+"/bestdc/business";
+        var json ={"callback":"showResult","serviceId":"files","appName":"bestdc","path":source};
+        var rootPath = native.dispatchMsgLocal('fileService',JSON.stringify(json));
+    }
+
+<!--    document.getElementById("id37").onclick = function () {-->
+<!--        var rootPath=native.getGDELinkPath();-->
+<!--        var source=rootPath+"/bestdc/business";-->
+<!--        var json ={"callback":"showResult","serviceId":"showFiles","appName":"bestdc","path":source};-->
+<!--        var rootPath = native.dispatchMsgLocal('fileService',JSON.stringify(json));-->
+<!--    }-->
+
+    document.getElementById("id31").onclick = function () {
+        var json = {"callback":"showResult","serviceId":"createTable","appName":"bestdc","tableName":"bestdc","tableField":{
+            "tableId":"id",
+            "tableFields":[
+                "name",
+                "age",
+                "phone"
+            ]
+        }}
+        var result=native.dispatchMsgLocal('databaseService',JSON.stringify(json));
+        showResult("创建数据库结果:"+result);
+    }
+    document.getElementById("id32").onclick = function () {
+        var json = {"callback":"showResult","serviceId":"dropTable","appName":"bestdc","tableName":"bestdc"};
+        var result=native.dispatchMsgLocal('databaseService',JSON.stringify(json));
+        showResult("删除数据库结果:"+result);
+    }
+    document.getElementById("id33").onclick = function () {
+        var json = {"callback":"showResult","serviceId":"insertInDatabase","appName":"bestdc","tableName":"bestdc",
+        "data":{
+            "id":1,
+            "name":"bestdc",
+            "age":100,
+            "phone":"13333333333"
+            }
+        };
+        var result=native.dispatchMsgLocal('databaseService',JSON.stringify(json));
+        showResult("插入数据结果:"+result);
+    }
+    document.getElementById("id34").onclick = function () {
+        var json = {"callback":"showResult","serviceId":"updateInDatabase","appName":"bestdc","tableName":"bestdc",
+        "data":{
+            "name":"huawei",
+            "age":90,
+            "phone":"15555555555"
+         },
+         "whereClause":"id=?",
+         "whereArgs":["1"]
+        };
+        var result=native.dispatchMsgLocal('databaseService',JSON.stringify(json));
+        showResult("更新数据结果:"+result);
+    }
+    document.getElementById("id35").onclick = function () {
+        var json = {"callback":"showResult","serviceId":"deleteInDatabase","appName":"bestdc","tableName":"bestdc",
+            "whereClause":"id=?",
+            "whereArgs":["1"]
+        };
+        var result=native.dispatchMsgLocal('databaseService',JSON.stringify(json));
+        showResult("删除数据结果:"+result);
+    }
+    document.getElementById("id36").onclick = function () {
+    var json = {"callback":"showResult","serviceId":"queryInDatabase","appName":"bestdc","tableName":"bestdc",
+        "columns":["id","name","age","phone"],
+        "whereClause":"id=?",
+        "whereArgs":["1"]
+    };
+        var result=native.dispatchMsgLocal('databaseService',JSON.stringify(json));
+        showResult(result);
+    }
+    function showPath(path){
+		console.log(path);
+        document.getElementById('img1').src=path;
+    }
+    function getLocation(location){
+		console.log(location);
+        console.log('lat:'+location.lat);
+        console.log('lng:'+location.lng);
+    }
+    function successCallback(){
+        console.log('successCallback');
+    }
+
+   function failCallback(){
+        console.log('failCallback');
+    }
+
+
+
+
+
+
+
+</script>
+
+</html>
